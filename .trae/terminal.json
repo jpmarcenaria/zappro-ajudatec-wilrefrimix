@@ -1,0 +1,6 @@
+{
+  "prefer_wsl": true,
+  "wsl_distribution": "Ubuntu-24.04",
+  "default_workdir": "/mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix",
+  "notes": "Execute ONLY in WSL Ubuntu 24.04 using Bash (wsl bash -lc). Do NOT use PowerShell/CMD for any npm/Docker/Supabase operation."
+}

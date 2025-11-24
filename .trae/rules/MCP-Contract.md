@@ -363,6 +363,13 @@ Diretriz obrigatória: usar para bases documentais internas e offline.
 - Executar sempre via WSL e registrar decisões em PKG/Memory.
 - Endurecer CORS e sanitizar erros; nunca vazar segredos em client.
 
+### Git Workflow (Padrões 2025)
+- Branching: `main` protegido, `develop` para integração, `feature/*` e `fix/*` para mudanças, `release/*` e `hotfix/*` conforme necessário
+- Commits: Conventional Commits (`feat`, `fix`, `docs`, `chore`, `refactor`, `test`)
+- Tags: semânticas `vMAJOR.MINOR.PATCH` para releases
+- PRs: exigem `lint`, `typecheck`, `build` e testes (`testsprite`/Playwright)
+- CI/CD: ações em `push`/`PR` e tags `v*.*.*`; publicar artefatos de sprite e relatório Playwright
+
 ## Templates de Implementação
 - PostgREST
 ```ts
@@ -390,6 +397,8 @@ await TodoWrite({ todos: [{ id, content, status: 'in_progress', priority: 'high'
 - [ ] Testes (testsprite/Playwright) executados
 - [ ] Memória/PKG atualizada com decisões
 - [ ] Lint/typecheck/build ok em WSL
+ - [ ] Fluxo Git aplicado: branches corretos, Conventional Commits, tags semânticas
+ - [ ] CI/CD verde e branch protection configurada para `main`
 
 ## Referências Cruzadas
 - Next.js App Router, CORS, server/client separation

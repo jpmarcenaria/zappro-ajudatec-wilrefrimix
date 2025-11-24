@@ -49,7 +49,12 @@ Data de implementação obrigatória: 25/11/2025
 - Logs e métricas:
   - Registrar status HTTP e tempos de resposta dos endpoints críticos (`/api/openai/*`, `/api/checkout`, webhooks)
 
+### Git Workflow (WSL)
+- Operações Git (commit/push/tag) realizadas a partir do WSL
+- Branches: `main` protegido; `feature/*`, `fix/*`, `release/*`, `hotfix/*`
+- Tags: `vMAJOR.MINOR.PATCH` criadas após validação local (`lint/typecheck/build/test:e2e`)
+- CI em GitHub valida contrato WSL (build/start em `3001`, testsprite/Playwright)
+
 ## 5. Versionamento e Retrocompatibilidade
 - Esta documentação é versionada neste repositório, com atualização obrigatória quando novas versões do WSL forem lançadas.
 - Manter retrocompatibilidade com ambientes WSL existentes (22.04/24.04), incluindo notas de migração.
-

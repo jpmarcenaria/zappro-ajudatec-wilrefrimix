@@ -1,0 +1,33 @@
+name: Container Scan
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./apps/saas
+          push: false
+          tags: zappro/saas:scan
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.22.0
+        with:
+          image-ref: zappro/saas:scan
+          severity: HIGH,CRITICAL
+          format: table
+          exit-code: 0
+          ignore-unfixed: true

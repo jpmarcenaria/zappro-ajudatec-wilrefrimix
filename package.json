@@ -4,18 +4,23 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix && vite\"",
+    "build": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix && vite build\"",
+    "preview": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix && vite preview\"",
+    "install:wsl": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix && npm install\"",
+    "saas:dev": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix/apps/saas && npm run dev\"",
+    "saas:build": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix/apps/saas && npm run build\"",
+    "saas:install": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix/apps/saas && npm install\""
   },
   "dependencies": {
-    "react": "^19.2.0",
     "@google/genai": "^1.30.0",
+    "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "supabase": "^2.58.5",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

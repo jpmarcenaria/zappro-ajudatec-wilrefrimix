@@ -11,6 +11,22 @@ node_modules
 dist
 dist-ssr
 *.local
+.next
+.turbo
+.vercel
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+.cache
+.tmp
+*.swp
+.env
+.env.*
+apps/saas/.next
+apps/saas/coverage
+apps/saas/playwright-report
+apps/saas/test-results
 
 # Editor directories and files
 .vscode/*

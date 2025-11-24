@@ -1,8 +1,0 @@
-{
-  "name": "ZapPRO - Técnico HVAC-R IA",
-  "description": "Seu consultor técnico de refrigeração 24/7. Diagnósticos, manuais e suporte especializado em campo.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ]
-}
