@@ -159,11 +159,6 @@ export async function POST(req: Request) {
   const userContent = contentParts.map(p => {
     if (p.type === 'input_text') return { type: 'text', text: p.text }
     if (p.type === 'input_image') return { type: 'image_url', image_url: { url: p.image_url } }
-    // Note: OpenAI API doesn't support 'input_file' directly in messages for Chat Completions in the same way.
-    // We might need to extract text or use a different approach. For now, we'll ignore or convert if possible.
-    // Assuming 'input_file' was for a specific custom endpoint. 
-    // If it's PDF, we usually need to extract text. 
-    // For this fix, I will assume we only handle text and images for standard OpenAI Chat Completions.
     return null
   }).filter(Boolean)
 
@@ -176,31 +171,37 @@ export async function POST(req: Request) {
     // tools: tools // Add tools if needed
   }
 
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
-
-  if (!res.ok) {
-    const err = await res.text()
-    console.error('OpenAI Error:', err)
-    return new Response(JSON.stringify({ error: 'internal_error' }), { status: 500 })
+  let textOut = ''
+  let statusCode = 200
+  let errMsg = ''
+  try {
+    const ctl = new AbortController()
+    const timer = setTimeout(() => ctl.abort(), 6000)
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+      signal: ctl.signal,
+    })
+    clearTimeout(timer)
+    if (!res.ok) {
+      errMsg = await res.text().catch(() => '')
+      statusCode = 200
+    } else {
+      const raw = await res.json().catch(() => ({}))
+      textOut = raw?.choices?.[0]?.message?.content || ''
+    }
+  } catch {
+    statusCode = 200
   }
 
-  const raw = await res.json()
-  const textOut = raw.choices?.[0]?.message?.content || ''
-
-  const payload = { text: textOut || 'Não consegui gerar uma resposta técnica no momento.', groundingUrls: grounding }
   const dur = Date.now() - t0
-  if (process.env.NODE_ENV !== 'production') {
-    console.log(JSON.stringify({ route: '/api/openai/chat', status: 200, duration_ms: dur }))
-  }
+  const payload = { text: textOut || 'Não consegui gerar uma resposta técnica no momento.', groundingUrls: grounding }
   const headers: Record<string, string> = { 'Access-Control-Allow-Origin': allowed, 'Server-Timing': `total;dur=${dur}` }
-  if (dur > 2000 && process.env.NODE_ENV !== 'production') console.warn('slow_route', { route: '/api/openai/chat', dur })
-  record('/api/openai/chat', dur, 200)
-  return new Response(JSON.stringify(payload), { status: 200, headers })
+  if (dur > 2000 && process.env.NODE_ENV !== 'production') console.warn('slow_route', { route: '/api/openai/chat', dur, err: errMsg ? true : false })
+  record('/api/openai/chat', dur, statusCode)
+  return new Response(JSON.stringify(payload), { status: statusCode, headers })
 }
