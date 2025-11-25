@@ -71,23 +71,22 @@ const WebLanding: React.FC = () => {
                 OpenAI GPT-4o • Atualizado 2025
               </div>
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-                Do Split Inverter ao <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-emerald-400 animate-gradient-x">VRF premium</span>
+                A Inteligência da OpenAI <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-emerald-400 animate-gradient-x">no seu WhatsApp</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">Suporte técnico mastigado no WhatsApp. Receba o diagnóstico, o passo-a-passo e as dicas do campo, direto pelo Zap. Resolva qualquer manutenção, sem enrolação, sem clubismo.</p>
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">Transformamos o suporte técnico em uma conversa. Diagnósticos, manuais e consultoria especializada sem sair do app que você já usa.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                 <button aria-label="Começar Agora" onClick={handleTrialClick} className="group relative bg-emerald-500 text-slate-950 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-emerald-400 transition-all shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:scale-105">
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer gpu-transform"></div>
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" /></svg>
-                    Teste grátis agora
+                    Começar Agora
                   </span>
                 </button>
               </div>
               <div className="pt-8 flex items-center justify-center lg:justify-start gap-4 text-xs font-mono text-gray-400 uppercase tracking-widest"><span>Midea</span> • <span>Samsung</span> • <span>LG</span> • <span>Gree</span> • <span>Daikin</span></div>
             </div>
             <div className="relative mx-auto order-1 lg:order-2 perspective-1000">
-              {/* ... Mockup mantido igual ... */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[600px] bg-gradient-to-tr from-emerald-500/30 to-blue-500/30 rounded-[60px] blur-[80px] animate-pulse-slow"></div>
               <div className="relative w-[320px] h-[680px] bg-slate-900 rounded-[55px] border-[6px] border-[#3f3f46] shadow-[0_0_0_2px_#52525b,0_20px_50px_-10px_rgba(0,0,0,0.5)] mx-auto overflow-hidden animate-float gpu-transform">
                 <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[100px] h-[28px] bg-black rounded-full z-30"></div>
@@ -114,7 +113,7 @@ const WebLanding: React.FC = () => {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px]"></div>
                 <div className="relative z-10 h-full flex flex-col">
                   <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-2xl mb-6 text-emerald-400 border border-emerald-500/20">🧠</div>
-                  <h3 className="text-2xl font-bold text-white mb-4">IA Treinada no Campo</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">GPT-4o Inside</h3>
                   <p className="text-gray-300 mb-8 leading-relaxed">Não é um bot de respostas prontas. É uma IA que raciocina sobre o problema. Ele entende &quot;barulho estranho&quot;, analisa fotos de placas queimadas e sugere testes elétricos complexos.</p>
                   <div className="mt-auto grid grid-cols-2 gap-3">
                     <div className="bg-black/40 p-4 rounded-xl border border-white/5"><div className="text-emerald-400 font-mono text-xs mb-1">LATÊNCIA</div><div className="text-white font-bold text-xl">0.4s</div></div>
@@ -132,7 +131,7 @@ const WebLanding: React.FC = () => {
                 <h3 className="text-lg font-bold text-white mb-2">Visão Computacional</h3>
                 <p className="text-xs text-gray-300">Foto da etiqueta? Ele lê o modelo. Foto do erro? Ele diagnostica.</p>
               </div>
-              <div className="md:col-span-2 md:row-span-1 bg-gradient-to-r from-emerald-900/40 to-[#18181b] rounded-3xl p-6 border border-white/5 flex items-center justify-between relative overflow-hidden"><div className="relative z-10"><h3 className="text-xl font-bold text-white mb-2">Biblioteca Prática sem Filtro</h3><p className="text-sm text-gray-300 max-w-xs">Acesse a biblioteca técnica completa de Midea, LG, Samsung e Carrier instantaneamente.</p></div><div className="text-6xl opacity-20 grayscale saturate-0 animate-pulse">📚</div></div>
+              <div className="md:col-span-2 md:row-span-1 bg-gradient-to-r from-emerald-900/40 to-[#18181b] rounded-3xl p-6 border border-white/5 flex items-center justify-between relative overflow-hidden"><div className="relative z-10"><h3 className="text-xl font-bold text-white mb-2">Manuais Ilimitados</h3><p className="text-sm text-gray-300 max-w-xs">Acesse a biblioteca técnica completa de Midea, LG, Samsung e Carrier instantaneamente.</p></div><div className="text-6xl opacity-20 grayscale saturate-0 animate-pulse">📚</div></div>
             </div>
           </div>
         </section>
