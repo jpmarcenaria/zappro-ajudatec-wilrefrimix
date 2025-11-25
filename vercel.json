@@ -1,3 +1,8 @@
 {
-  "rootDirectory": "apps/saas"
+  "crons": [
+    {
+      "path": "/api/cron/crawl-faqs",
+      "schedule": "0 3 * * *"
+    }
+  ]
 }

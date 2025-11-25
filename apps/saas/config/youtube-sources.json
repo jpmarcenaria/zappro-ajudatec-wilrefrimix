@@ -1,0 +1,125 @@
+{
+    "canais_brasil": [
+        {
+            "id": "UCsUsRKcNvRTkC8SgX0e_yVw",
+            "nome": "RODRIGO MEN VRF e HVAC-R",
+            "handle": "@RodrigoMenVRF",
+            "prioridade": 1,
+            "idioma": "pt-BR",
+            "tags": [
+                "VRF",
+                "VRV",
+                "inverter",
+                "troubleshooting",
+                "instalacao"
+            ]
+        },
+        {
+            "id": "UCjBmN6KZ3T4DufhLPSRcvvA",
+            "nome": "André Silva VRF",
+            "handle": "@AndreSilvaVRF",
+            "prioridade": 2,
+            "idioma": "pt-BR",
+            "tags": [
+                "Daikin",
+                "VRV",
+                "placa-inverter",
+                "diagnostico",
+                "manutencao"
+            ]
+        },
+        {
+            "id": "UCDescomplicandoClimatizacao",
+            "nome": "Descomplicando a climatização",
+            "handle": "@DescomplicandoClimatizacao",
+            "prioridade": 3,
+            "idioma": "pt-BR",
+            "tags": [
+                "conceitos",
+                "educacional",
+                "VRF",
+                "fundamentos"
+            ]
+        },
+        {
+            "id": "UCFabioDutraRefricast",
+            "nome": "Fabio Dutra - Refricast",
+            "handle": "@FabioDutraRefricast",
+            "prioridade": 4,
+            "idioma": "pt-BR",
+            "tags": [
+                "contratos",
+                "manutencao",
+                "especialista-VRF",
+                "podcast"
+            ]
+        },
+        {
+            "id": "UCFernandoZanataZCast",
+            "nome": "Z.CAST - Fernando Zanata",
+            "handle": "@FernandoZanata",
+            "prioridade": 5,
+            "idioma": "pt-BR",
+            "tags": [
+                "carreira",
+                "VRF",
+                "comercial",
+                "negocios"
+            ]
+        }
+    ],
+    "canais_mundial": [
+        {
+            "id": "UCU2vNYz6kz0CN3IC8zMq6bQ",
+            "nome": "HVAC School",
+            "handle": "@HVACSchool",
+            "prioridade": 6,
+            "idioma": "en-US",
+            "traduzir": true,
+            "tags": [
+                "fundamentals",
+                "commercial",
+                "training",
+                "education"
+            ]
+        },
+        {
+            "id": "UCODplGnL9Z8qN_z1hPWJaHw",
+            "nome": "AC Service Tech",
+            "handle": "@ACServiceTech",
+            "prioridade": 7,
+            "idioma": "en-US",
+            "traduzir": true,
+            "tags": [
+                "troubleshooting",
+                "diagnostics",
+                "field-service",
+                "repair"
+            ]
+        },
+        {
+            "id": "UCHVACRVideos",
+            "nome": "HVACR Videos",
+            "handle": "@HVACRVideos",
+            "prioridade": 8,
+            "idioma": "en-US",
+            "traduzir": true,
+            "tags": [
+                "commercial",
+                "refrigeration",
+                "troubleshooting",
+                "repair"
+            ]
+        }
+    ],
+    "configuracao": {
+        "max_videos_por_canal": 10,
+        "max_faqs_por_video": 5,
+        "min_duracao_video_segundos": 300,
+        "idiomas_suportados": [
+            "pt-BR",
+            "en-US"
+        ],
+        "atualizar_a_cada_dias": 7
+    }
+}

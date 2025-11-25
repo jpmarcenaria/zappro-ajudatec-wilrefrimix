@@ -1,4 +1,5 @@
 import { record } from '../../../../lib/monitor'
+import { rateLimit } from '../../../../lib/rate-limit'
 
 export async function OPTIONS() {
   const origin = (() => { try { return new URL(process.env.NEXT_PUBLIC_WEBSITE_URL || '').origin } catch { return '' } })()
@@ -27,10 +28,30 @@ export async function POST(req: Request) {
   if (allowed && origin && origin !== allowed) {
     return new Response('forbidden', { status: 403, headers: { 'Access-Control-Allow-Origin': allowed } })
   }
+
+  // Rate limiting: 20 mensagens por minuto
+  const userId = req.headers.get('x-user-id') || req.headers.get('x-forwarded-for') || 'anonymous'
+  const limiter = rateLimit(userId, 20, 60000)
+
+  if (!limiter.success) {
+    return new Response(
+      JSON.stringify({ error: 'Muitas requisições. Aguarde 1 minuto.' }),
+      {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-RateLimit-Remaining': limiter.remaining.toString(),
+          'X-RateLimit-Reset': new Date(limiter.reset).toISOString(),
+          ...(allowed ? { 'Access-Control-Allow-Origin': allowed } : {})
+        }
+      }
+    )
+  }
+
   let parsed: Partial<Body> = {}
   try {
     parsed = await req.json()
-  } catch {}
+  } catch { }
   const text = typeof parsed.text === 'string' ? parsed.text : ''
   const attachments = Array.isArray(parsed.attachments) ? parsed.attachments : []
   const useSearch = !!parsed.useSearch
@@ -63,15 +84,35 @@ export async function POST(req: Request) {
   const instructionBase = (() => {
     const envInstr = process.env.SYSTEM_INSTRUCTION_PT_BR || process.env.SYSTEM_INSTRUCTION
     if (envInstr && envInstr.trim().length > 0) return envInstr
-    return [
-      'Responda estritamente em português do Brasil (pt-BR), otimizando para TTS.',
-      'Persona: técnico sênior brasileiro em HVAC-R, estilo @willrefrimix, pragmático e direto.',
-      'Data de referência: 25/11/2025. Considere equipamentos e normas vigentes no Brasil.',
-      'Estrutura: Diagnóstico breve; Manha/Dica prática; Referência; Aviso de segurança.',
-      'Entrada multimodal: texto, áudio transcrito, imagens de placas/etiquetas, PDF de manuais.',
-      'Priorize fontes brasileiras (YouTube técnico BR, manuais de marcas vendidas no Brasil).',
-      'Evite aconselhar aparelhos não comercializados no Brasil. Faça perguntas se houver ambiguidade.',
-    ].join('\n')
+
+    // Load persona from file
+    try {
+      const fs = require('fs')
+      const path = require('path')
+      const personaPath = path.join(process.cwd(), 'PROMPTS', 'chatbot-persona.md')
+      const personaContent = fs.readFileSync(personaPath, 'utf-8')
+
+      // Add current date context
+      const currentDate = new Date().toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+
+      return `${personaContent}\n\n**DATA ATUAL**: ${currentDate}\n**CONTEXTO**: Você está respondendo a um técnico de HVAC-R no Brasil.`
+    } catch (error) {
+      // Fallback to original instruction if file not found
+      return [
+        'Responda estritamente em português do Brasil (pt-BR), otimizando para TTS.',
+        'Persona: técnico sênior brasileiro em HVAC-R, estilo @willrefrimix, pragmático e direto.',
+        'Data de referência: 25/11/2025. Considere equipamentos e normas vigentes no Brasil.',
+        'Estrutura: Diagnóstico breve; Manha/Dica prática; Referência; Aviso de segurança.',
+        'Entrada multimodal: texto, áudio transcrito, imagens de placas/etiquetas, PDF de manuais.',
+        'Priorize fontes brasileiras (YouTube técnico BR, manuais de marcas vendidas no Brasil).',
+        'Evite aconselhar aparelhos não comercializados no Brasil. Faça perguntas se houver ambiguidade.',
+      ].join('\n')
+    }
   })()
 
   async function aggregateSearch(q: string): Promise<{ title: string; uri: string }[]> {
