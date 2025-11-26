@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "set PORT=3002 && next dev",
+    "dev": "next dev",
     "dev:turbo": "next dev --turbo",
     "dev:wsl": "wsl bash -lc \"cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix/apps/saas && PORT=3001 npm run dev\"",
     "build": "npm run typecheck && npm run test:smoke && next build",

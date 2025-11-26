@@ -117,6 +117,53 @@ export async function POST(req: Request) {
 
   async function aggregateSearch(q: string): Promise<{ title: string; uri: string }[]> {
     const out: { title: string; uri: string }[] = []
+    const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+    const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+    const hasSupa = !!supaUrl && !!supaKey
+    const { createClient } = await import('@supabase/supabase-js')
+    const supa = hasSupa ? createClient(supaUrl, supaKey) : null
+
+    async function cacheGet(provider: 'perplexity' | 'tavily' | 'brave' | 'firecrawl') {
+      if (!supa) return null
+      try {
+        const { data, error } = await supa.rpc('web_search_cache_get', { q: q, p: provider })
+        if (error) return null
+        const res = (data as any)?.results
+        if (Array.isArray(res)) return res
+      } catch {}
+      return null
+    }
+
+    async function cacheUpsert(provider: 'perplexity' | 'tavily' | 'brave' | 'firecrawl', results: any[]) {
+      if (!supa) return
+      try { await supa.rpc('web_search_cache_upsert', { q: q, p: provider, r: results, ttl_seconds: 3600 }) } catch {}
+    }
+
+    async function logProvider(provider: string, dur: number, status: string, payload: any) {
+      if (!supa) return
+      const base = { provider, dur_ms: Math.max(0, Math.round(dur)), status }
+      try { await supa.from('provider_usage_logs').insert({ ...base, payload }).select() } catch { try { await supa.from('provider_usage_logs').insert(base).select() } catch {} }
+    }
+
+    async function sumProviderCostToday(provider: string): Promise<number> {
+      if (!supa) return 0
+      try {
+        const { data, error } = await supa.from('provider_usage_logs').select('cost,ts').gte('ts', new Date(new Date().toDateString()).toISOString()).eq('provider', provider)
+        if (error) return 0
+        let s = 0
+        for (const r of Array.isArray(data) ? data : []) {
+          const c = typeof (r as any)?.cost === 'number' ? (r as any).cost : 0
+          s += c || 0
+        }
+        return s
+      } catch { return 0 }
+    }
+
+    async function logProviderCost(provider: string, usd: number) {
+      if (!supa) return
+      const row = { provider, dur_ms: 0, status: 'ok', cost: usd }
+      try { await supa.from('provider_usage_logs').insert(row).select() } catch {}
+    }
     const tvly = process.env.TAVILY_API_KEY
     if (useSearch && tvly) {
       try {
@@ -163,6 +210,55 @@ export async function POST(req: Request) {
           const title = typeof it?.title === 'string' ? it.title : ''
           const uri = typeof it?.url === 'string' ? it.url : ''
           if (title && uri) out.push({ title, uri })
+        }
+      } catch { }
+    }
+    // Perplexity (pplx) – retorna JSON com resultados se solicitado
+    const pplx = process.env.PERPLEXITY_API_KEY
+    if (useSearch && pplx) {
+      try {
+        const cached = await cacheGet('perplexity')
+        if (Array.isArray(cached) && cached.length > 0) {
+          for (const it of cached) {
+            const title = typeof it?.title === 'string' ? it.title : ''
+            const uri = typeof it?.url === 'string' ? it.url : ''
+            if (title && uri) out.push({ title, uri })
+          }
+        } else {
+          const budgetMax = Number(process.env.PERPLEXITY_BUDGET_USD || '5')
+          const unitCost = Number(process.env.PERPLEXITY_COST_PER_CALL_USD || '0.05')
+          const spent = await sumProviderCostToday('perplexity')
+          if (spent + unitCost > budgetMax) {
+            await logProvider('perplexity', 0, 'skipped_budget', { budgetMax, spent })
+          } else {
+            const t0p = Date.now()
+            const r = await fetch('https://api.perplexity.ai/chat/completions', {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${pplx}`, 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                model: 'llama-3.1-sonar-small-online',
+                messages: [{ role: 'user', content: `Retorne JSON com {\"results\":[{\"title\":\"...\",\"url\":\"...\"}]} de fontes brasileiras relevantes para: ${q}` }],
+                temperature: 0.2
+              })
+            })
+            const dur = Date.now() - t0p
+            if (r.ok) {
+              const j = await r.json().catch(() => ({}))
+              const txt = j?.choices?.[0]?.message?.content || ''
+              const parsed = (() => { try { return JSON.parse(txt) } catch { return null } })()
+              const items = Array.isArray(parsed?.results) ? parsed.results : []
+              await cacheUpsert('perplexity', items)
+              await logProvider('perplexity', dur, 'ok', { count: items.length })
+              await logProviderCost('perplexity', unitCost)
+              for (const it of items) {
+                const title = typeof it?.title === 'string' ? it.title : ''
+                const uri = typeof it?.url === 'string' ? it.url : ''
+                if (title && uri) out.push({ title, uri })
+              }
+            } else {
+              await logProvider('perplexity', dur, 'error', { status: r.status })
+            }
+          }
         }
       } catch { }
     }

@@ -23,6 +23,7 @@ test-results
 *.swp
 .env
 .env.*
+!.env.example
 apps/saas/.next
 apps/saas/coverage
 apps/saas/playwright-report

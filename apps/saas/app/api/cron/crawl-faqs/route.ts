@@ -15,7 +15,7 @@ export const config = {
  * }
  */
 
-export default async function handler(req: Request) {
+export async function GET(req: Request) {
     // Verificar autorização (Vercel Cron envia header especial)
     const authHeader = req.headers.get('authorization');
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {

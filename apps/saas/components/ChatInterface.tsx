@@ -155,7 +155,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onUpgradeClick }) =
     {
       id: 'welcome',
       role: 'model',
-      content: `Fala, parceiro! Sou o **ZapPRO**, seu especialista em HVAC-R.\n\nFui treinado nas manhas do ${AUTHOR_HANDLE} e nos manuais de serviço.\n\nQual a marca e modelo do ar que tá dando dor de cabeça hoje? Manda foto da placa, PDF do manual, vídeo do erro ou áudio que a gente resolve.`,
+      content: `Fala, parceiro! Sou o **ZapPRO**, seu especialista em HVAC-R.\n\nFui treinado nas manhas do @willrefrimix e nos manuais de serviço.\n\nQual a marca e modelo do ar que tá dando dor de cabeça hoje? Manda foto da placa, PDF do manual, vídeo do erro ou áudio que a gente resolve.`,
       timestamp: Date.now()
     }
   ]);
