@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 
 export async function POST(request: Request) {
   const t0 = Date.now()
+  const requestId = Math.random().toString(36).slice(2)
   const secret = process.env.STRIPE_WEBHOOK_SECRET || ''
   if (!secret) {
     return new Response('missing webhook secret', { status: 500 })
@@ -17,31 +18,40 @@ export async function POST(request: Request) {
     return new Response('invalid signature', { status: 400 })
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
+  const supaUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+  const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+  if (!supaUrl || !supaKey) {
+    return new Response('missing supabase config', { status: 500 })
+  }
+  const supabase = createClient(supaUrl, supaKey)
 
   switch (event.type) {
     case 'customer.subscription.created':
     case 'customer.subscription.updated':
     case 'customer.subscription.deleted':
-      const subscription = event.data.object as Stripe.Subscription
-      await supabase.from('subscriptions').upsert({
-        id: subscription.id,
-        user_id: subscription.metadata.userId,
-        status: subscription.status,
-        stripe_customer_id: subscription.customer as string,
-        stripe_subscription_id: subscription.id,
-        price_id: subscription.items.data[0].price.id,
-        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
-        cancel_at: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
-        canceled_at: subscription.canceled_at ? new Date(subscription.canceled_at * 1000).toISOString() : null,
-      })
+      try {
+        const subscription = event.data.object as Stripe.Subscription
+        await supabase.from('subscriptions').upsert({
+          id: subscription.id,
+          user_id: subscription.metadata.userId,
+          status: subscription.status,
+          stripe_customer_id: subscription.customer as string,
+          stripe_subscription_id: subscription.id,
+          price_id: subscription.items.data[0].price.id,
+          current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+          current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+          cancel_at: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
+          canceled_at: subscription.canceled_at ? new Date(subscription.canceled_at * 1000).toISOString() : null,
+        })
+      } catch {
+        return new Response('upsert error', { status: 500 })
+      }
+      break
+    case 'payment_intent.succeeded':
+      break
+    case 'payment_intent.payment_failed':
       break
     case 'invoice.payment_succeeded':
-      // Optional: handle invoice payment
       break
     default:
       break
@@ -49,7 +59,7 @@ export async function POST(request: Request) {
 
   const dur = Date.now() - t0
   if (process.env.NODE_ENV !== 'production') {
-    console.log(JSON.stringify({ route: '/api/webhook/stripe', status: 200, duration_ms: dur }))
+    console.log(JSON.stringify({ route: '/api/webhook/stripe', status: 200, duration_ms: dur, request_id: requestId }))
   }
-  return new Response('ok', { status: 200 })
+  return new Response('ok', { status: 200, headers: { 'X-Request-Id': requestId } })
 }

@@ -1,18 +1,87 @@
-import { defineConfig } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
+
+/**
+ * Configuração do Playwright para testes E2E
+ * Focado em testes de Stripe Checkout em modo dev
+ */
 
 export default defineConfig({
-  testDir: 'tests',
-  testMatch: ['**/*.spec.ts'],
-  timeout: 30000,
+  testDir: './tests',
+
+  // Timeout para cada teste
+  timeout: 30 * 1000,
+
+  // Expect timeout
+  expect: {
+    timeout: 5000,
+  },
+
+  // Executar testes em paralelo
+  fullyParallel: true,
+
+  // Falhar build se houver testes com .only
+  forbidOnly: !!process.env.CI,
+
+  // Retry em caso de falha (útil para testes de rede)
+  retries: process.env.CI ? 2 : 0,
+
+  // Número de workers
+  workers: process.env.CI ? 1 : undefined,
+
+  // Reporter
+  reporter: [
+    ['html'],
+    ['list'],
+  ],
+
+  // Configurações compartilhadas
   use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3001',
-    headless: true,
+    // URL base
+    baseURL: 'http://localhost:3000',
+
+    // Trace on first retry
+    trace: 'on-first-retry',
+
+    // Screenshot on failure
+    screenshot: 'only-on-failure',
+
+    // Video on failure
+    video: 'retain-on-failure',
   },
+
+  // Projetos de teste (diferentes browsers)
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+
+    // Mobile viewports
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'] },
+    },
+  ],
+
+  // Web server local (Next.js dev)
   webServer: {
-    command: 'wsl bash -lc "cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix/apps/saas && ADMIN_PASSWORD_HASH=\$2a\$10\$DWgPqmoyJ/MTKWjNWTev5OmJSIwS04THubvwj/N4BkzJgmt9cPdZe ADMIN_SESSION_SECRET=dev-admin-secret-3001 ALLOWED_ORIGIN=http://localhost:3001 NEXT_PUBLIC_WEBSITE_URL=http://localhost:3001 NEXT_PUBLIC_FAKE_AUTH_EMAIL=test@test.com NEXT_PUBLIC_FAKE_AUTH_PASSWORD=12345678A ./node_modules/.bin/next dev -p 3001"',
-    url: 'http://localhost:3001',
-    reuseExistingServer: true,
-    timeout: 120000,
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: true, // Sempre reutilizar servidor existente
+    timeout: 120 * 1000,
   },
-  reporter: 'line',
 })

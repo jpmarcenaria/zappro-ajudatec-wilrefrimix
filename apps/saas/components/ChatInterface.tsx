@@ -153,11 +153,21 @@ interface ChatInterfaceProps {
 const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onUpgradeClick }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: 'welcome',
+      id: '1',
       role: 'model',
-      content: `Fala, parceiro! Sou o **ZapPRO**, seu especialista em HVAC-R.\n\nFui treinado nas manhas do @willrefrimix e nos manuais de serviço.\n\nQual a marca e modelo do ar que tá dando dor de cabeça hoje? Manda foto da placa, PDF do manual, vídeo do erro ou áudio que a gente resolve.`,
-      timestamp: Date.now()
-    }
+      content: `Fala, parceiro! ❄️
+Aqui é o **ZapPRO**, seu assistente técnico de bolso.
+
+Eu não sou aqueles robôs burros que mandam ler o manual. Eu leio o manual pra você e te dou o diagnóstico mastigado.
+
+Manda aí:
+1. Código de erro (ex: E1, P4)
+2. O que tá acontecendo (ex: compressor não parte)
+3. Foto da etiqueta ou da placa
+
+Bora resolver essa bronca?`,
+      timestamp: Date.now(),
+    },
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -453,8 +463,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onUpgradeClick }) =
           >
             <div
               className={`relative max-w-[85%] md:max-w-[65%] rounded-lg px-3 py-2 shadow-sm text-sm ${msg.role === 'user'
-                  ? 'bg-[#d9fdd3] text-slate-900 rounded-tr-none'
-                  : 'bg-white text-slate-800 rounded-tl-none'
+                ? 'bg-[#d9fdd3] text-slate-900 rounded-tr-none'
+                : 'bg-white text-slate-800 rounded-tl-none'
                 }`}
             >
               {/* Bot Name */}
@@ -639,7 +649,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user, onUpgradeClick }) =
       {/* Attachments Preview Bar */}
       {attachments.length > 0 && (
         <div className="absolute bottom-20 left-4 right-4 bg-white p-2 rounded-lg shadow-lg border border-slate-200 flex gap-2 overflow-x-auto z-20 animate-fade-in-up">
-              {attachments.map((att, i) => (
+          {attachments.map((att, i) => (
             <div key={i} className="relative shrink-0">
               {att.type === 'image' ? (
                 <Image src={att.url} alt="anexo" width={64} height={64} className="w-16 h-16 object-cover rounded" unoptimized />

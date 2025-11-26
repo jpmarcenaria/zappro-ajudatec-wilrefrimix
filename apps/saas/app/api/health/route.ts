@@ -49,8 +49,17 @@ async function checkOpenAI() {
 }
 
 async function checkStripe() {
-  return {
-    status: process.env.STRIPE_SECRET_KEY ? 'ok' : 'error',
-    message: process.env.STRIPE_SECRET_KEY ? 'configured' : 'missing API key'
-  };
+  try {
+    const key = process.env.STRIPE_API_KEY;
+    if (!key) {
+      return { status: 'error', message: 'missing API key' };
+    }
+    const { default: Stripe } = await import('stripe');
+    const stripe = new Stripe(key, { apiVersion: '2024-06-20' });
+    // conexão simples: listar 1 produto (não expõe dados sensíveis)
+    await stripe.products.list({ limit: 1 });
+    return { status: 'ok', message: 'connected' };
+  } catch (e: any) {
+    return { status: 'error', message: e.message };
+  }
 }

@@ -6,6 +6,64 @@ import { RAG_CONFIG } from '../../../../lib/rag-config'
 import { fetchWithRetry } from '../../../../lib/fetch-retry'
 import { validateTutorialResponse } from '../../../../lib/response-validator'
 
+// HVAC-R Query Parsers
+function extractBrand(query: string): string | null {
+  const brands = ['daikin', 'midea', 'gree', 'springer', 'lg', 'samsung', 'elgin', 'consul', 'carrier', 'fujitsu'];
+  const lower = query.toLowerCase();
+  for (const brand of brands) {
+    if (lower.includes(brand)) {
+      return brand.charAt(0).toUpperCase() + brand.slice(1);
+    }
+  }
+  return null;
+}
+
+function extractModel(query: string): string | null {
+  // Pattern: letters + numbers (e.g., VRV5, Elite12, G-Tech)
+  const match = query.match(/([A-Z]{2,}[-\s]?[A-Z0-9]+)/i);
+  return match ? match[0] : null;
+}
+
+function extractErrorCode(query: string): string | null {
+  // Pattern: U4, E1, F0, etc
+  const match = query.match(/\b([A-Z]\d{1,2})\b/i);
+  return match ? match[1].toUpperCase() : null;
+}
+
+// Helper: build direct manual link or model-specific search
+function getDirectManualLink(brand: string, model: string): string {
+  const brandLower = (brand || '').toLowerCase();
+  const modelClean = (model || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  const baseLinks: Record<string, string> = {
+    daikin: 'https://www.daikin.com.br/catalogo-de-manuais',
+    midea: 'https://www.midea.com.br/suporte-tecnico/manuais',
+    springer: 'https://www.carrierdobrasil.com.br/springer/suporte-tecnico',
+    gree: 'https://www.gree.ind.br/downloads',
+    lg: 'https://www.lg.com/br/suporte/pesquisa-manual',
+    samsung: 'https://www.samsung.com/br/support/model/',
+    elgin: 'https://www.elgin.com.br/ar-condicionado/manuais',
+    consul: 'https://www.consul.com.br/suporte/manuais',
+    electrolux: 'https://www.electrolux.com.br/suporte/manuais',
+    philco: 'https://www.philco.com.br/suporte/manuais',
+    fujitsu: 'https://www.fujitsu-general.com/br/products/split/download.html'
+  };
+
+  let link = baseLinks[brandLower] || `https://www.google.com/search?q=${encodeURIComponent(`${brand} ${model} manual PDF`)}`;
+
+  if (model && modelClean) {
+    if (brandLower === 'samsung') {
+      link = `https://www.samsung.com/br/support/model/${modelClean}/`;
+    } else if (brandLower === 'lg') {
+      link = `https://www.lg.com/br/suporte/pesquisa-manual?search=${encodeURIComponent(model)}`;
+    } else if (brandLower === 'daikin') {
+      link = `https://www.daikin.com.br/catalogo-de-manuais?q=${encodeURIComponent(model)}`;
+    }
+  }
+
+  return link;
+}
+
 const SYSTEM_PROMPT = `
 You are ZapPRO Assistant, Brazilian HVAC-R specialist. CRITICAL RULES:
 
@@ -41,6 +99,25 @@ KNOWLEDGE BASE (accessible in vector DB):
 - VRF/VRV/Inverter error codes
 - Sensor/pressure/resistance standard values
 - Refrigerants: R32, R410A, R22 (Brazil 2025 context)
+
+MANUFACTURER MANUAL DOWNLOAD PAGES (DIRECT):
+- Daikin: https://www.daikin.com.br/catalogo-de-manuais
+- Midea: https://www.midea.com.br/suporte-tecnico/manuais
+- Springer: https://www.carrierdobrasil.com.br/springer/suporte-tecnico
+- Gree: https://www.gree.ind.br/downloads
+- LG: https://www.lg.com/br/suporte/pesquisa-manual
+- Samsung: https://www.samsung.com/br/support/model/
+- Elgin: https://www.elgin.com.br/ar-condicionado/manuais
+- Consul: https://www.consul.com.br/suporte/manuais
+- Electrolux: https://www.electrolux.com.br/suporte/manuais
+- Philco: https://www.philco.com.br/suporte/manuais
+- Fujitsu: https://www.fujitsu-general.com/br/products/split/download.html
+
+WHEN PROVIDING MANUAL LINK TO USER:
+- Always say "CLIQUE AQUI" or "BAIXE AQUI" before link
+- Explain step: click → search model → download → upload to chat
+- Offer to continue with generic field diagnosis meanwhile
+- Ask if user already has manual or wants generic help
 `;
 
 export async function OPTIONS() {
@@ -139,10 +216,15 @@ export async function POST(req: Request) {
     }
   }
 
-  const model = contentParts.some(p => p.type !== 'input_text') ? 'gpt-4o' : 'gpt-4o-mini'
+  const llmModel = contentParts.some(p => p.type !== 'input_text') ? 'gpt-4o' : 'gpt-4o-mini'
 
-  // Vector DB Search
+  // HVAC-R Manual Search + Alarm Codes
   let grounding: { title: string; uri: string; content?: string }[] = []
+  let alarmContext = ''
+  let brandName: string | null = null
+  let modelName: string | null = null
+  let alarmCode: string | null = null
+
   if (text && text.trim().length > 0) {
     try {
       const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -151,31 +233,128 @@ export async function POST(req: Request) {
         const { createClient } = await import('@supabase/supabase-js')
         const supa = createClient(supaUrl, supaKey)
 
+        // 1. Generate embedding for semantic search
         const embedding = await embedQuery(text, apiKey)
-        const { data: results, error } = await supa.rpc('match_documents', {
+
+        // 2. Extract context from query
+        brandName = extractBrand(text)
+        modelName = extractModel(text)
+        alarmCode = extractErrorCode(text)
+
+        // 3. Search manual chunks with filters
+        const { data: chunks, error: chunksError } = await supa.rpc('match_manual_chunks', {
           query_embedding: embedding,
-          match_threshold: RAG_CONFIG.retrieval.matchThreshold,
-          match_count: RAG_CONFIG.retrieval.matchCount
+          filter_brand: brandName,
+          filter_model: modelName,
+          match_threshold: 0.72,
+          match_count: 5
         })
 
-        if (error) throw error;
-
-        if (results && Array.isArray(results)) {
-          grounding = results.map((r: any) => ({
-            title: r.title || 'Documento',
-            uri: r.url || r.uri || '',
-            content: r.content || ''
+        if (!chunksError && chunks && Array.isArray(chunks)) {
+          grounding = chunks.map((c: any) => ({
+            title: `${c.section || 'Manual'} - Página ${c.page || 'N/A'}`,
+            uri: `manual://${c.device_id}/${c.manual_id}`,
+            content: c.content || ''
           }))
+
+          // Enhanced logging with performance metrics
+          if (chunks.length > 0) {
+            const avgSim = chunks.reduce((sum: number, c: any) => sum + (c.similarity || 0), 0) / chunks.length
+            logger.info('hvacr_search', 'Context retrieved', {
+              brand: brandName,
+              model: modelName,
+              errorCode: alarmCode,
+              chunksFound: chunks.length,
+              avgSimilarity: avgSim.toFixed(3),
+              topChunkSection: chunks[0]?.section || 'unknown',
+              topChunkSimilarity: (chunks[0]?.similarity || 0).toFixed(3)
+            })
+          }
+        } else if (chunksError) {
+          logger.error('hvacr_search_chunks', chunksError as Error, { brand: brandName, model: modelName, errorCode: alarmCode })
         }
+
+        // 4. Search alarm codes if error detected
+        if (alarmCode) {
+          const alarmQuery = supa
+            .from('alarm_codes')
+            .select(`
+              code,
+              title,
+              severity,
+              resolution,
+              hvacr_devices!inner (brand, model)
+            `)
+            .eq('code', alarmCode)
+
+          if (brandName) alarmQuery.eq('hvacr_devices.brand', brandName)
+
+          const { data: alarms } = await alarmQuery.order('severity', { ascending: false }).limit(3)
+
+          if (alarms && alarms.length > 0) {
+            alarmContext = `\n\n📋 CÓDIGO DE ALARME ${alarmCode} IDENTIFICADO:\n` +
+              alarms.map((a: any) => `
+DISPOSITIVO: ${a.hvacr_devices.brand} ${a.hvacr_devices.model}
+ERRO: ${a.title} (Severidade: ${a.severity}/10)
+RESOLUÇÃO: ${a.resolution}
+`).join('\n')
+          }
+        }
+
+        // Warn if no context found after all searches
+        if (grounding.length === 0 && !alarmContext) {
+          logger.warn('hvacr_search', 'No context found in database', {
+            brand: brandName,
+            model: modelName,
+            errorCode: alarmCode,
+            queryLength: text.length
+          })
+        } else if (alarmContext) {
+          // Log alarm context found
+          logger.info('hvacr_search', 'Alarm code context found', {
+            errorCode: alarmCode,
+            brand: brandName,
+            model: modelName
+          })
+        }
+
       }
     } catch (e) {
-      logger.error('vector_db_search', e as Error, { query: text.slice(0, 100) });
+      logger.error('hvacr_search', e as Error, { query: text.slice(0, 100) })
     }
   }
 
-  const instruction = grounding.length > 0
-    ? `${SYSTEM_PROMPT}\n\nCONTEXTO DO BANCO DE DADOS:\n${grounding.map(g => `FONTE: ${g.title} (${g.uri})\nCONTEÚDO: ${g.content}`).join('\n\n')}`
+  let instruction = grounding.length > 0 || alarmContext
+    ? `${SYSTEM_PROMPT}
+    
+📚 CONTEXTO DOS MANUAIS TÉCNICOS:
+${grounding.map(g => `FONTE: ${g.title} CONTEÚDO: ${g.content}`).join('\n')}
+${alarmContext}
+    
+IMPORTANTE: Use EXCLUSIVAMENTE as informações dos manuais acima. Nunca invente valores ou procedimentos.`
     : SYSTEM_PROMPT
+
+  // If no context found, guide assistant to include DIRECT manual download link and structured fallback
+  if (grounding.length === 0 && !alarmContext) {
+    const b = brandName || ''
+    const m = modelName || ''
+    const manualLink = getDirectManualLink(b, m)
+    instruction += `\n\n⚠️ MANUAL NÃO INDEXADO: ${b} ${m}\n\n`;
+    instruction += `INSTRUÇÃO PARA RESPOSTA:\n`;
+    instruction += `1. Informe que manual não está no banco ainda\n`;
+    instruction += `2. Forneça link DIRETO para download: ${manualLink}\n`;
+    instruction += `3. Instrua: "Clique no link → Procure seu modelo → Baixe o PDF → Faça upload aqui"\n`;
+    instruction += `4. Diga: "Enquanto isso, vou te dar diagnóstico genérico baseado em campo"\n`;
+    instruction += `5. Forneça solução baseada no tipo de erro (se código identificado)\n\n`;
+    instruction += `FORMATO DA RESPOSTA:\n`;
+    instruction += `⚠️ Manual do ${b} ${m} não está indexado ainda.\n\n`;
+    instruction += `📥 BAIXE AQUI (clique e procure seu modelo):\n`;
+    instruction += `${manualLink}\n\n`;
+    instruction += `📤 Depois arraste o PDF aqui que eu leio pra você\n\n`;
+    instruction += `🔍 Enquanto isso, diagnóstico de campo para ${alarmCode ? 'erro ' + alarmCode : 'este caso'}:\n`;
+    instruction += `[Seu diagnóstico genérico baseado em experiência]\n\n`;
+    instruction += `Já baixou o manual ou quer que eu continue com diagnóstico genérico?`;
+  }
 
   const userContent = contentParts.map(p => {
     if (p.type === 'input_text') return { type: 'text', text: p.text }
@@ -184,7 +363,7 @@ export async function POST(req: Request) {
   }).filter(Boolean)
 
   const body = {
-    model,
+    model: llmModel,
     messages: [
       { role: 'system', content: instruction },
       { role: 'user', content: userContent }
@@ -225,7 +404,7 @@ export async function POST(req: Request) {
   } catch (e: any) {
     statusCode = 200
     textOut = `Erro: ${e.message || 'Erro desconhecido'}`
-    logger.error('openai_api', e, { model, userId, promptLength: text.length });
+      logger.error('openai_api', e, { model: llmModel, userId, promptLength: text.length });
   }
 
   const dur = Date.now() - t0
