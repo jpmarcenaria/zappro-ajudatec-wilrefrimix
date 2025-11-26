@@ -1,5 +1,47 @@
 import { record } from '../../../../lib/monitor'
 import { rateLimit } from '../../../../lib/rate-limit'
+import { validateEnv } from '../../../../lib/env-validator'
+import { logger } from '../../../../lib/logger'
+import { RAG_CONFIG } from '../../../../lib/rag-config'
+import { fetchWithRetry } from '../../../../lib/fetch-retry'
+import { validateTutorialResponse } from '../../../../lib/response-validator'
+
+const SYSTEM_PROMPT = `
+You are ZapPRO Assistant, Brazilian HVAC-R specialist. CRITICAL RULES:
+
+1. LANGUAGE: Portuguese BR only, technical field slang
+2. DATE CONTEXT: Current date is November 26, 2025
+3. RESPONSE FORMAT: Step-by-step test tutorials ONLY
+4. ITERATION: Ask for ONE test result, send next tutorial
+5. DATABASE FIRST: Use manuals in DB, NEVER ask user to check manual
+6. LENGTH: Max 6 lines, WhatsApp style
+7. GOAL: Find exact damaged peripheral/installation error
+
+TUTORIAL STRUCTURE:
+🔧 TUTORIAL #X - [TEST NAME]
+1. [Objective step with tool]
+2. [Action with expected value]
+3. [Decision point]
+
+📊 NORMAL VALUES: [specific range]
+⚠️ IF [result X]: [next action]
+⚡ SAFETY: [specific warning]
+
+Next question: [ONE specific info needed]
+
+PROHIBITED:
+❌ "Check the manual"
+❌ Long theory
+❌ Generic answers
+❌ Multiple questions at once
+❌ Responses over 6 lines
+
+KNOWLEDGE BASE (accessible in vector DB):
+- Manuals: Daikin, Midea, Gree, Springer, LG, Samsung (Brazil market)
+- VRF/VRV/Inverter error codes
+- Sensor/pressure/resistance standard values
+- Refrigerants: R32, R410A, R22 (Brazil 2025 context)
+`;
 
 export async function OPTIONS() {
   const origin = (() => { try { return new URL(process.env.NEXT_PUBLIC_WEBSITE_URL || '').origin } catch { return '' } })()
@@ -20,8 +62,31 @@ type ContentPart =
   | { type: 'input_image'; image_url: string }
   | { type: 'input_file'; file_data: string; filename?: string }
 
+async function embedQuery(query: string, apiKey: string): Promise<number[]> {
+  const res = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      input: query,
+      model: RAG_CONFIG.embedding.model
+    })
+  })
+  if (!res.ok) throw new Error('Failed to embed query')
+  const data = await res.json()
+  return data.data[0].embedding
+}
 
 export async function POST(req: Request) {
+  try {
+    validateEnv();
+  } catch (e: any) {
+    logger.error('env_validation', e);
+    return new Response(JSON.stringify({ error: 'Server configuration error' }), { status: 500 });
+  }
+
   const t0 = Date.now()
   const allowed = process.env.ALLOWED_ORIGIN || process.env.NEXT_PUBLIC_WEBSITE_URL || ''
   const origin = req.headers.get('origin') || ''
@@ -54,13 +119,8 @@ export async function POST(req: Request) {
   } catch { }
   const text = typeof parsed.text === 'string' ? parsed.text : ''
   const attachments = Array.isArray(parsed.attachments) ? parsed.attachments : []
-  const useSearch = !!parsed.useSearch
 
-  const apiKey = process.env.OPENAI_API_KEY
-  if (!apiKey) {
-    const payload = { text: 'API não configurada', groundingUrls: [] }
-    return new Response(JSON.stringify(payload), { status: 200, headers: { 'Access-Control-Allow-Origin': allowed } })
-  }
+  const apiKey = process.env.OPENAI_API_KEY! // Validated by validateEnv
 
   const contentParts: ContentPart[] = []
   if (text && typeof text === 'string' && text.trim().length > 0) {
@@ -81,218 +141,42 @@ export async function POST(req: Request) {
 
   const model = contentParts.some(p => p.type !== 'input_text') ? 'gpt-4o' : 'gpt-4o-mini'
 
-  const instructionBase = (() => {
-    const envInstr = process.env.SYSTEM_INSTRUCTION_PT_BR || process.env.SYSTEM_INSTRUCTION
-    if (envInstr && envInstr.trim().length > 0) return envInstr
-
-    // Load persona from file
+  // Vector DB Search
+  let grounding: { title: string; uri: string; content?: string }[] = []
+  if (text && text.trim().length > 0) {
     try {
-      const fs = require('fs')
-      const path = require('path')
-      const personaPath = path.join(process.cwd(), 'PROMPTS', 'chatbot-persona.md')
-      const personaContent = fs.readFileSync(personaPath, 'utf-8')
+      const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+      const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+      if (supaUrl && supaKey) {
+        const { createClient } = await import('@supabase/supabase-js')
+        const supa = createClient(supaUrl, supaKey)
 
-      // Add current date context
-      const currentDate = new Date().toLocaleDateString('pt-BR', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-
-      return `${personaContent}\n\n**DATA ATUAL**: ${currentDate}\n**CONTEXTO**: Você está respondendo a um técnico de HVAC-R no Brasil.`
-    } catch (error) {
-      // Fallback to original instruction if file not found
-      return [
-        'Responda estritamente em português do Brasil (pt-BR), otimizando para TTS.',
-        'Persona: técnico sênior brasileiro em HVAC-R, estilo @willrefrimix, pragmático e direto.',
-        'Data de referência: 25/11/2025. Considere equipamentos e normas vigentes no Brasil.',
-        'Estrutura: Diagnóstico breve; Manha/Dica prática; Referência; Aviso de segurança.',
-        'Entrada multimodal: texto, áudio transcrito, imagens de placas/etiquetas, PDF de manuais.',
-        'Priorize fontes brasileiras (YouTube técnico BR, manuais de marcas vendidas no Brasil).',
-        'Evite aconselhar aparelhos não comercializados no Brasil. Faça perguntas se houver ambiguidade.',
-      ].join('\n')
-    }
-  })()
-
-  async function aggregateSearch(q: string): Promise<{ title: string; uri: string }[]> {
-    const out: { title: string; uri: string }[] = []
-    const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-    const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-    const hasSupa = !!supaUrl && !!supaKey
-    const { createClient } = await import('@supabase/supabase-js')
-    const supa = hasSupa ? createClient(supaUrl, supaKey) : null
-
-    async function cacheGet(provider: 'perplexity' | 'tavily' | 'brave' | 'firecrawl') {
-      if (!supa) return null
-      try {
-        const { data, error } = await supa.rpc('web_search_cache_get', { q: q, p: provider })
-        if (error) return null
-        const res = (data as any)?.results
-        if (Array.isArray(res)) return res
-      } catch {}
-      return null
-    }
-
-    async function cacheUpsert(provider: 'perplexity' | 'tavily' | 'brave' | 'firecrawl', results: any[]) {
-      if (!supa) return
-      try { await supa.rpc('web_search_cache_upsert', { q: q, p: provider, r: results, ttl_seconds: 3600 }) } catch {}
-    }
-
-    async function logProvider(provider: string, dur: number, status: string, payload: any) {
-      if (!supa) return
-      const base = { provider, dur_ms: Math.max(0, Math.round(dur)), status }
-      try { await supa.from('provider_usage_logs').insert({ ...base, payload }).select() } catch { try { await supa.from('provider_usage_logs').insert(base).select() } catch {} }
-    }
-
-    async function sumProviderCostToday(provider: string): Promise<number> {
-      if (!supa) return 0
-      try {
-        const { data, error } = await supa.from('provider_usage_logs').select('cost,ts').gte('ts', new Date(new Date().toDateString()).toISOString()).eq('provider', provider)
-        if (error) return 0
-        let s = 0
-        for (const r of Array.isArray(data) ? data : []) {
-          const c = typeof (r as any)?.cost === 'number' ? (r as any).cost : 0
-          s += c || 0
-        }
-        return s
-      } catch { return 0 }
-    }
-
-    async function logProviderCost(provider: string, usd: number) {
-      if (!supa) return
-      const row = { provider, dur_ms: 0, status: 'ok', cost: usd }
-      try { await supa.from('provider_usage_logs').insert(row).select() } catch {}
-    }
-    const tvly = process.env.TAVILY_API_KEY
-    if (useSearch && tvly) {
-      try {
-        const r = await fetch('https://api.tavily.com/search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${tvly}` },
-          body: JSON.stringify({ query: q, search_depth: 'advanced', max_results: 3, include_answer: false })
+        const embedding = await embedQuery(text, apiKey)
+        const { data: results, error } = await supa.rpc('match_documents', {
+          query_embedding: embedding,
+          match_threshold: RAG_CONFIG.retrieval.matchThreshold,
+          match_count: RAG_CONFIG.retrieval.matchCount
         })
-        const j = await r.json().catch(() => null)
-        const items = Array.isArray(j?.results) ? j.results : []
-        for (const it of items) {
-          const title = typeof it?.title === 'string' ? it.title : ''
-          const uri = typeof it?.url === 'string' ? it.url : ''
-          if (title && uri) out.push({ title, uri })
+
+        if (error) throw error;
+
+        if (results && Array.isArray(results)) {
+          grounding = results.map((r: any) => ({
+            title: r.title || 'Documento',
+            uri: r.url || r.uri || '',
+            content: r.content || ''
+          }))
         }
-      } catch { }
-    }
-    const brave = process.env.BRAVE_API_KEY
-    if (useSearch && brave) {
-      try {
-        const r = await fetch(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(q)}&country=BR&lang=pt-BR&count=3`, {
-          headers: { 'X-Subscription-Token': brave }
-        })
-        const j = await r.json().catch(() => null)
-        const items = Array.isArray(j?.web?.results) ? j.web.results : []
-        for (const it of items) {
-          const title = typeof it?.title === 'string' ? it.title : ''
-          const uri = typeof it?.url === 'string' ? it.url : ''
-          if (title && uri) out.push({ title, uri })
-        }
-      } catch { }
-    }
-    const fire = process.env.FIRECRAWL_API_KEY
-    if (useSearch && fire) {
-      try {
-        const r = await fetch('https://api.firecrawl.dev/v1/search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${fire}` },
-          body: JSON.stringify({ query: q, limit: 3 })
-        })
-        const j = await r.json().catch(() => null)
-        const items = Array.isArray(j?.results) ? j.results : []
-        for (const it of items) {
-          const title = typeof it?.title === 'string' ? it.title : ''
-          const uri = typeof it?.url === 'string' ? it.url : ''
-          if (title && uri) out.push({ title, uri })
-        }
-      } catch { }
-    }
-    // Perplexity (pplx) – retorna JSON com resultados se solicitado
-    const pplx = process.env.PERPLEXITY_API_KEY
-    if (useSearch && pplx) {
-      try {
-        const cached = await cacheGet('perplexity')
-        if (Array.isArray(cached) && cached.length > 0) {
-          for (const it of cached) {
-            const title = typeof it?.title === 'string' ? it.title : ''
-            const uri = typeof it?.url === 'string' ? it.url : ''
-            if (title && uri) out.push({ title, uri })
-          }
-        } else {
-          const budgetMax = Number(process.env.PERPLEXITY_BUDGET_USD || '5')
-          const unitCost = Number(process.env.PERPLEXITY_COST_PER_CALL_USD || '0.05')
-          const spent = await sumProviderCostToday('perplexity')
-          if (spent + unitCost > budgetMax) {
-            await logProvider('perplexity', 0, 'skipped_budget', { budgetMax, spent })
-          } else {
-            const t0p = Date.now()
-            const r = await fetch('https://api.perplexity.ai/chat/completions', {
-              method: 'POST',
-              headers: { 'Authorization': `Bearer ${pplx}`, 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                model: 'llama-3.1-sonar-small-online',
-                messages: [{ role: 'user', content: `Retorne JSON com {\"results\":[{\"title\":\"...\",\"url\":\"...\"}]} de fontes brasileiras relevantes para: ${q}` }],
-                temperature: 0.2
-              })
-            })
-            const dur = Date.now() - t0p
-            if (r.ok) {
-              const j = await r.json().catch(() => ({}))
-              const txt = j?.choices?.[0]?.message?.content || ''
-              const parsed = (() => { try { return JSON.parse(txt) } catch { return null } })()
-              const items = Array.isArray(parsed?.results) ? parsed.results : []
-              await cacheUpsert('perplexity', items)
-              await logProvider('perplexity', dur, 'ok', { count: items.length })
-              await logProviderCost('perplexity', unitCost)
-              for (const it of items) {
-                const title = typeof it?.title === 'string' ? it.title : ''
-                const uri = typeof it?.url === 'string' ? it.url : ''
-                if (title && uri) out.push({ title, uri })
-              }
-            } else {
-              await logProvider('perplexity', dur, 'error', { status: r.status })
-            }
-          }
-        }
-      } catch { }
-    }
-    const seen = new Set<string>()
-    const uniq: { title: string; uri: string }[] = []
-    function isTrusted(u: string): boolean { try { const x = new URL(u); return x.protocol === 'https:' } catch { return false } }
-    for (const x of out) { if (!seen.has(x.uri) && isTrusted(x.uri)) { seen.add(x.uri); uniq.push(x) } }
-    function host(u: string): string {
-      try { return new URL(u).host.toLowerCase() } catch { return '' }
-    }
-    const manu = ['midea', 'gree', 'daikin', 'carrier', 'lg', 'samsung', 'consul', 'elgin', 'springer', 'electrolux']
-    function score(item: { title: string; uri: string }): number {
-      const h = host(item.uri)
-      let s = 1
-      if (h.endsWith('.br') || h.includes('.com.br') || h.includes('.org.br')) s *= 1.8
-      if (manu.some(m => h.includes(m))) s *= 2
-      if (h.includes('crea') || h.includes('confea') || h.includes('abrava')) s *= 2
-      const t = (item.title || '').toLowerCase()
-      if (t.includes('manual') || t.includes('boletim') || t.includes('pdf')) s *= 1.4
-      if (t.includes('2025') || t.includes('2024')) s *= 1.2
-      if (h.includes('youtube.com') || h.includes('instagram.com')) {
-        if (t.includes('br') || t.includes('brasil')) s *= 1.6
       }
-      return s
+    } catch (e) {
+      logger.error('vector_db_search', e as Error, { query: text.slice(0, 100) });
     }
-    return uniq.sort((a, b) => score(b) - score(a)).slice(0, 5)
   }
 
-  const grounding = useSearch && typeof text === 'string' && text.trim().length > 0 ? await aggregateSearch(text) : []
   const instruction = grounding.length > 0
-    ? `${instructionBase}\nFontes sugeridas:\n${grounding.map(g => `- ${g.title} (${g.uri})`).join('\n')}`
-    : instructionBase
+    ? `${SYSTEM_PROMPT}\n\nCONTEXTO DO BANCO DE DADOS:\n${grounding.map(g => `FONTE: ${g.title} (${g.uri})\nCONTEÚDO: ${g.content}`).join('\n\n')}`
+    : SYSTEM_PROMPT
 
-  // Map content parts to OpenAI format
   const userContent = contentParts.map(p => {
     if (p.type === 'input_text') return { type: 'text', text: p.text }
     if (p.type === 'input_image') return { type: 'image_url', image_url: { url: p.image_url } }
@@ -304,41 +188,50 @@ export async function POST(req: Request) {
     messages: [
       { role: 'system', content: instruction },
       { role: 'user', content: userContent }
-    ],
-    // tools: tools // Add tools if needed
+    ]
   }
 
   let textOut = ''
   let statusCode = 200
   let errMsg = ''
   try {
-    const ctl = new AbortController()
-    const timer = setTimeout(() => ctl.abort(), 6000)
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
+    const res = await fetchWithRetry(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-      signal: ctl.signal,
-    })
-    clearTimeout(timer)
+      3
+    );
+
     if (!res.ok) {
       errMsg = await res.text().catch(() => '')
       statusCode = 200
     } else {
       const raw = await res.json().catch(() => ({}))
       textOut = raw?.choices?.[0]?.message?.content || ''
+
+      // VALIDATION
+      const validation = validateTutorialResponse(textOut);
+      if (!validation.valid) {
+        logger.warn('[Validation Failed]', 'Response validation failed', { errors: validation.errors });
+        textOut = validation.sanitized;
+      }
     }
-  } catch {
+  } catch (e: any) {
     statusCode = 200
+    textOut = `Erro: ${e.message || 'Erro desconhecido'}`
+    logger.error('openai_api', e, { model, userId, promptLength: text.length });
   }
 
   const dur = Date.now() - t0
-  const payload = { text: textOut || 'Não consegui gerar uma resposta técnica no momento.', groundingUrls: grounding }
+  const payload = { text: textOut || 'Não consegui gerar uma resposta técnica no momento.', groundingUrls: grounding.map(g => ({ title: g.title, uri: g.uri })) }
   const headers: Record<string, string> = { 'Access-Control-Allow-Origin': allowed, 'Server-Timing': `total;dur=${dur}` }
-  if (dur > 2000 && process.env.NODE_ENV !== 'production') console.warn('slow_route', { route: '/api/openai/chat', dur, err: errMsg ? true : false })
+  if (dur > 2000 && process.env.NODE_ENV !== 'production') logger.warn('slow_route', 'Route took too long', { route: '/api/openai/chat', dur, err: errMsg ? true : false })
   record('/api/openai/chat', dur, statusCode)
   return new Response(JSON.stringify(payload), { status: statusCode, headers })
 }
