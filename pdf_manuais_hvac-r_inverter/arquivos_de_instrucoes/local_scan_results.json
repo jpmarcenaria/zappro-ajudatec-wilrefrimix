@@ -1,0 +1,575 @@
+{
+  "count": 57,
+  "items": [
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Agratto\\Agratto\\ICS_Hi_Wall_Neo\\ICS_Hi_Wall_Neo.pdf",
+      "size": 46656128,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Agratto",
+      "brand": "Agratto",
+      "model": "ICS_Hi_Wall_Neo",
+      "filename": "ICS_Hi_Wall_Neo.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Brastemp\\Brastemp\\Ative_Split_Hi_Wall\\Ative_Split_Hi_Wall.pdf",
+      "size": 43576346,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Brastemp",
+      "brand": "Brastemp",
+      "model": "Ative_Split_Hi_Wall",
+      "filename": "Ative_Split_Hi_Wall.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Carrier\\Carrier\\VRF_Midea_V8\\VRF_Midea_V8.pdf",
+      "size": 12854265,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Carrier",
+      "brand": "Carrier",
+      "model": "VRF_Midea_V8",
+      "filename": "VRF_Midea_V8.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Carrier\\Carrier\\X-Power_Split\\X-Power_Split.pdf",
+      "size": 4982958,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Carrier",
+      "brand": "Carrier",
+      "model": "X-Power_Split",
+      "filename": "X-Power_Split.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Carrier\\Carrier\\X-Power_VRF\\X-Power_VRF.pdf",
+      "size": 52272461,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Carrier",
+      "brand": "Carrier",
+      "model": "X-Power_VRF",
+      "filename": "X-Power_VRF.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Consul\\Consul\\Bem-Estar_Inverter\\Bem-Estar_Inverter.pdf",
+      "size": 7253651,
+      "label": "other",
+      "confidence": 0.95,
+      "manufacturer": "Consul",
+      "brand": "Consul",
+      "model": "Bem-Estar_Inverter",
+      "filename": "Bem-Estar_Inverter.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\3MXS52KVM\\3MXS52KVM.pdf",
+      "size": 5190218,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "3MXS52KVM",
+      "filename": "3MXS52KVM.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\3MXS68KVM\\3MXS68KVM.pdf",
+      "size": 9413296,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "3MXS68KVM",
+      "filename": "3MXS68KVM.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\EcoSwing_Smart_Gold\\EcoSwing_Smart_Gold.pdf",
+      "size": 6402933,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "EcoSwing_Smart_Gold",
+      "filename": "EcoSwing_Smart_Gold.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FCQ30KVL\\FCQ30KVL.pdf",
+      "size": 17384024,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FCQ30KVL",
+      "filename": "FCQ30KVL.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FTK-B_Series\\FTK-B_Series.pdf",
+      "size": 6071250,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FTK-B_Series",
+      "filename": "FTK-B_Series.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FTKC09T5VL\\FTKC09T5VL.pdf",
+      "size": 21050264,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FTKC09T5VL",
+      "filename": "FTKC09T5VL.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FTKC18T5VL\\FTKC18T5VL.pdf",
+      "size": 4963373,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FTKC18T5VL",
+      "filename": "FTKC18T5VL.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FTKC24T5VL\\FTKC24T5VL.pdf",
+      "size": 34540335,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FTKC24T5VL",
+      "filename": "FTKC24T5VL.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FTKP_Series\\FTKP_Series.pdf",
+      "size": 21292073,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FTKP_Series",
+      "filename": "FTKP_Series.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\FTXN09JVLB\\FTXN09JVLB.pdf",
+      "size": 4074647,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "FTXN09JVLB",
+      "filename": "FTXN09JVLB.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\RXYQ-P\\RXYQ-P.pdf",
+      "size": 19765694,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "RXYQ-P",
+      "filename": "RXYQ-P.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\Split_Hi_Wall_Advanced\\Split_Hi_Wall_Advanced.pdf",
+      "size": 5741574,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "Split_Hi_Wall_Advanced",
+      "filename": "Split_Hi_Wall_Advanced.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\VRV_IV\\VRV_IV.pdf",
+      "size": 33618007,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "VRV_IV",
+      "filename": "VRV_IV.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Daikin\\Daikin\\VRV_X\\VRV_X.pdf",
+      "size": 27928564,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Daikin",
+      "brand": "Daikin",
+      "model": "VRV_X",
+      "filename": "VRV_X.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Elgin\\Elgin\\Eco_Inverter_II\\Eco_Inverter_II.pdf",
+      "size": 22549256,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Elgin",
+      "brand": "Elgin",
+      "model": "Eco_Inverter_II",
+      "filename": "Eco_Inverter_II.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\AirStage_Hi_Wall_Inverter\\AirStage_Hi_Wall_Inverter.pdf",
+      "size": 3724811,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "AirStage_Hi_Wall_Inverter",
+      "filename": "AirStage_Hi_Wall_Inverter.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\Airstage_Premium\\Airstage_Premium.pdf",
+      "size": 14468332,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "Airstage_Premium",
+      "filename": "Airstage_Premium.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\AOBG24LAT3\\AOBG24LAT3.pdf",
+      "size": 3275531,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "AOBG24LAT3",
+      "filename": "AOBG24LAT3.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\AOBH36KBTB\\AOBH36KBTB.pdf",
+      "size": 2694470,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "AOBH36KBTB",
+      "filename": "AOBH36KBTB.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\AOHG-LV\\AOHG-LV.pdf",
+      "size": 5375663,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "AOHG-LV",
+      "filename": "AOHG-LV.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\ASBG09LMCA\\ASBG09LMCA.pdf",
+      "size": 3535782,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "ASBG09LMCA",
+      "filename": "ASBG09LMCA.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\AUBH36KRLB\\AUBH36KRLB.pdf",
+      "size": 225516,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "AUBH36KRLB",
+      "filename": "AUBH36KRLB.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Fujitsu\\Fujitsu\\Professional_Multi-Split\\Professional_Multi-Split.pdf",
+      "size": 6816910,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Fujitsu",
+      "brand": "Fujitsu",
+      "model": "Professional_Multi-Split",
+      "filename": "Professional_Multi-Split.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Gree\\Gree\\G-Prime_Inverter\\G-Prime_Inverter.pdf",
+      "size": 25382460,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Gree",
+      "brand": "Gree",
+      "model": "G-Prime_Inverter",
+      "filename": "G-Prime_Inverter.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Gree\\Gree\\G-Top_Connection\\G-Top_Connection.pdf",
+      "size": 31590851,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Gree",
+      "brand": "Gree",
+      "model": "G-Top_Connection",
+      "filename": "G-Top_Connection.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Gree\\Gree\\GMV_Inverter_VRF\\GMV_Inverter_VRF.pdf",
+      "size": 42698053,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Gree",
+      "brand": "Gree",
+      "model": "GMV_Inverter_VRF",
+      "filename": "GMV_Inverter_VRF.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Hisense\\Hisense\\Hi_Hisense_Split\\Hi_Hisense_Split.pdf",
+      "size": 59987113,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Hisense",
+      "brand": "Hisense",
+      "model": "Hi_Hisense_Split",
+      "filename": "Hi_Hisense_Split.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Hitachi\\Hitachi\\AirHome_600_Series\\AirHome_600_Series.pdf",
+      "size": 56872763,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Hitachi",
+      "brand": "Hitachi",
+      "model": "AirHome_600_Series",
+      "filename": "AirHome_600_Series.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Hitachi\\Hitachi\\FSNMB-09\\FSNMB-09.pdf",
+      "size": 21765484,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Hitachi",
+      "brand": "Hitachi",
+      "model": "FSNMB-09",
+      "filename": "FSNMB-09.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Hitachi\\Hitachi\\RAP48I5F\\RAP48I5F.pdf",
+      "size": 2129468,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Hitachi",
+      "brand": "Hitachi",
+      "model": "RAP48I5F",
+      "filename": "RAP48I5F.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Hitachi\\Hitachi\\SIGMA_SPLITO_VRF\\SIGMA_SPLITO_VRF.pdf",
+      "size": 23457813,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Hitachi",
+      "brand": "Hitachi",
+      "model": "SIGMA_SPLITO_VRF",
+      "filename": "SIGMA_SPLITO_VRF.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Komeco\\Komeco\\KAC_Series\\KAC_Series.pdf",
+      "size": 50086187,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Komeco",
+      "brand": "Komeco",
+      "model": "KAC_Series",
+      "filename": "KAC_Series.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\LG\\LG\\A3UW24GFA3\\A3UW24GFA3.pdf",
+      "size": 9120458,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "LG",
+      "brand": "LG",
+      "model": "A3UW24GFA3",
+      "filename": "A3UW24GFA3.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\LG\\LG\\Dual_Inverter_Split\\Dual_Inverter_Split.pdf",
+      "size": 47265214,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "LG",
+      "brand": "LG",
+      "model": "Dual_Inverter_Split",
+      "filename": "Dual_Inverter_Split.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\LG\\LG\\Dual_Inverter_Voice_AI\\Dual_Inverter_Voice_AI.pdf",
+      "size": 12669328,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "LG",
+      "brand": "LG",
+      "model": "Dual_Inverter_Voice_AI",
+      "filename": "Dual_Inverter_Voice_AI.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\LG\\LG\\Multi_V_Antigo\\Multi_V_Antigo.pdf",
+      "size": 91630693,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "LG",
+      "brand": "LG",
+      "model": "Multi_V_Antigo",
+      "filename": "Multi_V_Antigo.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\LG\\LG\\Multi_V_S\\Multi_V_S.pdf",
+      "size": 10553265,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "LG",
+      "brand": "LG",
+      "model": "Multi_V_S",
+      "filename": "Multi_V_S.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\LG\\LG\\WGM076FGA\\WGM076FGA.pdf",
+      "size": 1067621,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "LG",
+      "brand": "LG",
+      "model": "WGM076FGA",
+      "filename": "WGM076FGA.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Midea\\Midea\\Vita_Inverter_Split\\Vita_Inverter_Split.pdf",
+      "size": 52052240,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Midea",
+      "brand": "Midea",
+      "model": "Vita_Inverter_Split",
+      "filename": "Vita_Inverter_Split.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\MideaSpringer\\MideaSpringer\\Xtreme_Save_Connect\\Xtreme_Save_Connect.pdf",
+      "size": 10153247,
+      "label": "other",
+      "confidence": 0.95,
+      "manufacturer": "MideaSpringer",
+      "brand": "MideaSpringer",
+      "model": "Xtreme_Save_Connect",
+      "filename": "Xtreme_Save_Connect.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Mitsubishi\\Mitsubishi\\City_Multi_VRF\\City_Multi_VRF.pdf",
+      "size": 38865040,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Mitsubishi",
+      "brand": "Mitsubishi",
+      "model": "City_Multi_VRF",
+      "filename": "City_Multi_VRF.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Philco\\Philco\\Split_Inverter_PAC\\Split_Inverter_PAC.pdf",
+      "size": 1510236,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Philco",
+      "brand": "Philco",
+      "model": "Split_Inverter_PAC",
+      "filename": "Split_Inverter_PAC.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Positivo\\Positivo\\Split_Inverter_Techno\\Split_Inverter_Techno.pdf",
+      "size": 26580568,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "Positivo",
+      "brand": "Positivo",
+      "model": "Split_Inverter_Techno",
+      "filename": "Split_Inverter_Techno.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Samsung\\Samsung\\ASV_Series_Hi_Wall\\ASV_Series_Hi_Wall.pdf",
+      "size": 8909107,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Samsung",
+      "brand": "Samsung",
+      "model": "ASV_Series_Hi_Wall",
+      "filename": "ASV_Series_Hi_Wall.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Samsung\\Samsung\\DVM_VRF\\DVM_VRF.pdf",
+      "size": 11576872,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Samsung",
+      "brand": "Samsung",
+      "model": "DVM_VRF",
+      "filename": "DVM_VRF.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Samsung\\Samsung\\WindFree_Connect\\WindFree_Connect.pdf",
+      "size": 22383020,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Samsung",
+      "brand": "Samsung",
+      "model": "WindFree_Connect",
+      "filename": "WindFree_Connect.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\TCL\\TCL\\Split_Inverter_Series\\Split_Inverter_Series.pdf",
+      "size": 16590630,
+      "label": "other",
+      "confidence": 0.85,
+      "manufacturer": "TCL",
+      "brand": "TCL",
+      "model": "Split_Inverter_Series",
+      "filename": "Split_Inverter_Series.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Toshiba\\Toshiba\\RAS_Series_Split\\RAS_Series_Split.pdf",
+      "size": 23887535,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Toshiba",
+      "brand": "Toshiba",
+      "model": "RAS_Series_Split",
+      "filename": "RAS_Series_Split.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Toshiba\\Toshiba\\VRF_LCDX_Interface\\VRF_LCDX_Interface.pdf",
+      "size": 33712630,
+      "label": "other",
+      "confidence": 0.9,
+      "manufacturer": "Toshiba",
+      "brand": "Toshiba",
+      "model": "VRF_LCDX_Interface",
+      "filename": "VRF_LCDX_Interface.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\Trane\\Trane\\MS_Series_Hi_Wall\\MS_Series_Hi_Wall.pdf",
+      "size": 6015240,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "Trane",
+      "brand": "Trane",
+      "model": "MS_Series_Hi_Wall",
+      "filename": "MS_Series_Hi_Wall.pdf"
+    },
+    {
+      "path": "D:\\projetos\\zappro-ajudatec-wilrefrimix\\zappro-ajudatec-wilrefrimix\\data\\manuals\\York\\York\\Home_Star\\Home_Star.pdf",
+      "size": 4011846,
+      "label": "service_manual",
+      "confidence": 1,
+      "manufacturer": "York",
+      "brand": "York",
+      "model": "Home_Star",
+      "filename": "Home_Star.pdf"
+    }
+  ]
+}

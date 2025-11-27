@@ -156,6 +156,27 @@ async function embedQuery(query: string, apiKey: string): Promise<number[]> {
   return data.data[0].embedding
 }
 
+async function classifyIntent(text: string, apiKey: string): Promise<{ label: string; confidence: number }> {
+  const body = {
+    model: 'gpt-4o-mini',
+    messages: [
+      { role: 'system', content: 'Classifique intenção: error_code_diagnosis, wiring_diagram, sensor_values, installation_manual, generic. Responda JSON {label, confidence}.' },
+      { role: 'user', content: text.slice(0, 4000) }
+    ],
+    max_tokens: 50,
+    temperature: 0
+  }
+  try {
+    const r = await fetch('https://api.openai.com/v1/chat/completions', { method: 'POST', headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    if (!r.ok) return { label: 'generic', confidence: 0 }
+    const j = await r.json()
+    const txt = j?.choices?.[0]?.message?.content || ''
+    const m = txt.match(/\{\s*"label"\s*:\s*"([a-z_]+)"\s*,\s*"confidence"\s*:\s*(\d+(?:\.\d+)?)\s*\}/i)
+    if (m) return { label: m[1], confidence: Number(m[2]) }
+    return { label: 'generic', confidence: 0 }
+  } catch { return { label: 'generic', confidence: 0 } }
+}
+
 export async function POST(req: Request) {
 
   const t0 = Date.now()
@@ -260,6 +281,8 @@ export async function POST(req: Request) {
         // 1. Generate embedding for semantic search
         const embedding = await embedQuery(text, apiKey)
 
+        const intent = await classifyIntent(text, apiKey)
+
         // 2. Extract context from query
         brandName = extractBrand(text)
         modelName = extractModel(text)
@@ -291,7 +314,9 @@ export async function POST(req: Request) {
               chunksFound: chunks.length,
               avgSimilarity: avgSim.toFixed(3),
               topChunkSection: chunks[0]?.section || 'unknown',
-              topChunkSimilarity: (chunks[0]?.similarity || 0).toFixed(3)
+              topChunkSimilarity: (chunks[0]?.similarity || 0).toFixed(3),
+              intent: intent.label,
+              intentConfidence: intent.confidence
             })
           }
         } else if (chunksError) {
@@ -325,20 +350,21 @@ RESOLUÇÃO: ${a.resolution}
           }
         }
 
-        // Warn if no context found after all searches
         if (grounding.length === 0 && !alarmContext) {
           logger.warn('hvacr_search', 'No context found in database', {
             brand: brandName,
             model: modelName,
             errorCode: alarmCode,
-            queryLength: text.length
+            queryLength: text.length,
+            intent: intent.label
           })
         } else if (alarmContext) {
           // Log alarm context found
           logger.info('hvacr_search', 'Alarm code context found', {
             errorCode: alarmCode,
             brand: brandName,
-            model: modelName
+            model: modelName,
+            intent: intent.label
           })
         }
 
@@ -358,7 +384,6 @@ ${alarmContext}
 IMPORTANTE: Use EXCLUSIVAMENTE as informações dos manuais acima. Nunca invente valores ou procedimentos.`
     : SYSTEM_PROMPT
 
-  // If no context found, guide assistant to include DIRECT manual download link and structured fallback
   if (grounding.length === 0 && !alarmContext) {
     const b = brandName || ''
     const m = modelName || ''

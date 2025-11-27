@@ -123,12 +123,16 @@ async function run() {
       if (!process.env[k]) process.env[k] = v
     }
   }
-  const csvPath = resolve(join(root, 'pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'biblioteca_completa_otimizada_llm.csv'))
+  const args = process.argv.slice(2)
+  let csvArg = ''
+  for (let i = 0; i < args.length; i++) { if (args[i] === '--csv') { csvArg = args[i + 1] || '' } }
+  const defaultCsv = resolve(join(root, 'pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'biblioteca_completa_otimizada_llm.csv'))
+  const csvPath = resolve(csvArg || defaultCsv)
   const dir = resolve(join(root, 'pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes'))
   mkdirSync(dir, { recursive: true })
   const text = existsSync(csvPath) ? readFileSync(csvPath, 'utf8') : ''
   const { data } = parseCsv(text)
-  const pairs = data.map(r => ({ brand: r.MARCA || r.BRAND || '', model: r.MODELO || r.MODEL || '' })).filter(x => x.brand && x.model)
+  const pairs = data.map(r => ({ brand: r.MARCA || r.BRAND || '', model: r.MODELO_SÉRIE || r.MODELO || r.MODEL || '' })).filter(x => x.brand && x.model)
   const blacklistPath = resolve(join(dir, 'blacklist.json'))
   const validPath = resolve(join(dir, 'valid_links.json'))
   const validCsvPath = resolve(join(dir, 'valid_links.csv'))
@@ -144,7 +148,7 @@ async function run() {
     'leverosintegra.com.br','webarcondicionado.com.br','poloar.com.br','adeo.com','master.ca','media.adeo.com'
   ]
   function isTrusted(u) { try { const host = new URL(u).hostname.replace(/^www\./,'').toLowerCase(); return trusted.some(d => host.endsWith(d)) } catch { return false } }
-  for (const p of pairs.slice(0, 60)) {
+  for (const p of pairs.slice(0, 120)) {
     const q = `${p.brand} ${p.model} (\"manual\" OR \"manual de serviço\") filetype:pdf`
     const results = await aggregateSearch(q)
     for (const r of results) {

@@ -4,10 +4,19 @@ import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync }
 import { dirname, join, resolve } from 'node:path'
 import { pipeline as pipe } from 'node:stream/promises'
 import { spawn } from 'node:child_process'
+let playwright = null
+async function ensurePlaywright() {
+  if (playwright) return playwright
+  try { playwright = await import('playwright'); return playwright } catch {}
+  try { playwright = await import('playwright-core'); return playwright } catch {}
+  return null
+}
 
 function loadDotEnv() {
-  const envPath = join(process.cwd(), 'apps', 'saas', '.env')
-  if (existsSync(envPath)) {
+  const root = resolve(process.cwd(), '..', '..')
+  const paths = [join(process.cwd(), 'apps', 'saas', '.env'), join(root, '.env')]
+  for (const envPath of paths) {
+    if (!existsSync(envPath)) continue
     const txt = readFileSync(envPath, 'utf8')
     for (const line of txt.split(/\r?\n/)) {
       const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -107,6 +116,38 @@ function downloadViaCurl(url, filePath) {
   })
 }
 
+async function downloadViaPlaywright(url, filePath) {
+  const pw = await ensurePlaywright()
+  if (!pw) throw new Error('playwright_missing')
+  const { chromium } = pw
+  const browser = await chromium.launch({ headless: true })
+  const context = await browser.newContext({ acceptDownloads: false, userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36' })
+  const page = await context.newPage()
+  const resp = await page.goto(url, { waitUntil: 'domcontentloaded' })
+  if (!resp) { await browser.close(); throw new Error('no_response') }
+  const ct = (resp.headers()['content-type'] || '').toLowerCase()
+  if (!ct.includes('pdf') && !url.toLowerCase().endsWith('.pdf')) { await browser.close(); throw new Error('not_pdf') }
+  const buf = await resp.body()
+  const dir = dirname(filePath)
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
+  await new Promise((res, rej) => { try { const ws = createWriteStream(filePath); ws.write(buf); ws.end(); ws.on('finish', res); ws.on('error', rej) } catch (e) { rej(e) } })
+  await browser.close()
+  return filePath
+}
+
+function downloadViaPowerShell(url, filePath) {
+  return new Promise((resolve, reject) => {
+    const dir = dirname(filePath)
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
+    const ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
+    const cmd = `Invoke-WebRequest -Uri '${url.replace(/'/g, "''")}' -OutFile '${filePath.replace(/'/g, "''")}' -Headers @{ 'User-Agent'='${ua}' } -UseBasicParsing`
+    const p = spawn('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', cmd])
+    let err = ''
+    p.stderr.on('data', d => { err += d.toString() })
+    p.on('close', code => { if (code === 0 && existsSync(filePath)) resolve(filePath); else reject(new Error(err || `powershell exit ${code}`)) })
+  })
+}
+
 function safeName(s) {
   return String(s || '')
     .replace(/\s+/g, '_')
@@ -143,8 +184,10 @@ async function run() {
   loadDotEnv()
   const args = parseArgs()
   const validJson = resolve(join('pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'valid_links.json'))
-  const csvPath = resolve(args.csv || join('pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'biblioteca_completa_otimizada_llm.csv'))
-  const outDir = resolve(args.outDir || 'data/manuals')
+  const root = resolve(process.cwd(), '..', '..')
+  const validJsonRoot = resolve(join(root, 'pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'valid_links.json'))
+  const csvPath = resolve(args.csv || join(root, 'pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'biblioteca_completa_otimizada_llm.csv'))
+  const outDir = resolve(args.outDir || join(root, 'data', 'manuals'))
   const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
   const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   const openai = process.env.OPENAI_API_KEY
@@ -154,8 +197,9 @@ async function run() {
   }
   const supa = createClient(supaUrl, supaKey)
   let queue = []
-  if (existsSync(validJson)) {
-    const items = JSON.parse(readFileSync(validJson, 'utf8')) || []
+  const sourceJson = existsSync(validJsonRoot) ? validJsonRoot : validJson
+  if (existsSync(sourceJson)) {
+    const items = JSON.parse(readFileSync(sourceJson, 'utf8')) || []
     queue = items.map(x => ({ BRAND: x.brand, MODEL: x.model, URL: x.url }))
   } else {
     const text = readFileSync(csvPath, 'utf8')
@@ -182,7 +226,11 @@ async function run() {
         try {
           await downloadTo(url, filePath)
         } catch (e1) {
-          await downloadViaCurl(url, filePath)
+          try {
+            await downloadViaCurl(url, filePath)
+          } catch (e2) {
+            try { await downloadViaPowerShell(url, filePath) } catch (e3) { await downloadViaPlaywright(url, filePath) }
+          }
         }
         const deviceId = await upsertDevice(supa, brand, model, brand)
         await upsertManual(supa, deviceId, 'Manual de Serviço', fonte, url)

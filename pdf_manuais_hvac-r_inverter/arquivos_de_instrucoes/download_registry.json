@@ -1916,5 +1916,229 @@
     "model": "GMV Inverter VRF",
     "len": 10027067,
     "hash": "0ff8ad1f305b3103cd9c650b4d1d8100fc792c60cc90b69a0e4426d285b7e0aa"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/manual-operacao-split-hw-full-r32-daikin.pdf",
+    "brand": "Daikin",
+    "model": "FTKC09T5VL",
+    "len": 21050264,
+    "hash": "fb5a765e81556b5cd05d2e3a486742f9f985ff5debd18b32a1f9c9e97f869b4a"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/catalogo-comercial-ar-condicionado-split-hw-inverter-full-r32.pdf",
+    "brand": "Daikin",
+    "model": "FTKC09T5VL",
+    "len": 5035001,
+    "hash": "d30d57c539f2dcada7dc31636813b9c730a8e3d45298e446863d5dc81bd8a19c"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/catalogo-comercial-split-hw-full-r32-daikin.pdf",
+    "brand": "Daikin",
+    "model": "FTKC18T5VL",
+    "len": 4963373,
+    "hash": "1113b4f09274c3fa8106ae5fa3b8080d712708bdbe89e74517b77de3f6a2f7cd"
+  },
+  {
+    "url": "https://pdf.webarcondicionado.com.br/daikin/manual/usuario/split-hi-wall-advance-daikin-FTK09P5VL-FTK12P5VL-FTK18P5VL-FTK24P5VL.pdf",
+    "brand": "Daikin",
+    "model": "FTKC24T5VL",
+    "len": 34540335,
+    "hash": "3ad59e9cd8cb237dccdc78c0e3f4770f7f768fb6f4f96e27f3ae6189b08286b2"
+  },
+  {
+    "url": "http://www.daikintech.co.uk/Data/Split-Sky-Air-Indoor/FTX/2017/SM_SiBE041525F.pdf",
+    "brand": "Daikin",
+    "model": "FTXN09JVLB",
+    "len": 4074647,
+    "hash": "0a155eab23ca3874331dd5e8f33c49eb24567fcc13584b739cf8adfd4b406ae3"
+  },
+  {
+    "url": "https://backend.daikincomfort.com/docs/default-source/product-documents/residential/manuals/installationmanuals/rx_rmvju(9)---installation-manual.pdf",
+    "brand": "Daikin",
+    "model": "FTXN09JVLB",
+    "len": 3066156,
+    "hash": "1b54f71a3dcae7d4300a9274f52a535a446eaa791bc07f595d88d89e3fa358e1"
+  },
+  {
+    "url": "https://backend.daikincomfort.com/docs/default-source/product-documents/residential/manuals/operationmanuals/om-ftk(x)_axvju-(3p601789-1-a).pdf",
+    "brand": "Daikin",
+    "model": "FTXN09JVLB",
+    "len": 2090151,
+    "hash": "dcbd6ee1f1afb9fe98010d2a4eb6c3e1b2743e0958516d74b933dc77375e26f2"
+  },
+  {
+    "url": "https://backend.daikincomfort.com/docs/default-source/product-documents/residential/manuals/installationmanuals/01_en_3p591321-10e-rzr_rzq-tbvjua-installation-manual.pdf",
+    "brand": "Daikin",
+    "model": "FTXN09JVLB",
+    "len": 1098389,
+    "hash": "d6dd70762889c814114baebd735a3774929916faeb44945efd3c45ef5226d735"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/daikin/Catalogo-Multi-Split-Daikin.pdf",
+    "brand": "Daikin",
+    "model": "3MXS52KVM",
+    "len": 5190218,
+    "hash": "484facd0a224f94ccf0a225b1d2431ed6ec5af0c158eb5394f7e3e84e4168426"
+  },
+  {
+    "url": "https://www.daikin.eu/content/dam/document-library/installation-manuals/ac/split/amx-e/3MXS40K_3MXS52E_3AMX52E_3P164392-4P_Installation%20manuals_Portuguese.pdf",
+    "brand": "Daikin",
+    "model": "3MXS52KVM",
+    "len": 1955385,
+    "hash": "900714a55bb70e833ab043812e5e0ea4d7917a405d25a1701b36be356c615f8f"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/Manual-de-instalacao-2,3,4MXS18,24,28,34PMVM-Multi%20Split.pdf",
+    "brand": "Daikin",
+    "model": "3MXS68KVM",
+    "len": 9413296,
+    "hash": "0d17397df1291f3df33abe7adf23dc5c296932894ae2bb5c6c0c1c600c55fda9"
+  },
+  {
+    "url": "http://pdf.webarcondicionado.com.br/daikin/manual/usuario/split-cassete-skyair-daikin-FCQ30KVL-FCQ36KVL-FCQ42KVL-FCQ48KVL.pdf",
+    "brand": "Daikin",
+    "model": "FCQ30KVL",
+    "len": 24905892,
+    "hash": "0ec4846ca41e722e825f003e55451a08bd302f064c609d00903430232a938435"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/daikin/Daikin-catalogo-cassete-duto-skyair.pdf",
+    "brand": "Daikin",
+    "model": "FCQ30KVL",
+    "len": 4147699,
+    "hash": "d2d63fa50259ddd5de0165d148f7f6fe93028281c3768cecedc9e724f4aaf720"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/sky-air-tecnico.pdf",
+    "brand": "Daikin",
+    "model": "FCQ30KVL",
+    "len": 17384024,
+    "hash": "3e2cbe52eea18719dc9fad35529c8f7e3f07a76a16b0b3c640d24e488e4037c3"
+  },
+  {
+    "url": "https://www.daikin.eu/content/dam/document-library/installation-manuals/ac/vrv/rxyq-ptlk(e)/RXYQ-PTLK_IM_3P226891-7A_Installation%20manuals_English.pdf",
+    "brand": "Daikin",
+    "model": "RXYQ-P",
+    "len": 1825522,
+    "hash": "6dd1f990388968b601ae1dd1e562c8735ff33cb4ecaf69307bb97fd444ad748f"
+  },
+  {
+    "url": "http://www.daikintech.co.uk/data/vrv-outdoor/rxyq/2011/rxyq-p9w1b/rxyq-py1_sm_1.pdf",
+    "brand": "Daikin",
+    "model": "RXYQ-P",
+    "len": 24383205,
+    "hash": "d26129eb2ec6186498dcf2141077a0357e31aefd3d5c5f8062b05cf5c13233ef"
+  },
+  {
+    "url": "http://www.daikintech.co.uk/Data/VRV-Outdoor/RXYQ/2012/RXYQ-P9W1B/RXYQ-PY1_SM.pdf",
+    "brand": "Daikin",
+    "model": "RXYQ-P",
+    "len": 19765694,
+    "hash": "1803325b9b20fbbedb314e3f56c0f8bf3656ba7c07ea2b8959a6df8c3b9ea896"
+  },
+  {
+    "url": "https://pdf.webarcondicionado.com.br/hitachi/manual/tecnico/mdt-multi-split-fsnmb.pdf",
+    "brand": "Hitachi",
+    "model": "FSNMB-09",
+    "len": 21765484,
+    "hash": "33376db81943600b5553376a49c593c2cf938753c62ab100ab681f99ee65ca80"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/hitachi/manual-de-instalacao-operacao-hitachi-cassete-air-core.pdf",
+    "brand": "Hitachi",
+    "model": "RAP48I5F",
+    "len": 18429385,
+    "hash": "f5f1845b838b2327d4c7cb6d5fe12610a779b1ee491c5bcfc56361b682607e0e"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/hitachi/guia-rapido-do-usuario-aircore-500-split-k7-cassete.pdf",
+    "brand": "Hitachi",
+    "model": "RAP48I5F",
+    "len": 2129468,
+    "hash": "fa889a9c2a5dd84de5ba8cde29a91414d44ef4fe05850237e275b3b780dcc05a"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/LG/Manual-de-Instala%C3%A7%C3%A3o-A3UW24GFA3.pdf",
+    "brand": "LG",
+    "model": "A3UW24GFA3",
+    "len": 9120458,
+    "hash": "1ff2da36f30b31470db77e3df80479b51bf7e995f1c034e9e410b01fd0ae31d3"
+  },
+  {
+    "url": "https://www.leverosintegra.com.br/download/manuais/Fujitsu/ASBG09-12CMBA%20Service%20manual.pdf",
+    "brand": "Fujitsu",
+    "model": "ASBG09LMCA",
+    "len": 3703650,
+    "hash": "76f834ee25f676cbcd482f9206940b5a95601da4093fe4653ec6024949e41177"
+  },
+  {
+    "url": "https://pdf.webarcondicionado.com.br/fujitsu/manual/usuario/mdu-split-hi-wall-asbg12jmca-aobg12jmca-asbg12lmca-aobg12lmca-asba24jmca-aobr24jmla-asbg09jmca-aobg09jmca-asbg09lmca-aobg09lmca-asba18jcc-aobr18jcc-asba18lec-aobr18lec-asba24lfc-aobr24lfl-asba30lfc-aobr30lf.pdf",
+    "brand": "Fujitsu",
+    "model": "ASBG09LMCA",
+    "len": 3535782,
+    "hash": "6161d707f2ff009e68adc35a7753a5c4a1b408470ac1311438653cbaa39bbaed"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/br/ctlg-fgbpo11-3bfm04-1108e-201605-02.pdf",
+    "brand": "Fujitsu",
+    "model": "AOBG24LAT3",
+    "len": 13660287,
+    "hash": "8da083e2abf6ccdb8d801b4ac14f693eef9ab6513d1cf892cfd04367559dba12"
+  },
+  {
+    "url": "http://www.leverosintegra.com.br/download/manuais/Fujitsu/manual-de-instalacao-split-teto-inverter-fujitsu-r32.pdf",
+    "brand": "Fujitsu",
+    "model": "AOBG24LAT3",
+    "len": 3275531,
+    "hash": "5e3c02d3287bf40c86b710671e33732aa0c4347620e9ff2cf28c7b7a3e85cc12"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/br/pdf-energy-efficiency-aubh36krlb-aobh36kbtb-01.pdf",
+    "brand": "Fujitsu",
+    "model": "AUBH36KRLB",
+    "len": 160551,
+    "hash": "b5bd763405daa5959631eb70437f83b4964057a332fc3323964a4f07419624c1"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/br/pdf-energy-efficiency-aubh36krlb-aobh36krta-01.pdf",
+    "brand": "Fujitsu",
+    "model": "AUBH36KRLB",
+    "len": 225516,
+    "hash": "9b09ef89128af9dd0d55c4fed1a40c8f52e3678f1c1eab77bf6dab2be5dd40c2"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/br/pdf-fcbr-ctlg-cassete-r32_02.pdf",
+    "brand": "Fujitsu",
+    "model": "AUBH36KRLB",
+    "len": 3238119,
+    "hash": "b9669e44103732b8f5d789168ea028b5bb461d3adb588a47b5e56ddfc93597a0"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/br/pdf-fcbr-ctlg-teto-r32_02.pdf",
+    "brand": "Fujitsu",
+    "model": "AOBH36KBTB",
+    "len": 5090784,
+    "hash": "5b59575217ca5a4ac96ada7ff8ba92da1b135adbbeaf50be729fe6ce69a96c2b"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/br/pdf-energy-efficiency-abbh36krta-aobh36kbtb-01.pdf",
+    "brand": "Fujitsu",
+    "model": "AOBH36KBTB",
+    "len": 220461,
+    "hash": "a6179044d2ce64628bc30176a0b41642daaa80f28979e362e8c56c8bcee731c8"
+  },
+  {
+    "url": "http://www.leverosintegra.com.br/download/manuais/Fujitsu/Cat%C3%A1logo-teto-premium-fujitsu.pdf",
+    "brand": "Fujitsu",
+    "model": "AOBH36KBTB",
+    "len": 2694470,
+    "hash": "55167183d3f2983fa39f3ac432b4637fe5aa516c59df644fe2f6b9fd4b7cf418"
+  },
+  {
+    "url": "https://www.fujitsu-general.com/shared/g-eu/pdf-geur-support-ctlg-3eg030-2112e-option-01.pdf",
+    "brand": "Fujitsu",
+    "model": "AOHG-LV",
+    "len": 5375663,
+    "hash": "9db38fce29bba4f1df6063763b625fb4f75509d4dc41756147d2cbdcc51fac8e"
   }
 ]
