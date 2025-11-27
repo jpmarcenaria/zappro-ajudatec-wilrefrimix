@@ -69,6 +69,17 @@ export async function POST(req: Request) {
     const blacklist: Array<{ url: string; reason: string }> = existsSync(blacklistPath) ? JSON.parse(readFileSync(blacklistPath, 'utf8')) : []
     const registry: Array<{ url: string; brand: string; model: string; len: number; hash: string }> = existsSync(registryPath) ? JSON.parse(readFileSync(registryPath, 'utf8')) : []
     const negSet = new Set(blacklist.map(b => b.url.toLowerCase()))
+    const trusted = [
+      'daikin.com.br','daikincomfort.com','daikin.eu','daikin.pt','daikinindia.com','daikintech.co.uk',
+      'lg.com','samsung.com','fujitsu-general.com','toshiba-hvacspares.com','carrierdobrasil.com.br','komeco.com.br',
+      'leverosintegra.com.br','webarcondicionado.com.br','poloar.com.br','adeo.com','master.ca','media.adeo.com'
+    ]
+    function isTrusted(u: string): boolean {
+      try {
+        const host = new URL(u).hostname.replace(/^www\./, '').toLowerCase()
+        return trusted.some(d => host.endsWith(d))
+      } catch { return false }
+    }
 
     const valid: Array<{ brand: string; model: string; url: string; len: number; hash: string }> = []
     let checked = 0
@@ -79,10 +90,13 @@ export async function POST(req: Request) {
         const u = r.url
         if (negSet.has(u.toLowerCase())) continue
         if (!/\.pdf$/i.test(u)) continue
+        if (!u.startsWith('https://')) { blacklist.push({ url: u, reason: 'non_https' }); continue }
+        if (!isTrusted(u)) { blacklist.push({ url: u, reason: 'untrusted_domain' }); continue }
         const h = await head(u)
         checked++
-        if (!h.ok || !h.ct.includes('pdf') || h.len < 300000) {
-          blacklist.push({ url: u, reason: !h.ok ? 'http' : h.len < 300000 ? 'too_small' : 'content_type' })
+        const isPdfCT = h.ct.includes('pdf') || h.ct.includes('octet-stream')
+        if (!h.ok || !isPdfCT || h.len < 150000) {
+          blacklist.push({ url: u, reason: !h.ok ? 'http' : h.len < 150000 ? 'too_small' : 'content_type' })
           continue
         }
         const hash = await sampleHash(u)
@@ -106,4 +120,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: e?.message || 'error' }, { status: 500 })
   }
 }
-

@@ -109,6 +109,7 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
 - Apenas 1 task em `in_progress` simultaneamente.
 - Ao concluir, mover para `done` com evidências (logs/relatórios).
 - Lint e typecheck obrigatórios após alterações.
+ - Execução PROIBIDA sem planejamento prévio em `TASKMASTER.md` com objetivo, critérios e dependências.
 
 ## Execução Automática (Bootstrap)
 

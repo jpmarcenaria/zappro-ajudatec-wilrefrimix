@@ -67,16 +67,6 @@
 ```
 [
   {
-    "id": "setup-pgvector",
-    "type": "feature",
-    "title": "Habilitar pgvector e RPC de match",
-    "acceptance_criteria": [
-      "Extensão vector ativa",
-      "Tabela manual_chunks existente",
-      "RPC match_manual_chunks funcional"
-    ]
-  },
-  {
     "id": "redis-cache",
     "type": "ops",
     "title": "Configurar Redis TTL 900s",
@@ -161,7 +151,6 @@
 ---
 
 ## Fila Taskmaster (Bootstrap)
-
 ```
 [
   {
@@ -364,15 +353,51 @@
     ]
   },
   {
-    "id": "pgvector-rpc-test",
-    "type": "ops",
-    "title": "Validar extensão pgvector e RPC match_manual_chunks",
-    "description": "Checar presença de índices e resposta do RPC",
+    "id": "pdf-library-security",
+    "type": "refactor",
+    "title": "Fortalecer biblioteca de PDFs",
+    "description": "Aplicar HTTPS-only e whitelist de domínios confiáveis",
     "state": "ready",
     "acceptance_criteria": [
-      "Extensão ativa",
-      "Índice ivfflat presente",
-      "RPC retorna linhas"
+      "Links http bloqueados",
+      "Domínios não confiáveis em blacklist",
+      "valid_links.csv sem hosts proibidos"
+    ]
+  },
+  {
+    "id": "vps-deploy",
+    "type": "ops",
+    "title": "Preparar deploy em VPS",
+    "description": "Docker build, run, proxy Nginx e TLS",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Container roda em 3001",
+      "Nginx proxy 443→3001",
+      "Health check 200 em produção"
+    ]
+  },
+  {
+    "id": "gemini-pro-integration",
+    "type": "feature",
+    "title": "Integrar Gemini Pro como provider opcional",
+    "description": "Adicionar toggles/env e rotas compatíveis com Gemini Pro",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Env keys configuráveis",
+      "Chat suporta provider=gemini",
+      "Sem segredos no client"
+    ]
+  },
+  {
+    "id": "ops-4_5-prep",
+    "type": "ops",
+    "title": "Preparar Ops 4.5 (observabilidade/segurança)",
+    "description": "Métricas, rate limit, headers de segurança e rollback",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Server-Timing ativo",
+      "Rate limit aplicado",
+      "Headers de segurança configurados"
     ]
   },
   {

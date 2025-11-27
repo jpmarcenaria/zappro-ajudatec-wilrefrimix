@@ -187,7 +187,7 @@ ATENÇÃO: Antes de executar ou modificar este projeto, LEIA e SIGA integralment
 - **Proxy:** Kong Gateway
 - **Analytics:** Logflare
 - **Pooling:** Supavisor (PgBouncer)
-- **Deploy:** [Vercel](https://vercel.com)
+- **Deploy:** VPS (Docker)
 
 ### Pagamentos
 
@@ -438,90 +438,69 @@ curl http://localhost:3001/api/status
 
 ## 🌐 Deploy
 
-### Vercel (Produção)
+### VPS (Produção)
 
-O deploy na Vercel é o método recomendado para produção.
+Deploy em VPS com Docker, atrás de um proxy (Nginx) com TLS.
 
 #### 1. Pré-requisitos
 
-- Conta Vercel ([Criar conta](https://vercel.com/signup))
+- VPS com Ubuntu 22.04/24.04 e acesso SSH
+- Domínio com DNS apontando para a VPS
+- Certificado TLS (Let's Encrypt via Nginx)
 - Projeto Supabase Cloud ([Criar projeto](https://app.supabase.com))
 - Conta Stripe (modo live) ([Dashboard](https://dashboard.stripe.com))
 - Chave OpenAI ([Platform](https://platform.openai.com))
 
-#### 2. Importar Repositório
-
-1. Acesse [Vercel Dashboard](https://vercel.com/dashboard)
-2. Clique em "Add New..." → "Project"
-3. Importe o repositório GitHub
-4. **Root Directory:** `apps/saas`
-5. **Framework Preset:** Next.js
-
-#### 3. Configurar Variáveis de Ambiente
-
-Configure no Vercel Dashboard (Project Settings → Environment Variables):
-
-**17 variáveis obrigatórias:**
+#### 2. Build da Imagem
 
 ```bash
-# URLs
-NEXT_PUBLIC_WEBSITE_URL=https://seu-dominio.vercel.app
-NEXT_PUBLIC_APP_URL=https://seu-dominio.vercel.app
-
-# Supabase Cloud
-NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbG...
-SUPABASE_URL=https://xxx.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=eyJhbG...
-
-# Stripe (live mode)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
-NEXT_PUBLIC_STRIPE_PRICING_TABLE_ID=prctbl_...
-NEXT_PUBLIC_STRIPE_PRICE_ID=price_...
-STRIPE_SECRET_KEY=sk_live_...
-STRIPE_WEBHOOK_SECRET=whsec_...  # Configurar depois
-
-# OpenAI
-OPENAI_API_KEY=sk-proj-...
-
-# Admin
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD_HASH=  # Gere com: npm run admin:hash
-ADMIN_SESSION_SECRET=  # Gere com: openssl rand -hex 32
-
-# Opcional
-NEXT_TELEMETRY_DISABLED=1
+cd apps/saas
+docker build -t zappro-saas:latest .
 ```
 
-#### 4. Deploy Inicial
+#### 3. Executar o Contêiner
 
-- Clique em "Deploy"
-- Aguarde build (~3 minutos)
-- Acesse URL gerada
+```bash
+docker run -d \
+  --name zappro-saas \
+  -e PORT=3001 \
+  -e NEXT_PUBLIC_WEBSITE_URL=https://seu-dominio.com \
+  -e NEXT_PUBLIC_APP_URL=https://seu-dominio.com \
+  -e NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co \
+  -e NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbG... \
+  -e SUPABASE_URL=https://xxx.supabase.co \
+  -e SUPABASE_SERVICE_ROLE_KEY=eyJhbG... \
+  -e OPENAI_API_KEY=sk-proj-... \
+  -e STRIPE_SECRET_KEY=sk_live_... \
+  -e STRIPE_WEBHOOK_SECRET=whsec_... \
+  -p 3001:3001 \
+  zappro-saas:latest
+```
 
-#### 5. Configurar Webhook Stripe
+Configure Nginx como proxy reverso em `443 → http://localhost:3001`.
+
+#### 4. Webhook Stripe
 
 1. [Stripe Dashboard](https://dashboard.stripe.com/webhooks) → Add endpoint
-2. **URL:** `https://seu-dominio.vercel.app/api/webhook/stripe`
+2. **URL:** `https://seu-dominio.com/api/webhook/stripe`
 3. **Eventos:**
    - `checkout.session.completed`
    - `customer.subscription.created`
    - `customer.subscription.updated`
    - `customer.subscription.deleted`
-4. Copie **Webhook Secret** → Adicione `STRIPE_WEBHOOK_SECRET` no Vercel
-5. Re-deploy
+4. Copie **Webhook Secret** → Defina `STRIPE_WEBHOOK_SECRET` na VPS
 
-#### 6. Testes Pós-Deploy
+#### 5. Testes Pós-Deploy
 
 ```bash
 # Health check
-curl https://seu-dominio.vercel.app/api/health
+curl https://seu-dominio.com/api/health
 
 # Landing page
-curl https://seu-dominio.vercel.app
+curl https://seu-dominio.com
 
 # Admin
-# Acesse: https://seu-dominio.vercel.app/admin
+curl -I https://seu-dominio.com/admin
 ```
 
  > 📚 **Documentação:** veja a seção "Documentação Consolidada" no final deste arquivo.
@@ -561,6 +540,7 @@ zappro-ajudatec-wilrefrimix/
 - Padrão de tasks centralizado em `TASKMASTER.md` com templates, fluxo e critérios.
 - Todo agente/LLM deve criar tasks antes de alterações e marcar conclusão imediatamente.
 - Regras:
+  - Execução PROIBIDA sem planejamento prévio em `TASKMASTER.md` com objetivo, critérios e dependências.
   - Usar ferramentas de inspeção de código para localizar e compreender contexto.
   - Editar arquivos com segurança, sem expor segredos nem criar ruído.
   - Validar alterações com `npm run lint` e `npm run typecheck` quando aplicável.
@@ -581,6 +561,13 @@ zappro-ajudatec-wilrefrimix/
 
 - Fila inicial inclui: provisionar Supabase via MCP, SQL sandbox, descoberta/download/triagem/ingestão, smoke do Upstash, tuning RAG.
 - Rotina noturna processa apenas tasks com `state=ready` e promove em sequência.
+
+### Seed de Banco
+
+- Script: `apps/saas/scripts/seed-db.mjs` insere dispositivos, manuais e códigos de alarme de forma idempotente.
+- Requisitos: `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`.
+- Uso: `node apps/saas/scripts/seed-db.mjs`.
+- Resultado: JSON com contagem de registros e duração.
 
 ---
 

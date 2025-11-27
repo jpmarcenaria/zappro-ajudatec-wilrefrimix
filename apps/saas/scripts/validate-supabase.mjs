@@ -3,18 +3,23 @@ import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 function loadEnv() {
-  const p = join(process.cwd(), 'apps', 'saas', '.env')
-  if (!existsSync(p)) return
-  const txt = readFileSync(p, 'utf8')
-  for (const line of txt.split(/\r?\n/)) {
-    const s = line.trim()
-    if (!s || s.startsWith('#')) continue
-    const i = s.indexOf('=')
-    if (i <= 0) continue
-    const k = s.slice(0, i).trim()
-    let v = s.slice(i + 1).trim()
-    if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1)
-    process.env[k] = v
+  const candidates = [
+    join(process.cwd(), '.env'),
+    join(process.cwd(), '..', '..', '.env')
+  ]
+  for (const p of candidates) {
+    if (!existsSync(p)) continue
+    const txt = readFileSync(p, 'utf8')
+    for (const line of txt.split(/\r?\n/)) {
+      const s = line.trim()
+      if (!s || s.startsWith('#')) continue
+      const i = s.indexOf('=')
+      if (i <= 0) continue
+      const k = s.slice(0, i).trim()
+      let v = s.slice(i + 1).trim()
+      if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1)
+      process.env[k] = v
+    }
   }
 }
 
@@ -48,6 +53,18 @@ async function testPgvectorMatch() {
   try {
     const vec = Array(1536).fill(0.0)
     const { data, error } = await client.rpc('match_faq', { query_embedding: vec, match_threshold: 0.0, match_count: 1 })
+    if (error) throw error
+    t.ok = true
+    t.data = { rows: Array.isArray(data) ? data.length : 0 }
+  } catch (e) { t.error = e?.message || String(e) }
+  return t
+}
+
+async function testManualChunksRPC() {
+  const t = { name: 'pgvector_match_manual_chunks', ok: false, error: '', data: {} }
+  try {
+    const vec = Array(1536).fill(0.0)
+    const { data, error } = await client.rpc('match_manual_chunks', { query_embedding: vec, filter_brand: null, filter_model: null, match_threshold: 0.0, match_count: 1 })
     if (error) throw error
     t.ok = true
     t.data = { rows: Array.isArray(data) ? data.length : 0 }
@@ -160,6 +177,7 @@ async function main() {
   const results = []
   results.push(await testDbBasic())
   results.push(await testPgvectorMatch())
+  results.push(await testManualChunksRPC())
   results.push(await testAuthFlow())
   results.push(await testStorage())
   results.push(await testCacheRPCs())

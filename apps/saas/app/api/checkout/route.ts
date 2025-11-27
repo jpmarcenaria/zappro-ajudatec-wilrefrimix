@@ -5,6 +5,18 @@ import { record } from '../../../lib/monitor'
  * Rota de API para criar Stripe Checkout Session
  * Suporta pagamento único de R$ 99,90
  */
+export async function OPTIONS() {
+  const origin = (() => { try { return new URL(process.env.NEXT_PUBLIC_WEBSITE_URL || '').origin } catch { return '' } })()
+  return new Response(null, {
+    status: 204,
+    headers: {
+      ...(origin ? { 'Access-Control-Allow-Origin': origin } : {}),
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  })
+}
+
 export async function POST(req: Request) {
   const t0 = Date.now()
   const allowed = process.env.ALLOWED_ORIGIN || process.env.NEXT_PUBLIC_WEBSITE_URL || ''
@@ -71,14 +83,4 @@ export async function POST(req: Request) {
   }
 }
 
-export async function OPTIONS() {
-  const origin = (() => { try { return new URL(process.env.NEXT_PUBLIC_WEBSITE_URL || '').origin } catch { return '' } })()
-  return new Response(null, {
-    status: 204,
-    headers: {
-      ...(origin ? { 'Access-Control-Allow-Origin': origin } : {}),
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  })
-}
+ 

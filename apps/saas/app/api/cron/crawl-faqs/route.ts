@@ -2,21 +2,7 @@ export const config = {
     runtime: 'edge',
 };
 
-/**
- * Vercel Cron Job - Crawling Automático de FAQs
- * Roda diariamente às 3h da madrugada (horário Vercel UTC)
- * 
- * Configurar em vercel.json:
- * {
- *   "crons": [{
- *     "path": "/api/cron/crawl-faqs",
- *     "schedule": "0 3 * * *"
- *   }]
- * }
- */
-
 export async function GET(req: Request) {
-    // Verificar autorização (Vercel Cron envia header especial)
     const authHeader = req.headers.get('authorization');
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         return new Response('Unauthorized', { status: 401 });

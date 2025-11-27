@@ -3,8 +3,13 @@ import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 try {
-  const envPath = join(process.cwd(), 'apps', 'saas', '.env')
-  if (existsSync(envPath)) {
+  const candidates = [
+    join(process.cwd(), 'apps', 'saas', '.env'),
+    join(process.cwd(), '.env'),
+    join(process.cwd(), '..', '..', '.env')
+  ]
+  for (const envPath of candidates) {
+    if (!existsSync(envPath)) continue
     const txt = readFileSync(envPath, 'utf8')
     for (const line of txt.split(/\r?\n/)) {
       const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
