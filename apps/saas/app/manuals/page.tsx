@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/navigation'
 import { BookOpen, ChevronRight, Loader2, Search } from 'lucide-react'
 
 type Manual = { id: string; title: string; pdf_url?: string | null; source?: string | null }
 type ModelItem = { model: string; device_id: string; manuals: Manual[] }
 type BrandGroup = { brand: string; models: ModelItem[] }
+type DeviceDTO = { id: string; brand: string; model: string }
 
 export default function ManualsPage() {
   const router = useRouter()
@@ -23,35 +25,85 @@ export default function ManualsPage() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const r = await fetch('/api/manuals/list')
-        if (!r.ok) throw new Error('failed_list')
-        const j = await r.json()
-        const groups: BrandGroup[] = (j?.brands || [])
-        setBrands(groups)
-        if (groups.length) setActiveBrand(groups[0].brand)
-        const firstModels = groups[0]?.models || []
-        if (firstModels.length) setActiveModel(firstModels[0].model)
-        const totalBrands = groups.length
-        const totalModels = groups.reduce((a, b) => a + (b.models?.length || 0), 0)
-        const totalManuals = groups.reduce((a, b) => a + (b.models || []).reduce((x, m) => x + (m.manuals?.length || 0), 0), 0)
-        setStats({ brands: totalBrands, models: totalModels, manuals: totalManuals })
-        function unitType(s: string) {
-          const t = s.toLowerCase()
-          if (/cassete|cassette/.test(t)) return 'Split Cassete'
-          if (/piso\s*\/\s*teto|piso.*teto|floor|ceiling/.test(t)) return 'Piso/Teto'
-          if (/janela|window/.test(t)) return 'Janela'
-          if (/coluna|floor\s*standing/.test(t)) return 'Coluna'
-          if (/multi|outdoor\s*units|multi-split/.test(t)) return 'Multi-Split Externo'
-          return 'Split High Wall'
-        }
-        const dist: Record<string, number> = {}
-        for (const b of groups) {
-          for (const m of b.models || []) {
-            const base = unitType(m.model)
-            dist[base] = (dist[base] || 0) + 1
+        const r = await fetch('/api/manuals/list', { cache: 'no-store' })
+        if (!r.ok) {
+          const url = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+          const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+          if (url && anon) {
+            const supa = createClient(url, anon)
+            const { data: devices } = await supa.from('hvacr_devices').select('id, brand, model').order('brand', { ascending: true }).order('model', { ascending: true })
+            const { data: manuals } = await supa.from('manuals').select('id, title, pdf_url, source, device_id')
+            const manualsByDevice: Record<string, Manual[]> = {}
+            for (const m of (manuals || []) as (Manual & { device_id?: string | null })[]) {
+              const did = m.device_id || ''
+              if (!did) continue
+              if (!manualsByDevice[did]) manualsByDevice[did] = []
+              manualsByDevice[did].push({ id: m.id, title: m.title, pdf_url: m.pdf_url ?? null, source: m.source ?? null })
+            }
+            const byBrand: Record<string, { brand: string; models: Array<{ model: string; device_id: string; manuals: Manual[] }> }> = {}
+            for (const d of (devices || []) as DeviceDTO[]) {
+              if (!byBrand[d.brand]) byBrand[d.brand] = { brand: d.brand, models: [] }
+              byBrand[d.brand].models.push({ model: d.model, device_id: d.id, manuals: manualsByDevice[d.id] || [] })
+            }
+            const groups: BrandGroup[] = Object.values(byBrand)
+            setBrands(groups)
+            if (groups.length) setActiveBrand(groups[0].brand)
+            const firstModels = groups[0]?.models || []
+            if (firstModels.length) setActiveModel(firstModels[0].model)
+            const totalBrands = groups.length
+            const totalModels = groups.reduce((a, b) => a + (b.models?.length || 0), 0)
+            const totalManuals = groups.reduce((a, b) => a + (b.models || []).reduce((x, m) => x + (m.manuals?.length || 0), 0), 0)
+            setStats({ brands: totalBrands, models: totalModels, manuals: totalManuals })
+            function unitType(s: string) {
+              const t = s.toLowerCase()
+              if (/cassete|cassette/.test(t)) return 'Split Cassete'
+              if (/piso\s*\/\s*teto|piso.*teto|floor|ceiling/.test(t)) return 'Piso/Teto'
+              if (/janela|window/.test(t)) return 'Janela'
+              if (/coluna|floor\s*standing/.test(t)) return 'Coluna'
+              if (/multi|outdoor\s*units|multi-split/.test(t)) return 'Multi-Split Externo'
+              return 'Split High Wall'
+            }
+            const dist: Record<string, number> = {}
+            for (const b of groups) {
+              for (const m of b.models || []) {
+                const base = unitType(m.model)
+                dist[base] = (dist[base] || 0) + 1
+              }
+            }
+            setTypesDist(dist)
+            setError('')
+          } else {
+            throw new Error('Configuração de Supabase ausente')
           }
+        } else {
+          const j = await r.json()
+          const groups: BrandGroup[] = (j?.brands || [])
+          setBrands(groups)
+          if (groups.length) setActiveBrand(groups[0].brand)
+          const firstModels = groups[0]?.models || []
+          if (firstModels.length) setActiveModel(firstModels[0].model)
+          const totalBrands = groups.length
+          const totalModels = groups.reduce((a, b) => a + (b.models?.length || 0), 0)
+          const totalManuals = groups.reduce((a, b) => a + (b.models || []).reduce((x, m) => x + (m.manuals?.length || 0), 0), 0)
+          setStats({ brands: totalBrands, models: totalModels, manuals: totalManuals })
+          function unitType(s: string) {
+            const t = s.toLowerCase()
+            if (/cassete|cassette/.test(t)) return 'Split Cassete'
+            if (/piso\s*\/\s*teto|piso.*teto|floor|ceiling/.test(t)) return 'Piso/Teto'
+            if (/janela|window/.test(t)) return 'Janela'
+            if (/coluna|floor\s*standing/.test(t)) return 'Coluna'
+            if (/multi|outdoor\s*units|multi-split/.test(t)) return 'Multi-Split Externo'
+            return 'Split High Wall'
+          }
+          const dist: Record<string, number> = {}
+          for (const b of groups) {
+            for (const m of b.models || []) {
+              const base = unitType(m.model)
+              dist[base] = (dist[base] || 0) + 1
+            }
+          }
+          setTypesDist(dist)
         }
-        setTypesDist(dist)
       } catch (e: any) {
         setError(e?.message || 'Erro ao carregar biblioteca')
       } finally {

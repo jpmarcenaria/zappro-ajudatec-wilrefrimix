@@ -37,7 +37,7 @@ export default defineConfig({
   // Configurações compartilhadas
   use: {
     // URL base
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3001',
 
     // Trace on first retry
     trace: 'on-first-retry',

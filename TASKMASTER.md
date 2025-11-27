@@ -96,15 +96,37 @@
       "EXPLAIN ANALYZE dentro dos limites"
     ]
   }
+  ,
+  {
+    "id": "billing-schema",
+    "type": "feature",
+    "title": "Provisionar schema de billing e perfis",
+    "acceptance_criteria": [
+      "Tabelas profiles/billing_* criadas",
+      "RLS aplicada com service_role para escrita",
+      "Assinatura trial registrada"
+    ]
+  },
+  {
+    "id": "trial-limits",
+    "type": "ops",
+    "title": "Configurar limites de trial",
+    "acceptance_criteria": [
+      "Tabela trial_limits criada",
+      "Leitura pelo próprio usuário",
+      "Resets diários funcionando"
+    ]
+  }
 ]
 ```
 
 ## Guia de Configuração
-1. Definir variáveis no `.env.example` (RAG_* e Redis)
-2. Provisionar `apps/saas/db/vector.sql` no Supabase
-3. Ajustar parâmetros de índice conforme volume (HNSW/IVFFlat)
-4. Ativar cache semântico com TTL e medir hit‑rate
-5. Medir latência e ajustar `matchThreshold` e top-k
+1. Definir variáveis no `.env.example` (RAG_*, Redis, Stripe)
+2. Provisionar `apps/saas/db/vector.sql` e `apps/saas/db/vector-full.sql` no Supabase
+3. Executar `scripts/apply-db.sh` via WSL ou Docker Compose
+4. Ajustar parâmetros de índice conforme volume (HNSW/IVFFlat)
+5. Ativar cache semântico com TTL e medir hit‑rate
+6. Medir latência e ajustar `matchThreshold` e top-k
 
 ## Redis & Prompt Navegador LLM
 - Variáveis: `REDIS_URL`, `REDIS_TLS`, `CACHE_TTL_SECONDS` (padrão 900s)
@@ -215,16 +237,82 @@
     ]
   },
   {
-    "id": "cache-smoke-endpoint",
-    "type": "feature",
-    "title": "Endpoint de smoke Upstash",
-    "description": "Criar /api/cache/test com set/get TTL",
+    "id": "mcp-access-token",
+    "type": "ops",
+    "title": "Configurar SUPABASE_ACCESS_TOKEN",
+    "description": "Habilitar MCP Supabase no Trae IDE para DDL/migrações",
     "state": "ready",
     "acceptance_criteria": [
-      "200 OK",
-      "set/get TTL funcionando",
-      "logs registram cache_hit/cache_miss"
-    ]
+      "list_organizations retorna dados",
+      "list_projects funciona",
+      "apply_migration conectado"
+    ],
+    "progress": 0
+  },
+  {
+    "id": "admin-charts",
+    "type": "feature",
+    "title": "Gráficos de latência e hit-rate",
+    "description": "Adicionar gráficos simples no Admin com dados do monitor",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Latência média por rota em gráfico",
+      "Hit/Miss do cache em linha/barra",
+      "Atualização a cada 5s"
+    ],
+    "progress": 0
+  },
+  {
+    "id": "hit-rate-validation",
+    "type": "ops",
+    "title": "Validar hit-rate em produção",
+    "description": "Medir hit-rate e ajustar TTL conforme uso real",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Relatório semanal do hit-rate",
+      "TTL ajustado e documentado",
+      "p95 mantido < 500ms"
+    ],
+    "progress": 0
+  },
+  {
+    "id": "manuals-ui-fix",
+    "type": "feature",
+    "title": "Corrigir Biblioteca de Manuais",
+    "description": "Remover erro failed_list e adicionar fallback Supabase anon",
+    "state": "in_progress",
+    "acceptance_criteria": [
+      "Página lista sem 403/500",
+      "Fallback client supabase funciona",
+      "UX mantém contadores e busca"
+    ],
+    "progress": 50
+  },
+  {
+    "id": "chat-senior-quality",
+    "type": "refactor",
+    "title": "Aprimorar respostas do chatbot",
+    "description": "Refinar prompt, validação e respostas técnicas padronizadas",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Respostas com valores e passos objetivos",
+      "Validação impede respostas genéricas",
+      "Loga avgSimilarity/topChunkSimilarity"
+    ],
+    "progress": 0
+  },
+  {
+    "id": "deploy-progress-bar",
+    "type": "feature",
+    "title": "Barra de Progresso de Deploy",
+    "description": "Calcular % concluído da fila e exibir no Admin",
+    "state": "ready",
+    "acceptance_criteria": [
+      "% por estado e % geral",
+      "Atualização automática",
+      "Link para detalhes das tasks"
+    ],
+    "progress": 0
   },
   {
     "id": "rag-bench-tuning",
@@ -236,6 +324,103 @@
       "p95 < 500ms",
       "recall@5 >= 0.80",
       "parâmetros documentados"
+    ]
+  }
+  ,
+  {
+    "id": "triage-local-pdfs",
+    "type": "feature",
+    "title": "Triagem e relatório de PDFs locais",
+    "description": "Classificar service_manual e gerar local_scan_results.json",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Relatório gerado",
+      ">= 50 PDFs classificados",
+      ">= 80% confiança service_manual"
+    ]
+  },
+  {
+    "id": "ingest-pdfs-chunks",
+    "type": "feature",
+    "title": "Extrair texto, chunkar e inserir embeddings",
+    "description": "Rodar ingestão a partir de data/manuals usando pdf-parse + embeddings",
+    "state": "ready",
+    "acceptance_criteria": [
+      ">= 1000 chunks inseridos",
+      "ANALYZE manual_chunks",
+      "RPC match retorna top-5"
+    ]
+  },
+  {
+    "id": "redis-cache-semantic-test",
+    "type": "ops",
+    "title": "Teste smoke de cache semântico",
+    "description": "Validar set/get TTL via /api/cache/test",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Endpoint retorna ok=true",
+      "Server-Timing presente",
+      "TTL respeitado"
+    ]
+  },
+  {
+    "id": "pgvector-rpc-test",
+    "type": "ops",
+    "title": "Validar extensão pgvector e RPC match_manual_chunks",
+    "description": "Checar presença de índices e resposta do RPC",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Extensão ativa",
+      "Índice ivfflat presente",
+      "RPC retorna linhas"
+    ]
+  },
+  {
+    "id": "chatbot-refine",
+    "type": "refactor",
+    "title": "Refinar respostas e roteamento do chatbot",
+    "description": "Ajustar filtros brand/model, thresholds e respostas técnicas",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Respostas citam seção/página",
+      "Fallback web com link oficial",
+      "LLM curto sem valores inventados"
+    ]
+  },
+  {
+    "id": "ui-buttons-tests",
+    "type": "feature",
+    "title": "Testes Playwright dos botões principais",
+    "description": "Cobrir CTA, Chat enviar, Biblioteca busca",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Todos botões visíveis",
+      "Clicks sem erro",
+      "Trace opcional on"
+    ]
+  },
+  {
+    "id": "trial-login-tests",
+    "type": "feature",
+    "title": "Testes de login e contagem de trial",
+    "description": "Validar criação de usuário e limites de trial",
+    "state": "ready",
+    "acceptance_criteria": [
+      "SignUp ok",
+      "trial_limits atualizado",
+      "Bloqueio após limite"
+    ]
+  },
+  {
+    "id": "remarketing-tables",
+    "type": "feature",
+    "title": "Criar tabelas de remarketing",
+    "description": "Provisionar contacts/events com RLS",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Tabelas criadas",
+      "RLS correta",
+      "Insert e select funcionam"
     ]
   }
 ]

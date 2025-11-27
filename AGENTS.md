@@ -25,7 +25,7 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
    - `manual_chunks(id, manual_id, page, section, content, embedding vector(1536))`
    - `alarm_codes(id, device_id, code, title, severity, resolution, created_at)`
  - Índice: `ivfflat` em `manual_chunks.embedding` com `vector_cosine_ops` e `lists=100`.
- - RPC: `match_manual_chunks(query_embedding, filter_brand, filter_model, match_threshold, match_count)` retorna `manual_id, page, section, content, similarity`.
+- RPC: `match_manual_chunks(query_embedding, filter_brand, filter_model, match_threshold, match_count)` retorna `manual_id, page, section, content, similarity`.
  - Pipeline de ingestão:
    - Descobrir PDFs em `data/manuals/<fabricante>/<marca>/<modelo>/*.pdf`.
    - Extrair texto, limpar, chunkar 500–1000 tokens (overlap 100–200), preservar seção.
@@ -35,7 +35,16 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
    - 1) BD RAG com filtros de `brand/model` e `threshold` 0.72.
    - 2) Web: link oficial do fabricante e instrução de upload.
    - 3) LLM: resposta curta baseada em boas práticas quando não houver contexto.
- - Cache recomendado: Redis por `brand:model:query_hash` com TTL 1–24h.
+- Cache recomendado: Redis por `brand:model:query_hash` com TTL 1–24h.
+
+## Auth e Pagamentos
+
+- Perfis: `profiles(id, email, full_name, created_at, updated_at)` referência `auth.users(id)`.
+- Clientes: `billing_customers(user_id, stripe_customer_id)` com acesso apenas de `service_role` para escrita.
+- Produtos/Preços: `billing_products` e `billing_prices` com leitura pública e escrita `service_role`.
+- Assinaturas: `billing_subscriptions(user_id, stripe_subscription_id, status, trial_end, current_period_start/end)` com leitura pelo próprio usuário e escrita `service_role`.
+- Trial: `trial_limits(user_id, daily_messages_used, last_reset_at, trial_expires_at)` com leitura pelo próprio usuário e escrita `service_role`.
+- RLS: leitura autenticada, escrita exclusiva `service_role` nas tabelas de ingestão e billing.
 
 ## Padrão de Resposta
 
