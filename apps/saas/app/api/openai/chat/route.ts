@@ -1,4 +1,4 @@
-import { record } from '../../../../lib/monitor'
+import { record, log } from '../../../../lib/monitor'
 import { createHash } from 'node:crypto'
 import { rateLimit } from '../../../../lib/rate-limit'
 import { validateEnv } from '../../../../lib/env-validator'
@@ -314,7 +314,9 @@ export async function POST(req: Request) {
         let chunksError: any = null
         if (cachedChunks && Array.isArray(cachedChunks) && cachedChunks.length > 0) {
           chunks = cachedChunks
+          try { log('info', `rag_cache hit brand=${brandName || ''} model=${modelName || ''} len=${cachedChunks.length}`) } catch {}
         } else {
+          try { log('info', `rag_cache miss brand=${brandName || ''} model=${modelName || ''}`) } catch {}
           const r = await supa.rpc('match_manual_chunks', {
             query_embedding: embedding,
             filter_brand: brandName,
@@ -328,6 +330,7 @@ export async function POST(req: Request) {
             try {
               const payload = encodeURIComponent(JSON.stringify(chunks))
               await fetch(`${restUrl}/set/${encodeURIComponent(cacheKey)}/${payload}?EX=${ttl}`, { method: 'POST', headers: { Authorization: `Bearer ${restToken}` } })
+              try { log('info', `rag_cache set brand=${brandName || ''} model=${modelName || ''} len=${chunks.length} ttl=${ttl}`) } catch {}
             } catch {}
           }
         }
