@@ -4,7 +4,7 @@ export const RAG_CONFIG = {
         dimensions: 1536
     },
     retrieval: {
-        matchThreshold: 0.65,
-        matchCount: 5
+        matchThreshold: 0.72,
+        matchCount: 10
     }
 } as const;

@@ -1,0 +1,1924 @@
+{
+  "count": 274,
+  "ok": 0,
+  "invalid": 2,
+  "error": 272,
+  "items": [
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/Manual%20de%20Instalacao%20Ecoswing%20R32%20Frio.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTK-B Series",
+      "url": "https://d3nq8rpsskbdh6.cloudfront.net/userfiles/documents/pm/-d/cr/pm-dcrg+(1).pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://5.imimg.com/data5/SELLER/Doc/2024/9/450765271/YZ/UP/ZC/20264127/air-conditioning-ducting-service.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://www.daikin.eu/content/dam/document-library/installation-manuals/ac/split/ftxp-n/FTXP20-35N.ATXP-N_Installation%20manual_3PEN650253-9T_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://www.daikin.pt/content/dam/document-library/operation-manuals/ac/split/ftxp-l/FTXP-L_3PEN511999-1C_2018_01_Operation%20manual_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://www.daikin.pt/content/dam/document-library/installation-manuals/ac/split/ftxp-n/FTXP50-71N_Installation%20manual_3PEN695637-2A_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTK-B Series",
+      "url": "https://www.rsl.ca/UserFiles/Documents/ft/kb/_f/ftkb_ftxb_partslist.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.rahmanheatac.com/wp-content/uploads/Daikin-AC-System.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://backend.daikincomfort.com/docs/default-source/product-documents/residential/manuals/servicemanual/sm-ftxr_tvju-rx_rmvju9a.pdf",
+      "status": "invalid"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.daikin.ch/content/dam/document-library/installation-manuals/ac/split/FTXC25-60A,RXC25-60A_R08019045616_Installation%20manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.daikin.eu/content/dam/document-library/installation-manuals/ac/split/FTXJ-MW_FTXJ-MS_3PEN393185-6K_Installation%20manuals_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "EcoSwing Smart Gold",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/manual-de-operacao-daikin-ecoswing-gold.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.daikin.ch/content/dam/document-library/installation-manuals/ac/split/CTXA-AW,%20FTXA-AW,%20CTXA-AS,%20CTXA-BS,%20FTXA-AS,%20FTXA-BS,%20CTXA-AT,%20CTXA-BT,%20FTXA-AT,%20FTXA-BT,%20CTXA-BB,%20FTXA-BB_3PEN482320-7P_2019_06_Installation%20manual_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "EcoSwing Smart Gold",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Daikin/manual-de-instalacao-daikin-ecoswing-gold.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://backend.daikincomfort.com/docs/default-source/product-documents/residential/manuals/servicemanual/sius042113ea_rxm-ftxm-w-service-manual.pdf",
+      "error": "curl: (22) The requested URL returned error: 403\n",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTK-B Series",
+      "url": "http://www.daikintech.co.uk/Data/Split-Sky-Air-Indoor/FTXS/2003/FTXS-BVMB/FTXS25-35BVMB/FTXS25-35BVMB_SM.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "EcoSwing Smart Gold",
+      "url": "https://sebrae.com.br/Sebrae/Portal%20Sebrae/UFs/SP/Licita%C3%A7%C3%A3o%20UF/Contratos/258%20-%20Proc.%201614-24%20-%20CONTRATO%200079-25%20-%20ARMANT.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "EcoSwing Smart Gold",
+      "url": "https://clubecuritibano.com.br/storage/upload/editais/6744da9893f9d.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "EcoSwing Smart Gold",
+      "url": "https://www.daikin.pt/content/dam/document-library/installation-manuals/ac/split/ftxm-k/FTXM35-50K3V1B_3PPT387973-3D_Installation%20manuals_Portuguese.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://9c580f1bae99d6451e8b-d36fcf9b0d0f0bc8b4683afb80631f1e.ssl.cf1.rackcdn.com/LG/MFL72002113_ManualOwner_(EN%20)_R32%2060335%20WL%20INV_US_Rev.01_112123.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://www.lg.com/content/dam/channel/wcms/au/support/products/documents/S24AWN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://www.lg.com/content/dam/channel/wcms/ph/business/download/airsolution/AMNQ18GTQA1%20Multi-Split%204-Way%20Cassette%20Service%20manual_English_20220106_173512532_.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://www.lg.com/us/support/products/documents/MFL67647124-English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://s6e1619fceb451b6f.jimcontent.com/download/version/1507446802/module/11861316799/name/LG%20Air%20Conditioner%20F24AHJ-NT5%2C%20F24AHJ-NT5%20Service%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.daikinindia.com/sites/default/files/GTKW-Installation-Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "FTKP Series",
+      "url": "https://climaproyectos.com.mx/wp-content/uploads/2025/06/MANUAL-DE-INSTALACION-DAIKIN-FTKP-CP.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://www.leverosintegra.com.br/download/manuais/LG/catalogo-lg-dual-inverter-voice-12000-btus-r32.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://www.leverosintegra.com.br/download/manuais/LG/catalogo-dual-inverter-voice-24-r32.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://www.lg.com/content/dam/channel/wcms/br/business/download/airsolution/2201_Manual%20de%20Servicos%20Chiller%20Scroll_20220701_131000449_.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://www.lg.com/content/dam/subsidiary/latam/brazil/suporte/shared/loja-online-lg/C2024018198-regulamento-premium-delivery-atualizacao-maio-10-05-2024-agreement.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://images.colombo.com.br/produtos/464637/464637_1531316749554.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://poloar.vteximg.com.br/arquivos/hw-lg-s3-w18kl31a-ficha-tecnica.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://www.lg.com/content/dam/subsidiary/latam/brazil/suporte/shared/manuais/9K%20Btus_Dual%20Inverter_R32_Installation%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Voice +AI",
+      "url": "https://www.lg.com/content/dam/channel/wcms/br/business/download/airsolution/Manual%20de%20Instalacao%20HW_Art%20Cool%20Multi_20240207_054707565_.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://klimauredjaji.com/public/LG%20service%20manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "WGM076FGA",
+      "url": "https://pdf.webarcondicionado.com.br/lg/manual/usuario/split-hi-wall-lg-WGM076FGA.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://docs.oracle.com/en/servers/x86/x7-8/service-manual/E71936.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://pdf.webarcondicionado.com.br/samsung/manual/usuario/mdu-split-hi-wall-asv09psbt-asv12psbt-asv18psbt-asv24psbt-smart-inverter.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://20200354.fs1.hubspotusercontent-na1.net/hubfs/20200354/downloads/Ewing-2022-Product-Catalog-med.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://www.ftc.gov/system/files/documents/public_events/1548288/transcript_privacycon_2020_virtual_event_07212020.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://hal.science/hal-04637901v1/file/2024-31-01%20Database%20Search%20TLR%20Reliance.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://www.ssemmthembu.co.za/images/PDFs/SSEM-Mthembu/SSEM-Product-Overview-2025.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://lg-b2b.ru/upload/uf/dd1/lg-universal-system-air-conditioner-service-manual-162.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "WindFree Connect",
+      "url": "https://hii-life.com/ECOM-PIM/pws-assets/PC1NWFMAN/document/user-manual/PC1NWFMAN_User-Manual_1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "WindFree Connect",
+      "url": "https://www.essencompany.com/wp-content/uploads/2022/03/Servicemanual-Avant-09-24-RAC-eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "WindFree Connect",
+      "url": "https://s3.amazonaws.com/samsung-files/Tech_Files/RAC/WindFree+3.0_AR+C/Service+Manual/SERVICE+MANUAL_WindFree+3.0(CSDA)+and+3.0e+(CSFCM)_V2_09252023.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Fujitsu/manual-de-instalacao-fujitsu-hw-airstage.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "WindFree Connect",
+      "url": "https://images.samsung.com/is/content/samsung/assets/es/docs/TDB-HVM_FCU_Cassette_1_Via-FCU_Wind_Free.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "WindFree Connect",
+      "url": "https://www.rsl.ca/UserFiles/Documents/wi/nd/+f/wind+free+2.0_quantum+2.0_idu+odu+inst+manual_db68-08807a_english_1912023.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://www.fujitsu-general.com/shared/ca/pdf-fgus-vrf-ctlg-2023-01.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://www.fujitsugeneral.com/shared/us/pdf-fgus-vrf-2022-01.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "WindFree Connect",
+      "url": "https://refripartes.com/uploads/User%20Manual%20-%20Excellence%20Wind%20Free.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://www.benoist.com/media/30/05/6f/1751364169/fujitsu-uty-lnhu-catalog-ast-fujitsu-uty-lnhu-catalog.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://www.smarterair.com.au/wp-content/uploads/2021/04/fujitsu-vrf-product-catalogue.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://cdn.master.ca/documents/en/fujitsu/Fujitsu_Altair_700_KMAS+CAN-EN-MG.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://thermocold.com.cy/wp-content/uploads/2015/05/AIRSTAGE-J-II.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "http://www.winfinity.com.sg/wp-content/uploads/2018/08/Airstage-J-II.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Dual Inverter Split",
+      "url": "https://coolconnect.nl/media/fluxfile_files/UM_Smart_ThinQ_12_16_LfMAkGr.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://assets.unilogcorp.com/267/ITEM/DOC/Fujitsu_ASUH30LPAS_Service_Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://www.fujitsugeneral.com/us/resources/pdf/support/downloads/pdf-fcus-support-ctlg-626fg2028-2023-10.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Airstage Premium",
+      "url": "https://www.fujitsuklima.hu/vmfiles/attachments/vrf_atw_multi/vrf_vr_2_katalogus.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://www.master.ca/media/akeneo_connector/asset_files/A/S/ASUH09KPAS_Specification_221f.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://www.fujitsu-general.com/us/resources/pdf/support/downloads/pdf-om-asug09-15lzas-01.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://img.mideadobrasil.com.br/downloads_docs/d1aad-IOM-Vita-Inverter-B-07.12--view-.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://dap.memoria.araquari.ifc.edu.br/wp-content/uploads/sites/3/2015/07/Ficha-T%C3%A9cnica6.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://s3.beijer-ref-us.cust.servinga.com/production/wit/media/56/04/82/1750973246/service-manual-fujitsu-airstage-aircon-wall-ast-4298041.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://www.fujitsuklima.hu/vmfiles/attachments/DR_AS256ES_02-ASEH07-14KJCAL.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "http://pdf.webarcondicionado.com.br/midea/manual/usuario/mdu-split-hi-wall-inverter-mp-b-0712.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "ASV Series Hi Wall",
+      "url": "https://apps.des.wa.gov/contracting/Trimble_Amd2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://www.midea.com/content/dam/midea-aem/br/climatizacao/hiwall/ar-condicionado-springer-midea-airvolution-inverter-idrs/Manual%20de%20usu%C3%A1rio%20(3).pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "AirStage Hi Wall Inverter",
+      "url": "https://www.viacomvs.com/wf-doc/fujitsu-klima-uredjaj-zidni-inverter-asyg18klca-aoyg18klta-design-technical-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.daikin.eu/content/dam/document-library/installation-manuals/ac/sky-air/fcag-b/FCAG-B_Installation%20and%20operation%20manuals_4PEN535626-1D_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://media.adeo.com/media/4606635/media.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://www.leverosintegra.com.br/download/manuais/SpringerMidea/manual-do-usuario-springer-midea-xtreme-save-connect.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://content.syndigo.com/asset/be6a2a12-dd99-4b3c-a125-b3ded2646369/original.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://img.mideadobrasil.com.br/downloads_docs/1c434-256.09.072_IOM-SHW-Springer-Midea-F-03-18--view-.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://conteudo.midea.com.br/manuais/ar-condicionado-split-inverter-18000-btu-black-edition-quente-e-frio-midea.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://www.midea.com/content/dam/midea-aem/de/kochen-backen/kochfelder/mih742fy18k1/USER-MANUAL-MIDEA-MIH742FY18K1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://www.midea.com/content/dam/midea-aem/de/hvac/rac-raumklimager%C3%A4te/xtreme-save-lite-/UM-Installation-Xtreme-Save-Lite.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "York",
+      "model": "Home Star",
+      "url": "https://arquivos.licitardigital.com.br/8361_1_2a1fd66449773f8201a3426add5fe0ca.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "York",
+      "model": "Home Star",
+      "url": "https://www.york.com/en_sg/-/media/project/jci-global/york-sites/singapore-york/pdfs/r-grac_sea_iom_-_ec_york_-_complete_-_20221008.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://www.hs-cs.nl/media/bbefafud/technical-installation-handbook.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "York",
+      "model": "Home Star",
+      "url": "https://yorktechsupply.com/wp-content/uploads/2020/04/G97CMN-44001452100-INSTALL.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://air-midea.com/upload/iblock/b79/w269qvholq556s0kv9r9qtxnp2zwx9ax.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://www.midea.com/content/dam/midea-aem/de/hvac/lcac-klimasysteme/flextruhen-wand-und-decke/UM-Installation-CellingFloor.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "Split Hi Wall Advanced",
+      "url": "https://www.daikinmea.com/content/dam/document-library/installation-manuals/ac/sky-air/FCAHG/FCAHG71-140G_4PEN482867-1_2017_03_Installation%20and%20operation%20manuals_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://www.midea.com/content/dam/midea-aem/de/hvac/rac-raumklimager%C3%A4te/oasis-plus/Installation-Manual-OP.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Elgin/Manual-Elgin-Eco-Inverter.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Elgin/manual-de-instalacao-elgin-eco-plus-ii.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://cdn.obramax.com.br/89758662_attachment_89758662_Ficha_ea45e618-d07e-4d66-9df9-58f08bd6fa7a.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://strar.vteximg.com.br/arquivos/manual-de-operacao-elgin-eco-inverter-2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "York",
+      "model": "Home Star",
+      "url": "https://www.aubinpelissier.com/app/uploads/documents/YORK/YZV/YZV%20GUIDE%20TECHNIQUE.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://images.colombo.com.br/produtos/486248/486248_1406047794636.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://assets.mlcdn.com.br/conteudoproduto/01/011444000/cliente/manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://castaticstorage.blob.core.windows.net/centralar/mds/manuais/elgin/HW%20-%20R32/3433%20a%203441%20-%203511%20-%203513%20HW%20com%20WiFi/manual%20de%20instala%C3%A7%C3%A3o%20+%20opera%C3%A7%C3%A3o%20eco%20inverter.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://whirlpool.vteximg.com.br/arquivos/Consul_Ar_Split_CBK09DB_Manual_Vers%C3%A3o_Digital_1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://whirlpool.vteximg.com.br/arquivos/split-consul-cbf12e-manual-digital.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://pdf.webarcondicionado.com.br/elgin/manual/usuario/split-hi-wall-elgin-ecologic-top-inverter.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "York",
+      "model": "Home Star",
+      "url": "https://www.energystar.gov/sites/default/files/asset/document/SizingGuidelines_0.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Springer/SPRINGER-Manual-Tecnico-Janela-Silentia-.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://pdf.webarcondicionado.com.br/consul/manual/usuario/mdu-split-hi-wall-cbf09cbbna-cbj09cbbna-cbf12cbbna-cbj12cbbna.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Elgin",
+      "model": "Eco Inverter II",
+      "url": "https://cdn2.centralar.com.br/centralar/mds/produtos/elgin/Piso%20Teto%20OnOff/3205%20a%203209%20e%203457/MANUAL%20INSTALA%C3%87%C3%83O%20PT%20ECO.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://cdn.disloja.com.br/products/4359/instruction/lee3tadq.4bx.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Brastemp",
+      "model": "Ative! Split Hi Wall",
+      "url": "https://pdf.webarcondicionado.com.br/brastemp/manual/usuario/mdu-split-hi-wall-bbf07-bbf09-bbf12-bbf18-bbf22.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Consul",
+      "model": "Bem-Estar Inverter",
+      "url": "https://pdf.webarcondicionado.com.br/consul/manual/usuario/split-inverter-consul-CBF09DBBN-CBF09DBBNA-CBF12DBBN-CBF18DBBNA-CBF18DBBN-CBF22DBBNA-CBF22DBBCJ-CBF22DBBN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Brastemp",
+      "model": "Ative! Split Hi Wall",
+      "url": "https://www.canoas.rs.gov.br/wp-content/uploads/2020/06/Anexo-26-A-Arrolamento-de-Bens-Moveis-1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Brastemp",
+      "model": "Ative! Split Hi Wall",
+      "url": "https://s202.q4cdn.com/229739679/files/doc_financials/2022/ar/1cfe8c92-5ee7-4628-a1b6-45014491d46a.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea/Springer",
+      "model": "Xtreme Save Connect",
+      "url": "https://www.midea.com/content/dam/midea-aem/th/air-conditioners/residential-air-conditioner/fixed-speed-ac/msagb-09crn8-pc6/Installation%20Manual-CS445UI-18C(AG)(%20B%20)-H1708.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Brastemp",
+      "model": "Ative! Split Hi Wall",
+      "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/w/NYSE_WHR_2008.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://www.idealair.com.au/wp-content/uploads/2017/04/Toshiba-RAS-18SKV-A_RAS-18-SAV2-A_RAS-22SKV2-A1_RAS-22SAV2-A1-1434506794.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Brastemp",
+      "model": "Ative! Split Hi Wall",
+      "url": "https://www.whirlpoolcorp.com/content/dam/business-unit/whirlpoolcorp/pdf/Whirlpool_2021_AR.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://www.toshibavarmepumper.no/globalassets/inriver/resources/r106524-installasjonsmanual-toshiba-seiya-nordic-25-35.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Midea",
+      "model": "Vita Inverter Split",
+      "url": "https://gsim2hwnpbvwtwmb1dg11z6.blob.core.windows.net/media/documents/8512543200_MDM2_USER_MANUAL_FILE_en_US.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://lagff.com/media/1d/12/1d/1696881307/Toshiba-Service-Manual-Multi-RAS-M-U2DVG-E-slim-duct-EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://planetaklimata.com.ua/instr/Toshiba/Toshiba_PKVP_Owner_Manual_Eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://www.cdlweb.info/wp-content/uploads/2019/11/20180529_OM_1120650227_Shorai_RAS-18_24PKVSG-E_RAS-18_24PAVSG-E_EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://www.shareddocs.com/hvac/docs/1001/Public/01/SVM-20105.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://gree.com.br/wp-content/uploads/2025/02/Manual-G-Prime-Inverter-Compact-full-Rev.000-2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://elclimadetuvida.es/download/manuales/SVM_RAS-B__J2FVG-E_RAS-__J2AVSG-E_(10-13-18)_M.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "RAS Series Split",
+      "url": "https://www.toshiba-aircon.co.uk/wp-content/uploads/2020/06/20190406_SM_SVM-18033-3_RAS-B22-24PKVSG-E_RAS-22-24PAVSG-E_EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Gree/manual-piso-teto-inverter-gree-g-prime.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "http://www.leverosintegra.com.br/download/manuais/Gree/manual-hw-inverter-gree-g-top.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://images.thdstatic.com/catalog/pdfImages/ae/aea3e9ab-0452-49be-a1b9-c6ffcdd80801.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://tosotamerica.com/wp-content/uploads/2020/06/User-Manual-for-G-Cloud-ME31-00C2-.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://greeac.com.au/storage/wysiwyg/files/GreeSlimlineRV-servicemanual_Pg1-38.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Brastemp",
+      "model": "Ative! Split Hi Wall",
+      "url": "https://tresbarras.pr.gov.br/files/article/11907/PARTE%201.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://gree.com.br/wp-content/uploads/2025/01/Manual-G-Prime-Inverter-Plus-Rev.000-full-2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://www.greecomfort.com/assets/our-products/livo-plus/documents/livo-plus-service-manual-9k-12k-115v-a-b.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://gree.com.br/wp-content/uploads/2025/02/Manual-G-TOP-INVERTER-Rev-005-full.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://www.komeco.com.br/arquivos/manuais/ar-condicionado/split-hi-wall/manual-ar-condicionado-split-kac-chsa.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://www.gaf.be/images/home/haier_2020_technical_manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://gree-america.com/wp-content/uploads/2020/04/Service-Manual-JF00304207.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://vonsaltiel.com.br/wp-content/uploads/2024/10/PRJ-Quality.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://planetaklimata.com.ua/instr/Gree/Gree_G-Tech_User_Manual_Eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://www.greecomfort.com/assets/our-products/vireo-plus/documents/vireo-plus-service-manual-30k-and-36k-b-c.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://www.komeco.com.br/portaltecnico/LINHA%20DE%20CONDICIONADORES%20DE%20AR/Manuais%20Tecnicos/MANUAL%20TECNICO%20KOP%20G1-%20G2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://www.komeco.com.br/arquivos/manuais/ar-condicionado/split-hi-wall/manual-ar-condicionado-split-kac-chsa1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Agratto",
+      "model": "ICS Hi Wall Neo",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Agratto/Manual-HW-Agratto-Neo-Top.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://benevides.pa.gov.br/midias/anexos/4648_6-_relatorio_de_cotacao.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Agratto",
+      "model": "ICS Hi Wall Neo",
+      "url": "https://arquivos.licitardigital.com.br/8361_1_374ee22aacdf81e1e87195533d9504f1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://ribeiraodopinhal.pr.gov.br/transparencia/5fcef6d82eca395f98928ed5cbb3abfd.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Top Connection",
+      "url": "https://greeac.com.au/storage/Lomo-Owners-Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://www.tresbarras.pr.gov.br/files/article/16992/SETEMBRO.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Agratto",
+      "model": "ICS Hi Wall Neo",
+      "url": "https://buritirana.ma.gov.br/upload/licitacao_arquivos/70316.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://www.tresbarras.pr.gov.br/attachments/article/17734/JANEIRO%20-%202025.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Agratto",
+      "model": "ICS Hi Wall Neo",
+      "url": "https://licitacao.capaobonito.sp.gov.br/wp-content/uploads/2025/02/catalogos-Agaserv-1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Agratto",
+      "model": "ICS Hi Wall Neo",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Agratto/catalogo-comercial-agratto-split-2025.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "TCL",
+      "model": "Split Inverter Series",
+      "url": "https://tcl-aircon.pl/wp-content/uploads/2024/06/tcl-u-match-2-series-dc-inverter-air-conditioners-r321.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "TCL",
+      "model": "Split Inverter Series",
+      "url": "https://tcl-aircon.ua/wp-content/uploads/2024/03/tcl-inverter-air-conditioner-service-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "TCL",
+      "model": "Split Inverter Series",
+      "url": "https://www.tcl.com/usca/content/dam/tcl/product/appliances/window-air-conditioners/download/MINI%20SPLIT%20AC%20USER%20MANUAL.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "TCL",
+      "model": "Split Inverter Series",
+      "url": "https://kondicioneri-rostov.ru/images/instruc/TCL/service-manual-elite-one.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://www.tecno-eshop.it/allegati/Manuale_italiano_monofase_deye_SUN-6K-SG03LP1-EU.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://usa.yamaha.com/files/download/other_assets/5/328815/ez150_pt.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Komeco",
+      "model": "KAC Series",
+      "url": "https://transparencia.prefeituradavitoria.pe.gov.br/uploads/5429/1/licitacao/2023/35/1761155689_67253cotacao230405080650.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://pae-web.presonusmusic.com/downloads/products/pdf/Notion_Mobile_3.1_User_Guide_ES_05042023.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "AirHome 600 Series",
+      "url": "https://www.leverosintegra.com.br/download/manuais/hitachi/Manual-de-instalacao-operacao-HW-AirHome%20600.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "TCL",
+      "model": "Split Inverter Series",
+      "url": "https://www.tcl.com/usca/content/dam/tcl/product/hvac/documents/elite-series/Elite%20Series%20Installation%20and%20Service%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "AirHome 600 Series",
+      "url": "https://www.hitachi.com/products/it/control_sys/platform/controller/manual/pdf/SVE3001B.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Philco",
+      "model": "Split Inverter PAC",
+      "url": "https://www.leverosintegra.com.br/download/manuais/philco/manual-de-instrucoes-unificado-philco-PACFC.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Philco",
+      "model": "Split Inverter PAC",
+      "url": "https://www.leverosintegra.com.br/download/manuais/Philco/manual-ar-condicionado-cassete-philco-paccfm.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Philco",
+      "model": "Split Inverter PAC",
+      "url": "https://images.colombo.com.br/produtos/904155/904155_1547116693071.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "G-Prime Inverter",
+      "url": "https://man.kievclimate.com/man/1_Disc_Gree/gree/gree.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://www.zoom.co.jp/sites/default/files/products/downloads/pdfs/I_RT323.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://static.fortuneenergy.net/file/2022/8/10/D9758073EF18602CB223FE11AF9E4F89.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://assets.hisense-usa.com/assets/ProductDownloads/443/79afa2684c/65U6H-User-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://fotosel.ro/wp-content/uploads/2024/08/Manual-de-instalare-Hisense.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://www.hisense.es/wp-content/uploads/2021/10/06_TSM_EU-AUF-48-Super-Inverter_R32-HP_V1.0-20200120.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://assets.hisense-usa.com/assets/ProductDownloads/68/62c1736693/2-User-Manual-for-Hi-Smart-v2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://media.flixcar.com/webp/synd-asset/Hisense-200863002-GetDigitDoc.aspx-sifra-20001422-jezik-sr-tipVsebine-1-docName-hisenseplusac-ind.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://www.hs-cs.nl/media/btjkc2xl/service-handleiding-hisense-free-match-buitenunit.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power Split",
+      "url": "https://www.shareddocs.com/hvac/docs/1013/Public/06/42KHC554040-R.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power Split",
+      "url": "https://www.shareddocs.com/hvac/docs/1009/Public/0C/SG-40MHH-03.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power Split",
+      "url": "https://www.carrier.com/commercial/en/ae/media/ClassiCool%2012K%20to%2072K_R410A_IOM_tcm478-51424.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power Split",
+      "url": "https://ahi-carrier.gr/wp-content/uploads/TMEDB_18CGA_XPOWER-ION_R32_3D-INV_EU_NA_Greece_2022-V2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "AirHome 600 Series",
+      "url": "https://www.hitachiaircon.su/system/docs/%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%BD%D0%B0%D1%8F_%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_VRF_%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B8%D0%B5.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power Split",
+      "url": "https://climaproyectos.com.mx/wp-content/uploads/2015/11/ODU-Carrier-Manual-de-Servicio-CP.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power Split",
+      "url": "https://www.alarko-carrier.com.tr/Data/Files/Dokumanlar/kullanim-kilavuzu/en-kullanim-kilavuzu/carrier-premium-duvar-tipi-split-klima-kk-en.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Trane",
+      "model": "MS Series Hi Wall",
+      "url": "https://elibrary.tranetechnologies.com/public/commercial-hvac/Literature/Installation%20Operation%20and%20Maintenance/MS-SVX084A-EN_10052023.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Trane",
+      "model": "MS Series Hi Wall",
+      "url": "https://elibrary.tranetechnologies.com/public/residential-hvac/Literature/Installation/MS-SVN079B-EN_06162020.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Trane",
+      "model": "MS Series Hi Wall",
+      "url": "https://residencial.trane.com.br/arquivos/multi-split-inverter/manual-iom/controles-haier/ms-prc049a-en-04292021-1.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Trane",
+      "model": "MS Series Hi Wall",
+      "url": "https://www.belleflamme.ca/wp-content/uploads/2024/12/MS-SVN049F-EN_06122020.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Trane",
+      "model": "MS Series Hi Wall",
+      "url": "https://int65-jp-trane.corp.global/content/dam/Trane/Commercial/lar/br/produtos-sistemas/equipamentos/Sistema_VRF/tvr-ultra/tvr-ultra---heat-recovery/iom/ms-box/IOM-20200523.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://www.daikinmea.com/content/dam/DameaWebsite/ProductGroups/VRV/VRV_Home/RXQ-ARV1,%20RXMQ-ARV1,%20RXMQ-ARY1%20Operation%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://daikincomfort.com/docs/default-source/vrv-iv-heat-recovery/im-reyq_tayc-(en_3p362438-9n).pdf",
+      "status": "invalid"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://www.daikinlebanon.com/content/dam/document-library/installation-manuals/ac/vrv/rxysq-tyfk/RXYSQ6TYFK_4PEN524881-1_2018_02_Installation%20and%20operation%20manual_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://www.daikin.eu/content/dam/document-library/installation-manuals/ac/vrv/rxytq-tyf/RXYTQ-TYF_IOM_4PEN388987-1_2015_03_Installation%20Manuals_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://185504.selcdn.ru/static/parts.reshops.ru/media/ESIE18-14%20Service%20Manual%20Daikin%20VRV%20IV+%20Heat%20Pump_EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://daikinac.com/docs/default-source/vrv-iv-s-series/pb-cb-vrviv-s.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://daikincomfort.com/docs/default-source/vrv-iv-heat-pump/sm-hp-sius341615e--final.pdf",
+      "error": "curl: (22) The requested URL returned error: 403\n",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://daikincomfort.com/docs/default-source/vrv-iv-s-series/sm-rxtq_tb_sius331604ef.pdf",
+      "error": "curl: (22) The requested URL returned error: 403\n",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://www.daikin.ch/content/dam/document-library/installation-manuals/ac/vrv/FXHA-A_FXUA-A_Installation%20and%20operation%20manual_3PEN668115-1C_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://www.daikin.co.uk/content/dam/document-library/declaration-of-conformity/ac/vrv/rxyq-t/RYYQ-T_RYMQ-T_RXYQ-T_IOM_4PEN329765-1B_Installation%20manuals_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://www.daikinbahrain.com/content/dam/DameaWebsite/ProductGroups/VRV/VRV-X/RXQ-ARYFK%20Service%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://daikincomfort.com/docs/default-source/vrv-iv-x-heat-pump/sm-rxyq_xatja_xayda-(sius34200.pdf",
+      "error": "curl: (22) The requested URL returned error: 403\n",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://www.daikinmea.com/content/dam/DameaWebsite/ProductGroups/VRV/VRV-X/RXQ-ARY1%20Operation%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://apps.goodmanmfg.com/training/files/54aeaf8f0ecccTB-VRV107-VRV-Commissioning-Only.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://daikincomfort.com/docs/default-source/vrv-iv-x-heat-recovery/sm-reyq_xb_sius371901ee.pdf",
+      "error": "curl: (22) The requested URL returned error: 403\n",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://a1ac1dcb67cc9f847a73-0b6da349d0197cd2922796e57d5f1d84.ssl.cf5.rackcdn.com/CMSFiles/PMAssets/PMAssets/Resource/general/1227/2008-11-14%20service%20manual_multi%20v%20ceiling%20concealed%20built-in%20duct%20units_mfl42947619_20120105122839.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://www.lg.com/content/dam/channel/wcms/br/business/download/airsolution/202409_PDB%20Multi%20V%20S%20CO_220V_20240927_223152_.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV X",
+      "url": "https://www.daikinafrica.com/content/dam/DameaWebsite/ProductGroups/VRV/VRV_Home/RXQ-ARV1,%20RXMQ-ARV1,%20RXMQ-ARY1%20Service%20Manual%201.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://media.us.lg.com/m/8a814d3766eb52d/original/IM_MultiV_S_OutdoorUnits-pdf.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://media.us.lg.com/m/532a1f0c47275b65/original/OM_MultiV_5_OutdoorUnits-pdf.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V (Antigo)",
+      "url": "https://www.lg.com/content/dam/channel/wcms/br/images/business/substituindo-seu-sistema-de-climatizacao/Catalogo_Multi_V_2021_20210826_222138316.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://csapps.jlg.com/CAGDocuments/MenuDocuments/3BB21BBD-A8F6-4514-8F92-FD2EE82AA46731200239_Dana_Axle_MO223S10.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V (Antigo)",
+      "url": "https://files.customersaas.com/files/LG_D855_G3_Manual_do_usu%C3%A1rio.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V (Antigo)",
+      "url": "https://www.leverosintegra.com.br/download/manuais/lg/manual-de-instalacao-vrf-multi-v-lg.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V (Antigo)",
+      "url": "https://cdn2.centralar.com.br/centralar/mds/manuais/lg/multi-split/9224/ar-condicionado-multi-bi-split-inverter-lg-2x9000-btus-quentefrio-220v-a2uw16gfa2-outlet-9224-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V (Antigo)",
+      "url": "https://www.criticalcomponents.net/wp-content/uploads/2018/04/TSI-operating-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Professional Multi-Split",
+      "url": "https://www.fujitsugeneral.com/us/resources/pdf/support/downloads/pdf-fcus-acuh07-18luas1-01.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://masterxoloda.ru/files/lg/service_eng_360cp_20120307154958.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V (Antigo)",
+      "url": "https://assets.unilogcorp.com/267/ITEM/DOC/LG_PREMTA000_Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Professional Multi-Split",
+      "url": "https://s3.beijer-ref-us.cust.servinga.com/production/wit/media/01/6f/1d/1750971719/service-manual-fujitsu-airstage-aircon-multisplit-outdoor-units-for-cold-climate-region-ast-4298035.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Professional Multi-Split",
+      "url": "https://www.benoist.com/media/f5/2d/c5/1728766891/fujitsu-aouh12lpas1-installation-manual-en-ast-2336689.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Professional Multi-Split",
+      "url": "https://ilovemyfujitsu.com/wp-content/uploads/2021/05/fujitsu2019-Troubleshooting-Guide.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://lg-b2b.ru/upload/uf/85e/multi-v-service-manual-air-conditioner-39.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://img.carrierdobrasil.com.br/downloads_docs/dc2c2-MServi--o-Unidades-Internas_DC-Inverter-X-Power---Rev.A-08-19.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "LG",
+      "model": "Multi V S",
+      "url": "https://lg-b2b.ru/upload/uf/4ee/multi-v-water-iv-outside-unit-service-manual-exploded-view-model-arwb-las4.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Positivo",
+      "model": "Split Inverter Techno",
+      "url": "https://www.olimpiasplendid.com/media/files/5219_274180B-5H%20MULTI%20INVERTER%2022-24HPHE.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Professional Multi-Split",
+      "url": "https://blobanarus.blob.core.windows.net/fujitsugeneralamericainc-fujitsugeneralproducts/ARUH12KUASi.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://uniclima.net/wp-content/uploads/2018/04/CAT-IN-XPower.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://www.carrier.com/commercial/th/th/media/102_Carrier-%20Thailand%20XCT8%20Brochure_25-01-2024_LR_tcm192-223575.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://www.shareddocs.com/hvac/docs/1001/Public/07/carrier-xpower-vrf-hk.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://www.shareddocs.com/hvac/docs/1001/Public/0D/38VMH-4SM.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://climaproyectos.com.mx/wp-content/uploads/2016/10/2019-Carrier-R410A-DC-Inverter-VRF-Series-5060Hz-CP.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://mispl-sg.com/wp-content/uploads/2025/01/Sales-Catalogue_XPower-VRF-2025.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "Professional Multi-Split",
+      "url": "https://www.fujitsuklima.hu/vmfiles/attachments/sm/fj_im_auyg07-09-12-14-18-22-24lvl__9379124010.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://www.midea.com/content/dam/midea-aem/global/hvac/vrf/v6r-series-heat-recovery-vrf/Midea%20V6R%20Heat%20Recovery%20VRF%20Installation%20Manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://carrierdobrasil.com.br/wp-content/uploads/2024/06/MInstalacao_UCs-VRF-Midea-V8-220V-B-05-24-view.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://air-midea.com/upload/iblock/fb2/h3lwbcw4i7ksx2dsojrtrgmzotsedov2.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "http://www.shareddocs.com/hvac/docs/1001/Public/05/45VM900002-01SI.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Daikin",
+      "model": "VRV IV",
+      "url": "https://www.daikinbahrain.com/content/dam/document-library/installation-manuals/ac/vrv/rxytq-uyf/RXYTQ-UYF_4PEN546223-1_2018_09_Installation%20and%20operation%20manual_English.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://mdv-aircond.ru/upload/iblock/f9a/8ncjjzw75xirtpx7vaml86ts7sbnwjlk.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://konstruktor-pt-cdn.s3.amazonaws.com/sap/entry_04210/MV8S-252-615WV2RN1_Installation%20and%20Owners%20Manual_ENG%2016127000004688.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://ahi-carrier.gr/wp-content/uploads/CARRIER-VRF_XCT-7.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "X-Power VRF",
+      "url": "https://www.carrierklima.hu/images/dokumentumok/Carrier-VRF-Installation-Manual-for-20_22_26-KW.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "https://www.toshiba-aircon.co.uk/wp-content/uploads/2024/05/20231122_IM_1135452001_R32_TCB-IFDLR01UP-E_EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "https://www.toshiba-aircon.co.uk/wp-content/uploads/2021/09/20210617_EN_IM_LC_VRF_DX_Interface_0_10V_R07.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hisense",
+      "model": "Hi Hisense Split",
+      "url": "https://www.hisenseestonia.ee/wp-content/uploads/2025/08/hisense_hi-mulit_2025_print.pdf.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://cdn.contentspeed.ro/pimromstal.websales.ro/cs-content/cs-docs/products/manualservicemideavrfv8v8iproeu20230306v2_68612_10_1711159510.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "http://www.shareddocs.com/hvac/docs/1001/Public/08/A10-2307_00.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "SIGMA SPLITÃO VRF",
+      "url": "https://www.master.ca/media/akeneo_connector/asset_files/H/I/HIC1006B23S_Specification_959b.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "https://klimaclassic.blob.core.windows.net/cms/Documents/6zoxYD/toshibel-v3-0-2015-en.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "SIGMA SPLITÃO VRF",
+      "url": "https://www.jci-hitachi.com.br/static/site/files/cat_Sigma_ago17.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "https://air-matyas.cz/data/filecache/07/AI_ALL_Specification.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "https://elclimadetuvida.es/download/manuales/AC_E15-3R1_EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://www.midea.com/content/dam/midea-aem/de/hvac/vrf/vr8-mini/MD24IU-099A-EN.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "VRF LC/DX Interface",
+      "url": "https://www.cdlweb.info/wp-content/uploads/2018/07/20170318_SVM-16024-5_-MMY-MAP_6FT8P-UK.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://www.mitsubishitechinfo.ca/sites/default/files/DB_Desgin_PUHY-P-T%28S%29HMU-A_U5.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://www.trane.com/content/dam/Trane/Commercial/global/products-systems/equipment/ductless/literature-web/Trane-CM%20Catalog_V8-low.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "SIGMA SPLITÃO VRF",
+      "url": "https://new.abb.com/docs/librariesprovider84/gr-files/hvac/vrf-catalog-2022-eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://planetaklimata.com.ua/instr/Mitsubishi_Electric/Mitsubishi_Electric_PUHY-RP_YJM-A_Installation_Manual_Eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "SIGMA SPLITÃO VRF",
+      "url": "https://alphaclima.gr/store/wp-content/uploads/2020/07/sigma-catalogue_2018-en-alpha_clima.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://planetaklimata.com.ua/instr/Mitsubishi_Electric/Mitsubishi_Electric_PURY-RP_YJM-B_Service_Manual_Eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://www.mitsubishitechinfo.ca/sites/default/files/SH_PURY-P72_288%28T%29%28Y%29%28S%29KMU-A_HWE1116F.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://mitsubishielectric.md/files/product-docs/mitsubishi_electric_pumy-p_vkm_ykm_service_manual_eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "http://www.mitsubishitech.co.uk/Data/HVRF/PLFY-WP-VBM-E/2018-2016/PLFY-WP-VBM-E/HVRF_Databook.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://www.hvacinformed.com/datasheets/samsung-am096bxvgjr-aa-heat-pump/co-1573563922-ga/tdb-dvm-s2-vrf-odu-heat-recovery-ver-1-1-220926.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://www.essencompany.com/wp-content/uploads/2025/02/DVM-S-Eco-installationsmanual-eng.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://res.cloudinary.com/govimg/image/upload/v1594418095/5b294f9467c0d0489028b276/Full%20Color%20DVM%20S%20Installation%20and%20Startup%20Training%20V12302019.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://s3.amazonaws.com/samsung-files/Tech_Files/DVM/DVM+S/Service+Manuals/DVM+S+Indoor+Unit+Service+Manual_AC-00015E_15_200923.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://images.samsung.com/is/content/samsung/p5/common/techinfo/common-techinfo-vrf-odu-dvm-s-2layer-for-europe-50hz-ver-1-3-tdb.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://s3.amazonaws.com/samsung-files/Tech_Files/DVM/DVM+Plus+II_DVM+Plus+III/Installation+Manuals/Outdoor+Units/RVXVHT140JA+Install+manual+INS_29532A(1)_E.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Samsung",
+      "model": "DVM VRF",
+      "url": "https://climaproyectos.com.mx/wp-content/uploads/2016/10/TDB-VRF-ODU-DVM-S-R410A-460V-60Hz-CO-for-LA_Ver.1.0-CP.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Carrier",
+      "model": "VRF Midea V8",
+      "url": "https://mdhome.com.au/wp-content/uploads/2024/07/240464a4b0b090a.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://kinghomecanada.com/wp-content/uploads/2024/11/Service-manual_Ultra-Heat-GMV6-HR-DC-Inverter-VRF.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://www.greecomfort.com/assets/our-products/multipro/documents/gmv6-ultra-heat-mini-heat-pump-208-230v-service-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://www.greecommercial.com/assets/our-products/gmv5-heat-pump-460v/documents/gmv5-heat-pump-460v-service-manual.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://gree-america.com/wp-content/uploads/2024/02/User-manual_GMV-VQ72-96-120WMC-FU.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://www.alfa90.com/wp-content/uploads/2024/04/GMV-Pdm__W_-NaB-M-Manual-Tecnico-JF00300207.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://gree-bulgaria.com/manuals/archive/136_GMV-Pd.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Gree",
+      "model": "GMV Inverter VRF",
+      "url": "https://clima2226.com/docs/Manual-de-servicios-VRF.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "SIGMA SPLITÃO VRF",
+      "url": "https://www.temperzone.com/getmedia/f714a051-a6f3-43dd-8398-29df19071382/HIT0924-Hitachi-Service-Training-Manual-2024.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "https://web-api.mitsubishi-electric.vn/Uploads/files/ctmultien-7b78dc7c-4ce2-441c-9a87-7480b5db2372.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "City Multi VRF",
+      "url": "http://www.bdt.co.nz/download/CityMulti_PreCommissioningManual_v2.1_YLM_201509.pdf",
+      "error": "TypeError: fetch failed",
+      "status": "error"
+    }
+  ]
+}

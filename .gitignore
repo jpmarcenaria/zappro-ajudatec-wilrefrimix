@@ -24,6 +24,7 @@ test-results
 .env
 .env.*
 !.env.example
+apps/saas/.env
 apps/saas/.next
 apps/saas/coverage
 apps/saas/playwright-report

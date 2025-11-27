@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { createClient } from '@supabase/supabase-js'
-import { createWriteStream, existsSync, mkdirSync, readFileSync } from 'node:fs'
+import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { pipeline as pipe } from 'node:stream/promises'
+import { spawn } from 'node:child_process'
 
 function loadDotEnv() {
   const envPath = join(process.cwd(), 'apps', 'saas', '.env')
@@ -55,23 +56,55 @@ function parseCsv(text) {
 }
 
 async function headOk(url) {
-  try {
-    const r = await fetch(url, { method: 'HEAD', redirect: 'follow' })
+  const headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',
+    'Accept': 'application/pdf,application/octet-stream;q=0.9,*/*;q=0.8'
+  }
+  async function tryOnce(method) {
+    const init = { method, redirect: 'follow', headers }
+    if (method === 'GET') init.headers = { ...headers, Range: 'bytes=0-0' }
+    const r = await fetch(url, init)
     const ct = (r.headers.get('content-type') || '').toLowerCase()
-    const ok = r.status === 200 || r.status === 206
+    const ok = r.status >= 200 && r.status < 400
     const isPdf = ct.includes('pdf') || url.toLowerCase().endsWith('.pdf')
     return ok && isPdf
-  } catch { return false }
+  }
+  try {
+    const h = await tryOnce('HEAD')
+    if (h) return true
+    return await tryOnce('GET')
+  } catch { return url.toLowerCase().endsWith('.pdf') }
 }
 
 async function downloadTo(url, filePath) {
   const dir = dirname(filePath)
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',
+      'Accept': 'application/pdf,application/octet-stream;q=0.9,*/*;q=0.8'
+    },
+    redirect: 'follow'
+  })
   if (!res.ok || !res.body) throw new Error(`http ${res.status}`)
   const ws = createWriteStream(filePath)
   await pipe(res.body, ws)
   return filePath
+}
+
+function downloadViaCurl(url, filePath) {
+  return new Promise((resolve, reject) => {
+    const dir = dirname(filePath)
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
+    const args = ['-L', '--fail', '--silent', '--show-error', '-A', 'Mozilla/5.0', '-o', filePath, url]
+    const p = spawn('curl', args)
+    let err = ''
+    p.stderr.on('data', d => { err += d.toString() })
+    p.on('close', code => {
+      if (code === 0 && existsSync(filePath)) resolve(filePath)
+      else reject(new Error(err || `curl exit ${code}`))
+    })
+  })
 }
 
 function safeName(s) {
@@ -109,6 +142,7 @@ async function upsertManual(supa, deviceId, title, source, pdfUrl) {
 async function run() {
   loadDotEnv()
   const args = parseArgs()
+  const validJson = resolve(join('pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'valid_links.json'))
   const csvPath = resolve(args.csv || join('pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'biblioteca_completa_otimizada_llm.csv'))
   const outDir = resolve(args.outDir || 'data/manuals')
   const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -119,9 +153,15 @@ async function run() {
     process.exit(1)
   }
   const supa = createClient(supaUrl, supaKey)
-  const text = readFileSync(csvPath, 'utf8')
-  const { data } = parseCsv(text)
-  const queue = [...data]
+  let queue = []
+  if (existsSync(validJson)) {
+    const items = JSON.parse(readFileSync(validJson, 'utf8')) || []
+    queue = items.map(x => ({ BRAND: x.brand, MODEL: x.model, URL: x.url }))
+  } else {
+    const text = readFileSync(csvPath, 'utf8')
+    const { data } = parseCsv(text)
+    queue = data
+  }
   const results = []
   const workers = Math.max(1, Math.min(10, args.parallel))
   async function worker() {
@@ -139,7 +179,11 @@ async function run() {
       const fileName = safeName(model) + '.pdf'
       const filePath = join(manuDir, fileName)
       try {
-        await downloadTo(url, filePath)
+        try {
+          await downloadTo(url, filePath)
+        } catch (e1) {
+          await downloadViaCurl(url, filePath)
+        }
         const deviceId = await upsertDevice(supa, brand, model, brand)
         await upsertManual(supa, deviceId, 'Manual de Serviço', fonte, url)
         results.push({ brand, model, url, path: filePath, status: 'ok', type: manuType })
@@ -153,10 +197,8 @@ async function run() {
   await Promise.all(tasks)
   const reportPath = resolve(join('pdf_manuais_hvac-r_inverter', 'arquivos_de_instrucoes', 'bootstrap_report.json'))
   mkdirSync(dirname(reportPath), { recursive: true })
-  readFileSync // prevent tree-shaking
-  require('fs').writeFileSync(reportPath, JSON.stringify({ count: results.length, ok: results.filter(r => r.status === 'ok').length, invalid: results.filter(r => r.status === 'invalid').length, error: results.filter(r => r.status === 'error').length, items: results }, null, 2))
+  writeFileSync(reportPath, JSON.stringify({ count: results.length, ok: results.filter(r => r.status === 'ok').length, invalid: results.filter(r => r.status === 'invalid').length, error: results.filter(r => r.status === 'error').length, items: results }, null, 2))
   console.log(JSON.stringify({ report: reportPath, summary: { ok: results.filter(r => r.status === 'ok').length, invalid: results.filter(r => r.status === 'invalid').length, error: results.filter(r => r.status === 'error').length } }))
 }
 
 run()
-
