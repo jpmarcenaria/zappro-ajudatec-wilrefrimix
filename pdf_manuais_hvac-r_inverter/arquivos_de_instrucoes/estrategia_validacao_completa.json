@@ -1,0 +1,204 @@
+{
+  "schema": {
+    "versao": "2.0",
+    "data_criacao": "2025-11-27",
+    "objetivo": "Biblioteca de Manuais de Serviço - AC Inverter Brasil",
+    "colunas": [
+      {
+        "nome": "ID",
+        "tipo": "string",
+        "exemplo": "DAI_FTK_001",
+        "descricao": "Identificador único: MARCA_SERIE_NUMERO"
+      },
+      {
+        "nome": "MARCA",
+        "tipo": "string",
+        "exemplo": "Daikin",
+        "descricao": "Nome do fabricante"
+      },
+      {
+        "nome": "MODELO",
+        "tipo": "string",
+        "exemplo": "FTK-B Series",
+        "descricao": "Modelo específico do equipamento"
+      },
+      {
+        "nome": "TIPO_AC",
+        "tipo": "enum",
+        "valores": [
+          "Split High Wall",
+          "Split Cassete",
+          "Piso/Teto",
+          "Janela",
+          "Coluna",
+          "Multi-Split Externo",
+          "VRF/VRV",
+          "Comercial/Industrial"
+        ],
+        "descricao": "Classificação do equipamento"
+      },
+      {
+        "nome": "TECNOLOGIA",
+        "tipo": "string",
+        "exemplo": "Full Inverter R-32",
+        "descricao": "Tipo de compressor e controle"
+      },
+      {
+        "nome": "CAPACIDADE",
+        "tipo": "string",
+        "exemplo": "9-24k",
+        "descricao": "BTU para splits, HP para VRF"
+      },
+      {
+        "nome": "REFRIGERANTE",
+        "tipo": "enum",
+        "valores": [
+          "R410A",
+          "R32",
+          "R22",
+          "R32/R410A"
+        ],
+        "descricao": "Tipo de gás refrigerante"
+      },
+      {
+        "nome": "LINK_MANUAL",
+        "tipo": "url",
+        "exemplo": "https://backend.daikincomfort.com/docs/...",
+        "descricao": "URL direto para download PDF"
+      },
+      {
+        "nome": "LINK_VALIDADO",
+        "tipo": "boolean",
+        "exemplo": "true",
+        "descricao": "Confirmação que link foi testado"
+      },
+      {
+        "nome": "HTTP_CODE",
+        "tipo": "integer",
+        "exemplo": "200",
+        "descricao": "Código HTTP da resposta (200=OK, 404=Not Found)"
+      },
+      {
+        "nome": "TIPO_MANUAL",
+        "tipo": "enum",
+        "valores": [
+          "Serviço Técnico",
+          "Instalação",
+          "Operação",
+          "Manutenção",
+          "Misto"
+        ],
+        "descricao": "Conteúdo do manual"
+      },
+      {
+        "nome": "TAMANHO_PDF_MB",
+        "tipo": "float",
+        "exemplo": "15.5",
+        "descricao": "Tamanho aproximado do arquivo"
+      },
+      {
+        "nome": "IDIOMA",
+        "tipo": "enum",
+        "valores": [
+          "Português-BR",
+          "Português",
+          "Inglês",
+          "Espanhol"
+        ],
+        "descricao": "Idioma do manual"
+      },
+      {
+        "nome": "DATA_MANUAL",
+        "tipo": "date",
+        "exemplo": "2024-03",
+        "descricao": "Mês/ano de publicação do manual"
+      },
+      {
+        "nome": "OBSERVACOES",
+        "tipo": "text",
+        "exemplo": "Manual completo com diagrama elétrico",
+        "descricao": "Notas técnicas relevantes"
+      },
+      {
+        "nome": "FONTE",
+        "tipo": "string",
+        "exemplo": "Site oficial Daikin",
+        "descricao": "Origem do link"
+      },
+      {
+        "nome": "STATUS",
+        "tipo": "enum",
+        "valores": [
+          "Ativo",
+          "Descontinuado",
+          "Não Disponível",
+          "Verificar"
+        ],
+        "descricao": "Status do modelo no mercado"
+      },
+      {
+        "nome": "DATA_VERIFICACAO",
+        "tipo": "datetime",
+        "exemplo": "2025-11-27 08:30:00",
+        "descricao": "Data/hora última verificação"
+      }
+    ]
+  },
+  "validacao": {
+    "metodo_validacao_links": {
+      "passo_1": {
+        "nome": "Teste HEAD Request",
+        "descricao": "Enviar HEAD request para cada URL para verificar disponibilidade",
+        "codigo_esperado": [
+          200,
+          206
+        ],
+        "timeout": 10,
+        "ferramentas": [
+          "requests",
+          "urllib3",
+          "curl"
+        ]
+      },
+      "passo_2": {
+        "nome": "Verificação de Redirect",
+        "descricao": "Seguir redirects e validar URL final",
+        "max_redirects": 5,
+        "timeout": 10
+      },
+      "passo_3": {
+        "nome": "Download de Amostra",
+        "descricao": "Baixar primeiros 1MB para confirmar conteúdo PDF",
+        "validar_magic_bytes": "%PDF-1",
+        "tamanho_amostra": "1MB"
+      },
+      "passo_4": {
+        "nome": "Metadados PDF",
+        "descricao": "Extrair info de páginas, tamanho, idioma, data",
+        "ferramentas": [
+          "PyPDF2",
+          "pdfplumber"
+        ]
+      }
+    },
+    "criterios_aceitacao": {
+      "link_deve": [
+        "Retornar HTTP 200, 206 ou redirect para 200",
+        "Ser URL direto para PDF (não página com download button)",
+        "Conter header Content-Type: application/pdf",
+        "Arquivo >= 100 KB (não vazio)",
+        "Arquivo <= 500 MB (razoável)",
+        "PDF válido com magic bytes corretos",
+        "Acessível sem login/cookie especial"
+      ]
+    },
+    "processo_coleta": {
+      "fase_1_pesquisa": "Buscar links em fontes oficiais, repositórios, Scribd, arquivo web",
+      "fase_2_validacao": "Testar cada link com HEAD + amostra download",
+      "fase_3_classificacao": "Marcar como Validado/Não Validado/Verificar Later",
+      "fase_4_backup": "Armazenar manuais localmente + manter URL original",
+      "fase_5_atualizacao": "Revisar trimestral para links mortos"
+    }
+  },
+  "script_python": "\n#!/usr/bin/env python3\n\"\"\"\nScript de Download Automático de Manuais AC Inverter Brasil\nUsa: Python, requests, pdfplumber, pandas\n\"\"\"\n\nimport requests\nimport pandas as pd\nimport os\nfrom pathlib import Path\nfrom datetime import datetime\nimport json\n\nclass GerenciadorManualsPDF:\n    def __init__(self, csv_file=\"biblioteca_completa.csv\", pasta_saida=\"manuais_ac\"):\n        self.df = pd.read_csv(csv_file)\n        self.pasta_saida = Path(pasta_saida)\n        self.pasta_saida.mkdir(exist_ok=True)\n        self.relatorio = []\n\n    def validar_link(self, url, timeout=15):\n        \"\"\"Valida se link está acessível\"\"\"\n        try:\n            response = requests.head(url, timeout=timeout, allow_redirects=True)\n            if response.status_code in [200, 206]:\n                return True, response.status_code\n            return False, response.status_code\n        except Exception as e:\n            return False, str(e)\n\n    def baixar_manual(self, url, caminho_destino):\n        \"\"\"Baixa PDF de URL para arquivo local\"\"\"\n        try:\n            response = requests.get(url, timeout=30, stream=True)\n            if response.status_code == 200:\n                with open(caminho_destino, 'wb') as f:\n                    for chunk in response.iter_content(chunk_size=8192):\n                        if chunk:\n                            f.write(chunk)\n                tamanho = os.path.getsize(caminho_destino) / (1024*1024)\n                return True, tamanho\n        except Exception as e:\n            return False, str(e)\n\n    def processar_fila(self):\n        \"\"\"Processa fila de downloads\"\"\"\n        for idx, row in self.df.iterrows():\n            print(f\"[{idx+1}/{len(self.df)}] Processando: {row['MARCA']} - {row['MODELO']}\")\n\n            # Validar\n            valido, codigo = self.validar_link(row['LINK_MANUAL'])\n            if not valido:\n                print(f\"  ❌ Link inválido (HTTP {codigo})\")\n                self.relatorio.append({...})\n                continue\n\n            # Criar pasta por marca\n            pasta_marca = self.pasta_saida / row['MARCA']\n            pasta_marca.mkdir(exist_ok=True)\n\n            # Download\n            arquivo = pasta_marca / f\"{row['MODELO']}.pdf\"\n            sucesso, info = self.baixar_manual(row['LINK_MANUAL'], arquivo)\n\n            if sucesso:\n                print(f\"  ✅ Baixado: {info:.1f} MB\")\n            else:\n                print(f\"  ⚠️ Erro no download: {info}\")\n\n            self.relatorio.append({...})\n\n    def gerar_relatorio(self):\n        \"\"\"Gera relatório de downloads\"\"\"\n        df_relatorio = pd.DataFrame(self.relatorio)\n        df_relatorio.to_csv(f\"relatorio_download_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv\")\n\nif __name__ == \"__main__\":\n    gerenciador = GerenciadorManualsPDF()\n    gerenciador.processar_fila()\n    gerenciador.gerar_relatorio()\n"
+}

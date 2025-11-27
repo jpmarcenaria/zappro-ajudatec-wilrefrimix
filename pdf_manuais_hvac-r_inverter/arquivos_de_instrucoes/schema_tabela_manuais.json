@@ -1,0 +1,147 @@
+{
+  "schema": {
+    "versao": "2.0",
+    "data_criacao": "2025-11-27",
+    "objetivo": "Biblioteca de Manuais de Serviço - AC Inverter Brasil",
+    "colunas": [
+      {
+        "nome": "ID",
+        "tipo": "string",
+        "exemplo": "DAI_FTK_001",
+        "descricao": "Identificador único: MARCA_SERIE_NUMERO"
+      },
+      {
+        "nome": "MARCA",
+        "tipo": "string",
+        "exemplo": "Daikin",
+        "descricao": "Nome do fabricante"
+      },
+      {
+        "nome": "MODELO",
+        "tipo": "string",
+        "exemplo": "FTK-B Series",
+        "descricao": "Modelo específico do equipamento"
+      },
+      {
+        "nome": "TIPO_AC",
+        "tipo": "enum",
+        "valores": [
+          "Split High Wall",
+          "Split Cassete",
+          "Piso/Teto",
+          "Janela",
+          "Coluna",
+          "Multi-Split Externo",
+          "VRF/VRV",
+          "Comercial/Industrial"
+        ],
+        "descricao": "Classificação do equipamento"
+      },
+      {
+        "nome": "TECNOLOGIA",
+        "tipo": "string",
+        "exemplo": "Full Inverter R-32",
+        "descricao": "Tipo de compressor e controle"
+      },
+      {
+        "nome": "CAPACIDADE",
+        "tipo": "string",
+        "exemplo": "9-24k",
+        "descricao": "BTU para splits, HP para VRF"
+      },
+      {
+        "nome": "REFRIGERANTE",
+        "tipo": "enum",
+        "valores": [
+          "R410A",
+          "R32",
+          "R22",
+          "R32/R410A"
+        ],
+        "descricao": "Tipo de gás refrigerante"
+      },
+      {
+        "nome": "LINK_MANUAL",
+        "tipo": "url",
+        "exemplo": "https://backend.daikincomfort.com/docs/...",
+        "descricao": "URL direto para download PDF"
+      },
+      {
+        "nome": "LINK_VALIDADO",
+        "tipo": "boolean",
+        "exemplo": "true",
+        "descricao": "Confirmação que link foi testado"
+      },
+      {
+        "nome": "HTTP_CODE",
+        "tipo": "integer",
+        "exemplo": "200",
+        "descricao": "Código HTTP da resposta (200=OK, 404=Not Found)"
+      },
+      {
+        "nome": "TIPO_MANUAL",
+        "tipo": "enum",
+        "valores": [
+          "Serviço Técnico",
+          "Instalação",
+          "Operação",
+          "Manutenção",
+          "Misto"
+        ],
+        "descricao": "Conteúdo do manual"
+      },
+      {
+        "nome": "TAMANHO_PDF_MB",
+        "tipo": "float",
+        "exemplo": "15.5",
+        "descricao": "Tamanho aproximado do arquivo"
+      },
+      {
+        "nome": "IDIOMA",
+        "tipo": "enum",
+        "valores": [
+          "Português-BR",
+          "Português",
+          "Inglês",
+          "Espanhol"
+        ],
+        "descricao": "Idioma do manual"
+      },
+      {
+        "nome": "DATA_MANUAL",
+        "tipo": "date",
+        "exemplo": "2024-03",
+        "descricao": "Mês/ano de publicação do manual"
+      },
+      {
+        "nome": "OBSERVACOES",
+        "tipo": "text",
+        "exemplo": "Manual completo com diagrama elétrico",
+        "descricao": "Notas técnicas relevantes"
+      },
+      {
+        "nome": "FONTE",
+        "tipo": "string",
+        "exemplo": "Site oficial Daikin",
+        "descricao": "Origem do link"
+      },
+      {
+        "nome": "STATUS",
+        "tipo": "enum",
+        "valores": [
+          "Ativo",
+          "Descontinuado",
+          "Não Disponível",
+          "Verificar"
+        ],
+        "descricao": "Status do modelo no mercado"
+      },
+      {
+        "nome": "DATA_VERIFICACAO",
+        "tipo": "datetime",
+        "exemplo": "2025-11-27 08:30:00",
+        "descricao": "Data/hora última verificação"
+      }
+    ]
+  }
+}

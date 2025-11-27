@@ -37,21 +37,29 @@ async function embed(text) {
   return j?.data?.[0]?.embedding || []
 }
 
-async function upsertDevice(brand, model, variant, manualUrl) {
+async function upsertDevice(brand, model, manufacturer) {
   const { data } = await supa.from('hvacr_devices').select('id').eq('brand', brand).eq('model', model).limit(1)
   let id = data?.[0]?.id
   if (!id) {
-    const ins = await supa.from('hvacr_devices').insert({ brand, model, variant, market: 'BR', manual_url: manualUrl, priority: 1 }).select()
+    const ins = await supa.from('hvacr_devices').insert({ brand, model, manufacturer }).select('id')
     if (ins.error) throw ins.error
     id = ins.data?.[0]?.id
   }
   return id
 }
 
-async function addManual(deviceId, type, url) {
-  const ins = await supa.from('device_manuals').insert({ device_id: deviceId, type, source: 'fabricante', url }).select()
+async function addManual(deviceId, title, pdfUrl, source = 'fabricante') {
+  const { data: existing } = await supa
+    .from('manuals')
+    .select('id')
+    .eq('device_id', deviceId)
+    .eq('title', title)
+    .limit(1)
+    .maybeSingle()
+  if (existing?.id) return existing.id
+  const ins = await supa.from('manuals').insert({ device_id: deviceId, title, source, pdf_url: pdfUrl, language: 'pt-BR' }).select('id').single()
   if (ins.error) throw ins.error
-  return ins.data?.[0]?.id
+  return ins.data?.id
 }
 
 async function addChunk(manualId, page, section, content) {
@@ -63,17 +71,17 @@ async function addChunk(manualId, page, section, content) {
 
 async function run() {
   const families = [
-    { brand: 'Daikin', model: 'EcoSwing High Wall', variant: '9k-24k BTU', url: 'https://www.daikin.com.br' },
-    { brand: 'LG', model: 'Dual Inverter High Wall', variant: '9k-24k BTU', url: 'https://www.lg.com/br' },
-    { brand: 'Fujitsu', model: 'Inverter High Wall', variant: '9k-24k BTU', url: 'https://www.fujitsu-general.com/br' },
-    { brand: 'Midea', model: 'Springer High Wall', variant: '9k-24k BTU', url: 'https://www.midea.com.br' },
-    { brand: 'Elgin', model: 'Eco Inverter High Wall', variant: '9k-24k BTU', url: 'https://www.elgin.com.br' }
+    { brand: 'Daikin', model: 'EcoSwing High Wall', manufacturer: 'Daikin' },
+    { brand: 'LG', model: 'Dual Inverter High Wall', manufacturer: 'LG' },
+    { brand: 'Fujitsu', model: 'Inverter High Wall', manufacturer: 'Fujitsu' },
+    { brand: 'Midea', model: 'Springer High Wall', manufacturer: 'Midea' },
+    { brand: 'Elgin', model: 'Eco Inverter High Wall', manufacturer: 'Elgin' }
   ]
   const out = []
   for (const f of families) {
     try {
-      const devId = await upsertDevice(f.brand, f.model, f.variant, f.url)
-      const manId = await addManual(devId, 'service', f.url)
+      const devId = await upsertDevice(f.brand, f.model, f.manufacturer)
+      const manId = await addManual(devId, 'Manual de Serviço', null, 'fabricante')
       await addChunk(manId, 1, 'Segurança e EPI', 'Desligar energia, uso de EPI, riscos elétricos e mecânicos.')
       await addChunk(manId, 2, 'Limpeza de filtros', 'Remover frente, lavar filtros com água corrente, secar à sombra, reinstalar.')
       await addChunk(manId, 3, 'Diagnóstico de sensores', 'Sensor ~10kΩ a 25°C, verificar chicotes e conectores, substituir se fora da faixa.')

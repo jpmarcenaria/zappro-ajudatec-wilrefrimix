@@ -1,4 +1,4 @@
-# Regra: Português Brasileiro Obrigatório
+# Regra: Português Brasileiro Obrigatório (pt-BR)
 
 ## Aplicação
 Todos os artefatos gerados devem estar em português brasileiro (pt-BR):
@@ -47,6 +47,10 @@ const personaPath = path.join(process.cwd(), 'PROMPTS', 'chatbot-persona.md')
 
 ## Prioridade
 Esta regra tem prioridade **ALTA**. Em caso de conflito com outras instruções, sempre usar pt-BR.
+
+## Enforcement
+- Proibido texto em pt‑PT.
+- LLMs e agentes devem validar `AGENTS.md` e este contrato antes de executar.
 
 ## Validação
 Antes de finalizar qualquer artefato, verificar:

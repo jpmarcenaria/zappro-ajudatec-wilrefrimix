@@ -352,7 +352,7 @@ Bora resolver essa bronca?`,
         textLower.includes("sensor") ||
         textLower.includes("tabela");
 
-      const response = await sendMessage(userMsg.content, userMsg.attachments || [], useSearch);
+      const response = await sendMessage(userMsg.content, userMsg.attachments || [], useSearch, isTrial ? 'trial' : 'paid');
 
       let audioData = undefined;
       // Generate audio for responses up to 4000 chars (handled by service)

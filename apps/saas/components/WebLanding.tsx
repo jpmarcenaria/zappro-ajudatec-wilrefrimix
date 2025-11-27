@@ -372,19 +372,19 @@ const WebLanding: React.FC = () => {
                   ))}
                 </div>
 
-                <button onClick={handleSubscribeClick} className="w-full md:w-auto bg-white text-slate-950 px-12 py-4 rounded-xl font-bold text-lg hover:bg-cyan-400 transition-all shadow-lg hover:shadow-cyan-500/20 flex items-center justify-center gap-2 mx-auto">
+                <button onClick={handleSubscribeClick} disabled={isSubscribing} className="w-full md:w-auto bg-white text-slate-950 px-12 py-4 rounded-xl font-bold text-lg hover:bg-cyan-400 transition-all shadow-lg hover:shadow-cyan-500/20 flex items-center justify-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed">
                   <Wrench className="w-5 h-5" />
                   🔧 Começar Teste Grátis Agora
                 </button>
 
                 {process.env.NODE_ENV !== 'production' && (
-                  <a
-                    href="https://checkout.stripe.com/test_dev_placeholder"
+                  <button
+                    onClick={handleSubscribeClick}
                     className="mt-4 inline-block bg-cyan-900/50 text-cyan-200 px-6 py-2 rounded-xl font-bold text-xs hover:bg-cyan-900 transition-colors border border-cyan-500/30"
                     aria-label="Assinar com Stripe (Dev)"
                   >
                     Checkout Stripe (Dev)
-                  </a>
+                  </button>
                 )}
 
                 <div className="mt-8 pt-8 border-t border-white/5">

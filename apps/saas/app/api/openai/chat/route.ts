@@ -157,12 +157,6 @@ async function embedQuery(query: string, apiKey: string): Promise<number[]> {
 }
 
 export async function POST(req: Request) {
-  try {
-    validateEnv();
-  } catch (e: any) {
-    logger.error('env_validation', e);
-    return new Response(JSON.stringify({ error: 'Server configuration error' }), { status: 500 });
-  }
 
   const t0 = Date.now()
   const allowed = process.env.ALLOWED_ORIGIN || process.env.NEXT_PUBLIC_WEBSITE_URL || ''
@@ -173,6 +167,8 @@ export async function POST(req: Request) {
 
   // Rate limiting: 20 mensagens por minuto
   const userId = req.headers.get('x-user-id') || req.headers.get('x-forwarded-for') || 'anonymous'
+  const planHeader = req.headers.get('x-plan') || ''
+  const trialMode = planHeader === 'trial' || userId === 'anonymous'
   const limiter = rateLimit(userId, 20, 60000)
 
   if (!limiter.success) {
@@ -196,6 +192,34 @@ export async function POST(req: Request) {
   } catch { }
   const text = typeof parsed.text === 'string' ? parsed.text : ''
   const attachments = Array.isArray(parsed.attachments) ? parsed.attachments : []
+  let setCookieHdr = ''
+  if (trialMode) {
+    const cookie = req.headers.get('cookie') || ''
+    const match = /(?:^|;\s*)trial=([0-9-]+):(\d+)/.exec(cookie)
+    const today = new Date().toISOString().slice(0, 10)
+    let count = match ? parseInt(match[2], 10) : 0
+    const date = match ? match[1] : ''
+    if (date !== today) count = 0
+    if (attachments.length > 0) {
+      const headers: Record<string, string> = allowed ? { 'Access-Control-Allow-Origin': allowed } : {}
+      return new Response(JSON.stringify({ text: 'Teste grátis sem anexos. Para liberar leitura de PDF, fotos e áudio: Assine ZapPro R$ 99,90/mês. Clique em Assinar na página inicial.', groundingUrls: [] }), { status: 200, headers })
+    }
+    if (count >= 3) {
+      const headers: Record<string, string> = allowed ? { 'Access-Control-Allow-Origin': allowed } : {}
+      return new Response(JSON.stringify({ text: 'Limite do teste atingido. Para diagnóstico completo passo-a-passo e anexos: Assine ZapPro R$ 99,90/mês.', groundingUrls: [] }), { status: 200, headers })
+    }
+    count += 1
+    setCookieHdr = `trial=${today}:${count}; Path=/; SameSite=Lax`
+  }
+
+  try {
+    validateEnv();
+  } catch (e: any) {
+    logger.error('env_validation', e);
+    const headers: Record<string, string> = allowed ? { 'Access-Control-Allow-Origin': allowed } : {}
+    if (setCookieHdr) headers['Set-Cookie'] = setCookieHdr
+    return new Response(JSON.stringify({ text: 'Serviço em manutenção. No teste grátis você recebe respostas curtas. Para liberar tudo: Assine ZapPro R$ 99,90/mês.', groundingUrls: [] }), { status: 200, headers })
+  }
 
   const apiKey = process.env.OPENAI_API_KEY! // Validated by validateEnv
 
@@ -253,7 +277,7 @@ export async function POST(req: Request) {
         if (!chunksError && chunks && Array.isArray(chunks)) {
           grounding = chunks.map((c: any) => ({
             title: `${c.section || 'Manual'} - Página ${c.page || 'N/A'}`,
-            uri: `manual://${c.device_id}/${c.manual_id}`,
+            uri: `manual://${brandName || 'unknown'}/${modelName || 'unknown'}/${c.manual_id}`,
             content: c.content || ''
           }))
 
@@ -362,13 +386,15 @@ IMPORTANTE: Use EXCLUSIVAMENTE as informações dos manuais acima. Nunca invente
     return null
   }).filter(Boolean)
 
-  const body = {
+  const trialMax = parseInt(process.env.TRIAL_MAX_OUTPUT_TOKENS || '300', 10)
+  const body: any = {
     model: llmModel,
     messages: [
       { role: 'system', content: instruction },
       { role: 'user', content: userContent }
     ]
   }
+  if (trialMode) body.max_tokens = trialMax
 
   let textOut = ''
   let statusCode = 200
@@ -410,6 +436,7 @@ IMPORTANTE: Use EXCLUSIVAMENTE as informações dos manuais acima. Nunca invente
   const dur = Date.now() - t0
   const payload = { text: textOut || 'Não consegui gerar uma resposta técnica no momento.', groundingUrls: grounding.map(g => ({ title: g.title, uri: g.uri })) }
   const headers: Record<string, string> = { 'Access-Control-Allow-Origin': allowed, 'Server-Timing': `total;dur=${dur}` }
+  if (setCookieHdr) headers['Set-Cookie'] = setCookieHdr
   if (dur > 2000 && process.env.NODE_ENV !== 'production') logger.warn('slow_route', 'Route took too long', { route: '/api/openai/chat', dur, err: errMsg ? true : false })
   record('/api/openai/chat', dur, statusCode)
   return new Response(JSON.stringify(payload), { status: statusCode, headers })

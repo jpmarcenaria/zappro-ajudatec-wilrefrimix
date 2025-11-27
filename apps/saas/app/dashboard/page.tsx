@@ -163,7 +163,7 @@ export default function DashboardPage() {
                             <p className="text-xs text-gray-400">Converse com a IA especializada</p>
                         </button>
 
-                        <button aria-label="Abrir Manuais" onClick={() => router.push('/chat')} className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-left border border-white/10">
+                        <button aria-label="Abrir Manuais" onClick={() => router.push('/manuals')} className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-left border border-white/10">
                             <div className="text-2xl mb-2">📚</div>
                             <h4 className="font-semibold text-white mb-1">Manuais</h4>
                             <p className="text-xs text-gray-400">Acesse biblioteca técnica</p>

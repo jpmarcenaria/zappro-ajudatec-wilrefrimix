@@ -1,8 +1,10 @@
 import { Attachment } from '../types'
-export const sendMessage = async (text: string, attachments: Attachment[], useSearch: boolean = false) => {
+export const sendMessage = async (text: string, attachments: Attachment[], useSearch: boolean = false, plan?: 'trial' | 'paid') => {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  if (plan) headers['x-plan'] = plan
   const res = await fetch(`/api/openai/chat`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify({ text, attachments, useSearch })
   })
   if (!res.ok) throw new Error('Falha ao consultar o modelo')

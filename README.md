@@ -2,6 +2,8 @@
 
 # 🔧 ZapPRO AjudaTec
 
+ATENÇÃO: Antes de executar ou modificar este projeto, LEIA e SIGA integralmente o contrato em `AGENTS.md`.
+
 ### Assistente Técnico Inteligente para HVAC-R
 
 *Chatbot especializado em climatização com IA da OpenAI, integração Stripe e persona técnica brasileira*
@@ -283,7 +285,7 @@ cp .env.example .env
 nano .env
 ```
 
-> 📌 **Importante:** Consulte [`docs/ENV_ANALYSIS.md`](docs/ENV_ANALYSIS.md) para detalhes de cada variável.
+ > 📌 **Importante:** Veja `.env.example` para detalhes de cada variável.
 
 **Variáveis obrigatórias para dev local:**
 
@@ -519,33 +521,11 @@ curl https://seu-dominio.vercel.app
 # Acesse: https://seu-dominio.vercel.app/admin
 ```
 
-> 📚 **Documentação completa:** [`DEPLOY_CHECKLIST.md`](DEPLOY_CHECKLIST.md)
+ > 📚 **Documentação:** veja a seção "Documentação Consolidada" no final deste arquivo.
 
 ---
 
 ## 📚 Documentação
-
-### Estrutura de Documentação
-
-```
-├── docs/
-│   ├── ENV_ANALYSIS.md          # Análise completa de variáveis
-│   ├── DEPLOYMENT.md            # Guia de deploy detalhado
-│   ├── TESTING.md               # Estratégia de testes
-│   └── CHANGELOG.md             # Histórico de mudanças
-├── DEPLOY_CHECKLIST.md          # Checklist passo a passo
-├── SECURITY_CHECKLIST.md        # Checklist de segurança
-├── CONTRIBUTING.md              # Guia de contribuição
-└── README.md                    # Este arquivo
-```
-
-### Documentos Principais
-
-- **[ENV_ANALYSIS.md](docs/ENV_ANALYSIS.md):** Mapeamento completo de todas as variáveis de ambiente, onde são usadas e como configurar
-- **[DEPLOY_CHECKLIST.md](DEPLOY_CHECKLIST.md):** Checklist interativo para deploy em Vercel
-- **[SECURITY_CHECKLIST.md](SECURITY_CHECKLIST.md):** Validações de segurança e conformidade
-- **[TESTING.md](docs/TESTING.md):** Estratégia de testes E2E, unit e smoke
-- **[CONTRIBUTING.md](CONTRIBUTING.md):** Como contribuir com o projeto
 
 ### Arquitetura de Pastas
 
@@ -673,7 +653,7 @@ ADMIN_PASSWORD_HASH
 ADMIN_SESSION_SECRET
 ```
 
-> 📄 **Documentação completa:** [`.env.example`](.env.example) ou [`docs/ENV_ANALYSIS.md`](docs/ENV_ANALYSIS.md)
+ > 📄 **Referência:** `.env.example`
 
 ---
 
@@ -712,7 +692,7 @@ chore: tarefas de build, CI/CD, etc.
 - ✅ Atualizar documentação quando necessário
 - ✅ Manter cobertura de testes > 70%
 
-> 📖 **Guia completo:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
+ > 📖 **Guia:** siga as regras desta seção e do `AGENTS.md`.
 
 ---
 
@@ -747,7 +727,7 @@ Se encontrar uma vulnerabilidade de segurança, **NÃO** abra uma issue pública
 - 📧 Email: security@zappro.com (ou seu email)
 - 🔒 GitHub Security Advisories
 
-> 📋 **Checklist completo:** [`SECURITY_CHECKLIST.md`](SECURITY_CHECKLIST.md)
+ > 📋 **Checklist:** ver seção "Segurança" neste arquivo.
 
 ---
 
@@ -756,7 +736,7 @@ Se encontrar uma vulnerabilidade de segurança, **NÃO** abra uma issue pública
 <details>
 <summary><strong>Posso usar em produção?</strong></summary>
 
-Sim! O projeto está pronto para produção. Siga o checklist em [`DEPLOY_CHECKLIST.md`](DEPLOY_CHECKLIST.md) e configure todas as variáveis obrigatórias.
+ Sim! O projeto está pronto para produção. Siga a seção "Deploy" e configure todas as variáveis obrigatórias.
 </details>
 
 <details>
@@ -779,7 +759,7 @@ Recomendado, pois os scripts npm usam comandos bash. Alternativamente, use Linux
 <details>
 <summary><strong>Como alterar o prompt do chatbot?</strong></summary>
 
-Edite `SYSTEM_INSTRUCTION_PT_BR` no `.env` ou crie um arquivo em `apps/saas/prompts/system-instruction.pt-br.md`.
+ Edite `SYSTEM_INSTRUCTION_PT_BR` no `.env`.
 </details>
 
 <details>
@@ -873,3 +853,35 @@ Agradecemos a todos que contribuíram para este projeto! 🎉
 **Feito com ❤️ por [ZapPRO](https://github.com/seu-usuario) no Brasil 🇧🇷**
 
 </div>
+### Biblioteca de Manuais (Bootstrap)
+
+#### Download automático de PDFs
+
+```bash
+wsl bash -lc "cd /mnt/d/projetos/zappro-ajudatec-wilrefrimix/zappro-ajudatec-wilrefrimix && \
+node apps/saas/scripts/bootstrap-download-pdfs.mjs \
+  --csv pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/biblioteca_completa_otimizada_llm.csv \
+  --out data/manuals \
+  --parallel 5"
+```
+
+- Requisitos: `OPENAI_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` definidos em `apps/saas/.env`
+- Resultado: PDFs salvos em `data/manuals/<marca>/<marca>/<modelo>/*.pdf` e registro em `hvacr_devices`/`manuals`
+- Relatório: `pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/bootstrap_report.json`
+
+#### Validações rápidas (WSL)
+
+```bash
+# Porta 3001
+sudo ss -lptn sport = :3001
+
+# Firewall (se necessário)
+sudo ufw allow 3001/tcp
+```
+### Documentação Consolidada
+
+- Deploy (Resumo): configurar Vercel com Root `apps/saas`, 17 variáveis obrigatórias, webhook Stripe em `/api/webhook/stripe` com eventos de assinatura e `STRIPE_WEBHOOK_SECRET` em produção.
+- Segurança (Resumo): secrets protegidos, endpoint `/api/health` validando Supabase/OpenAI/Stripe, rate limiting ativo em `/api/openai/chat`, RLS habilitado nas tabelas, auditoria e build sem vulnerabilidades.
+- Testes Rápidos (WSL): servidor `PORT=3001 npm run dev`, E2E `npm run test:e2e:stripe` e `npm run test:e2e:ui`, verificar conflitos de porta com `sudo ss -lptn sport = :3001`.
+- Trial do Chat: limite de 3 mensagens/dia, sem anexos, `TRIAL_MAX_OUTPUT_TOKENS=300`, cabeçalho `x-plan: trial|paid` e respostas de CTA para upload quando necessário.
+- Prompt Técnico: respostas curtas em passo a passo, usar RAG primeiro; quando houver chunks, citar seção/página; em falta, fornecer link oficial e instruir upload.
