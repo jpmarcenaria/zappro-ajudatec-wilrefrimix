@@ -1,0 +1,536 @@
+{
+  "count": 88,
+  "ok": 0,
+  "invalid": 0,
+  "error": 0,
+  "items": [
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Daikin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Hitachi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "LG",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Fujitsu",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Carrier",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Carrier",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Carrier",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Carrier",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Carrier",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Carrier",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Trane",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Trane",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Trane",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Trane",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Samsung",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Samsung",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Samsung",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Gree",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Gree",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Gree",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Springer",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Springer",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Midea",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Midea",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Midea",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Elgin",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "TCL",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "TCL",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Agratto",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Komeco",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Toshiba",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "",
+      "url": "",
+      "status": "skip"
+    }
+  ]
+}

@@ -14,7 +14,7 @@ async function ensurePlaywright() {
 
 function loadDotEnv() {
   const root = resolve(process.cwd(), '..', '..')
-  const paths = [join(process.cwd(), 'apps', 'saas', '.env'), join(root, '.env')]
+  const paths = [join(root, 'apps', 'saas', '.env'), join(root, '.env')]
   for (const envPath of paths) {
     if (!existsSync(envPath)) continue
     const txt = readFileSync(envPath, 'utf8')

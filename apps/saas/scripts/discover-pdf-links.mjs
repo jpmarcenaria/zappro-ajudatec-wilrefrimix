@@ -111,8 +111,9 @@ async function sampleHash(url) {
 
 async function run() {
   const root = resolve(process.cwd(), '..', '..')
-  const envPath = join(root, '.env')
-  if (existsSync(envPath)) {
+  const paths = [join(root, 'apps', 'saas', '.env'), join(root, '.env')]
+  for (const envPath of paths) {
+    if (!existsSync(envPath)) continue
     const txt = readFileSync(envPath, 'utf8')
     for (const line of txt.split(/\r?\n/)) {
       const m = line.match(/^([A-Z0-9_]+)=(.*)$/)

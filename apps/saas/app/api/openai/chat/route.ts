@@ -1,4 +1,5 @@
 import { record } from '../../../../lib/monitor'
+import { createHash } from 'node:crypto'
 import { rateLimit } from '../../../../lib/rate-limit'
 import { validateEnv } from '../../../../lib/env-validator'
 import { logger } from '../../../../lib/logger'
@@ -288,14 +289,48 @@ export async function POST(req: Request) {
         modelName = extractModel(text)
         alarmCode = extractErrorCode(text)
 
+        const ttl = Number(process.env.CACHE_TTL_SECONDS || RAG_CONFIG.cache.ttlSeconds || 900)
+        const restUrl = process.env.UPSTASH_REDIS_REST_URL || ''
+        const restToken = process.env.UPSTASH_REDIS_REST_TOKEN || ''
+        const cacheKey = `rag:${brandName || ''}:${modelName || ''}:${createHash('sha256').update(text).digest('hex')}`
+        let cachedChunks: any[] | null = null
+        if (restUrl && restToken) {
+          try {
+            const gr = await fetch(`${restUrl}/get/${encodeURIComponent(cacheKey)}`, { headers: { Authorization: `Bearer ${restToken}` } })
+            if (gr.ok) {
+              const tx = await gr.text()
+              let val: any = null
+              try { val = JSON.parse(tx) } catch { val = tx }
+              if (val && typeof val === 'object' && 'result' in val) {
+                const r = (val as any).result
+                try { cachedChunks = JSON.parse(r) } catch { cachedChunks = null }
+              }
+            }
+          } catch {}
+        }
+
         // 3. Search manual chunks with filters
-        const { data: chunks, error: chunksError } = await supa.rpc('match_manual_chunks', {
-          query_embedding: embedding,
-          filter_brand: brandName,
-          filter_model: modelName,
-          match_threshold: 0.72,
-          match_count: 5
-        })
+        let chunks: any[] | null = null
+        let chunksError: any = null
+        if (cachedChunks && Array.isArray(cachedChunks) && cachedChunks.length > 0) {
+          chunks = cachedChunks
+        } else {
+          const r = await supa.rpc('match_manual_chunks', {
+            query_embedding: embedding,
+            filter_brand: brandName,
+            filter_model: modelName,
+            match_threshold: RAG_CONFIG.retrieval.matchThreshold,
+            match_count: RAG_CONFIG.retrieval.matchCount
+          })
+          chunks = r.data
+          chunksError = r.error
+          if (!chunksError && chunks && Array.isArray(chunks) && restUrl && restToken) {
+            try {
+              const payload = encodeURIComponent(JSON.stringify(chunks))
+              await fetch(`${restUrl}/set/${encodeURIComponent(cacheKey)}/${payload}?EX=${ttl}`, { method: 'POST', headers: { Authorization: `Bearer ${restToken}` } })
+            } catch {}
+          }
+        }
 
         if (!chunksError && chunks && Array.isArray(chunks)) {
           grounding = chunks.map((c: any) => ({

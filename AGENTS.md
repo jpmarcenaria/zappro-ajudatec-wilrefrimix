@@ -53,8 +53,6 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
 
 ## Segurança
 
-## Segurança
-
 - CORS endurecido usando `ALLOWED_ORIGIN`/`NEXT_PUBLIC_WEBSITE_URL`.
 - Webhooks assinados (`STRIPE_WEBHOOK_SECRET`).
 - Rate limiting por usuário/IP.
@@ -76,6 +74,39 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
 - Antes de executar testes ou alterações, validar este contrato.
 - Este documento tem prioridade sobre qualquer outro texto do repositório.
 
+## Taskmaster (Padrão de Tasks)
+
+- Padrão unificado em `TASKMASTER.md`.
+- Fluxo: Backlog → Ready → In Progress → Review → Done.
+- Critérios: latência p95 < 500ms, lint/typecheck ok, sem segredos em client.
+
+## Contrato MCP Taskmaster
+
+- Todo agente/LLM deve:
+  - Criar tasks antes de iniciar alterações com objetivo claro e mensurável.
+  - Manter apenas 1 task em `In Progress` e marcar `Done` imediatamente ao concluir.
+  - Validar mudanças com `npm run lint` e `npm run typecheck` quando disponíveis.
+  - Preferir inspeção inteligente do código para compreender contexto e evitar retrabalho.
+- Ferramentas e postura:
+  - Explorar código com busca semântica e por padrões antes de editar.
+  - Editar arquivos com segurança, sem expor segredos nem criar arquivos supérfluos.
+  - Evitar comandos interativos; preferir automações reproduzíveis.
+  - Não executar servidores fora de WSL2.
+
+## Contrato de Execução (Somente Fila Taskmaster)
+
+- Execução limitada à Fila Taskmaster definida em `TASKMASTER.md`.
+- Estados aceitos: `backlog`, `ready`, `in_progress`, `review`, `done`.
+- Apenas 1 task em `in_progress` simultaneamente.
+- Ao concluir, mover para `done` com evidências (logs/relatórios).
+- Lint e typecheck obrigatórios após alterações.
+
+## Execução Automática (Bootstrap)
+
+- Rotina noturna processa tasks com `state=ready` na ordem.
+- Logs em `apps/saas/logs/*`; relatórios em `pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/*`.
+- Falhas movem a task para `review` com motivo e próxima ação.
+
 ## Fontes Contratuais e Regras do Projeto
 
 - Regras detalhadas de RAG e banco vetorial: `./.trae/rules/project_rules.md`
@@ -90,3 +121,23 @@ Este `AGENTS.md` unifica e tem precedência sobre esses arquivos. Qualquer LLM/I
 - Arquivos de referência em `pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/`.
 - Script de bootstrap: `apps/saas/scripts/bootstrap-download-pdfs.mjs`.
 - Uso: `node apps/saas/scripts/bootstrap-download-pdfs.mjs --csv pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/biblioteca_completa_otimizada_llm.csv --out data/manuals --parallel 5`.
+
+### Regras de Inteligência da Biblioteca
+
+- Estrutura: `data/manuals/<fabricante>/<marca>/<modelo>/<arquivo>.pdf` com metadados inferidos.
+- Triagem: heurística + LLM para classificar qualidade, detectar OCR e marcar reprocesso.
+- Ingestão: chunking 500–1000 tokens com overlap 100–200, preservando seções; embeddings `text-embedding-3-small (1536)`.
+- Idempotência: deduplicar por hash de conteúdo; inserir por `manual_id+page+hash(content)`.
+- Recuperação: filtros por `brand/model`, `threshold 0.70–0.80`, `top-k 5–10`.
+
+### Seeds e Cache Redis
+
+- Cache semântico para RAG via Upstash REST.
+- Chave: `rag:<brand>:<model>:<sha256(query)>` com `TTL=900s` (ajustável).
+- Variáveis exigidas:
+  - `UPSTASH_REDIS_REST_URL`
+  - `UPSTASH_REDIS_REST_TOKEN`
+  - `CACHE_TTL_SECONDS`
+- Observabilidade:
+  - Medir `cache_hit`/`cache_miss` e latência por rota.
+  - Ajustar `RAG_LISTS/RAG_PROBES` conforme carga e recall.

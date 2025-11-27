@@ -99,6 +99,11 @@ async function run() {
   loadEnv()
   const root = resolve(process.cwd(), '..', '..')
   const dataDir = resolve(join(root, 'data', 'manuals'))
+  const args = process.argv.slice(2)
+  let triageReport = null
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--triage-report' && args[i + 1]) { triageReport = resolve(args[i + 1]); break }
+  }
   const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
   const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
   const apiKey = process.env.OPENAI_API_KEY || ''
@@ -107,7 +112,14 @@ async function run() {
     process.exit(1)
   }
   const supa = createClient(supaUrl, supaKey)
-  const files = walk(dataDir)
+  let files = walk(dataDir)
+  if (triageReport && existsSync(triageReport)) {
+    try {
+      const t = JSON.parse(readFileSync(triageReport, 'utf8'))
+      const allowed = new Set(((t?.items)||[]).filter(x => x?.label === 'service_manual').map(x => String(x.path).replace(/\\/g,'/')))
+      files = files.filter(p => allowed.has(String(p).replace(/\\/g,'/')))
+    } catch {}
+  }
   const results = []
   for (const p of files) {
     try {

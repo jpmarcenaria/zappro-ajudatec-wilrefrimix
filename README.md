@@ -42,6 +42,9 @@ ATENÇÃO: Antes de executar ou modificar este projeto, LEIA e SIGA integralment
 - [Uso](#-uso)
 - [Deploy](#-deploy)
 - [Documentação](#-documentação)
+- [Contrato MCP Taskmaster](#-contrato-mcp-taskmaster)
+- [RAG + Redis Cache](#-rag--redis-cache)
+- [Biblioteca de Manuais](#-biblioteca-de-manuais)
 - [Testes](#-testes)
 - [Variáveis de Ambiente](#-variáveis-de-ambiente)
 - [Contribuindo](#-contribuindo)
@@ -550,6 +553,75 @@ zappro-ajudatec-wilrefrimix/
 ├── .env.example                 # Template de variáveis
 └── docker-compose.yml           # Stack Supabase local
 ```
+
+---
+
+## 📜 Contrato MCP Taskmaster
+
+- Padrão de tasks centralizado em `TASKMASTER.md` com templates, fluxo e critérios.
+- Todo agente/LLM deve criar tasks antes de alterações e marcar conclusão imediatamente.
+- Regras:
+  - Usar ferramentas de inspeção de código para localizar e compreender contexto.
+  - Editar arquivos com segurança, sem expor segredos nem criar ruído.
+  - Validar alterações com `npm run lint` e `npm run typecheck` quando aplicável.
+  - Registrar latência p95 < `500ms` para rotas críticas de chat.
+- Critérios de aceitação típicos:
+  - Funcionalidade completa, sem erros em logs.
+  - Cobertura de testes mínima mantida.
+  - Documentação atualizada em `README.md` e `AGENTS.md`.
+
+### Execução via Fila Taskmaster
+
+- Execução restrita à Fila definida em `TASKMASTER.md`.
+- Estados: `backlog`, `ready`, `in_progress`, `review`, `done`.
+- Apenas 1 task em progresso; concluir e registrar evidências.
+- Lint/typecheck obrigatórios após alterações.
+
+### Bootstrap
+
+- Fila inicial inclui: provisionar Supabase via MCP, SQL sandbox, descoberta/download/triagem/ingestão, smoke do Upstash, tuning RAG.
+- Rotina noturna processa apenas tasks com `state=ready` e promove em sequência.
+
+---
+
+## ⚙️ RAG + Redis Cache
+
+- Política de roteamento: 1) RAG BD (Supabase pgvector), 2) Web, 3) LLM.
+- RPC principal: `match_manual_chunks(query_embedding, filter_brand, filter_model, match_threshold, match_count)`.
+- Cache semântico com Redis (Upstash REST):
+  - Chave: `rag:<brand>:<model>:<sha256(query)>`.
+  - TTL padrão: `900` segundos (configurável via `CACHE_TTL_SECONDS`).
+  - Variáveis:
+    - `UPSTASH_REDIS_REST_URL`
+    - `UPSTASH_REDIS_REST_TOKEN`
+    - `CACHE_TTL_SECONDS`
+- Parâmetros RAG:
+  - `RAG_MATCH_THRESHOLD` (ex.: `0.72`), `RAG_MATCH_COUNT` (ex.: `10`).
+  - Índice `ivfflat` com `lists=100`, `vector_cosine_ops` para OpenAI embeddings `1536`.
+- Endpoints relacionados:
+  - Chat: `apps/saas/app/api/openai/chat/route.ts` (usa cache e RPC RAG).
+
+---
+
+## 📚 Biblioteca de Manuais
+
+- Estrutura de pastas local: `data/manuals/<fabricante>/<marca>/<modelo>/<arquivo>.pdf`.
+- Scripts principais:
+  - Descoberta: `apps/saas/scripts/discover-pdf-links.mjs` (aceita `--csv`).
+  - Download: `apps/saas/scripts/bootstrap-download-pdfs.mjs` (fallback fetch→curl→PowerShell→Playwright).
+  - Triagem: `apps/saas/scripts/triage-local-pdfs.mjs` (heurística + LLM).
+  - Ingestão: `apps/saas/scripts/ingest-manuals-from-data.mjs` (chunking 500–1000 tokens, overlap 100–200, embeddings `text-embedding-3-small`).
+  - Noite: `apps/saas/scripts/nightly-run.mjs` (pipeline discover→download→triage→ingest).
+- Convenções e metadados:
+  - Metadados inferidos do path: `fabricante`, `marca`, `modelo`, `arquivo`.
+  - Idempotência: deduplicação por hash do conteúdo; inserção por `manual_id+page+hash(content)`.
+  - Filtros de recuperação por `brand/model` e threshold `0.70–0.80`.
+- Exemplos de uso:
+  - `node apps/saas/scripts/discover-pdf-links.mjs --csv rascunho/biblioteca_absoluta_completa_brasil.csv --out pdf_links.json`
+  - `node apps/saas/scripts/bootstrap-download-pdfs.mjs --csv rascunho/biblioteca_absoluta_completa_brasil.csv --out data/manuals --parallel 5`
+  - `node apps/saas/scripts/triage-local-pdfs.mjs --root data/manuals`
+  - `node apps/saas/scripts/ingest-manuals-from-data.mjs --root data/manuals`
+  - `node apps/saas/scripts/ingest-manuals-from-data.mjs --triage-report pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/local_scan_results.json`
 
 ---
 
