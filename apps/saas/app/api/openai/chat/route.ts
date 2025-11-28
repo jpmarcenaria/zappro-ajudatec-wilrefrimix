@@ -279,9 +279,6 @@ export async function POST(req: Request) {
         const { createClient } = await import('@supabase/supabase-js')
         const supa = createClient(supaUrl, supaKey)
 
-        // 1. Generate embedding for semantic search
-        const embedding = await embedQuery(text, apiKey)
-
         const intent = await classifyIntent(text, apiKey)
 
         // 2. Extract context from query
@@ -290,9 +287,14 @@ export async function POST(req: Request) {
         alarmCode = extractErrorCode(text)
 
         const ttl = Number(process.env.CACHE_TTL_SECONDS || RAG_CONFIG.cache.ttlSeconds || 900)
+        const missTtl = Number(process.env.CACHE_MISS_TTL_SECONDS || 120)
+        const embTtl = Number(process.env.EMB_CACHE_TTL_SECONDS || 86400)
         const restUrl = process.env.UPSTASH_REDIS_REST_URL || ''
         const restToken = process.env.UPSTASH_REDIS_REST_TOKEN || ''
-        const cacheKey = `rag:${brandName || ''}:${modelName || ''}:${createHash('sha256').update(text).digest('hex')}`
+        const normBrand = (brandName || '').trim().toLowerCase()
+        const normModel = (modelName || '').trim().toUpperCase()
+        const normQuery = text.toLowerCase().replace(/\s+/g, ' ').trim()
+        const cacheKey = `rag:v1:${normBrand}:${normModel}:${createHash('sha256').update(normQuery).digest('hex')}`
         let cachedChunks: any[] | null = null
         if (restUrl && restToken) {
           try {
@@ -317,6 +319,32 @@ export async function POST(req: Request) {
           try { log('info', `rag_cache hit brand=${brandName || ''} model=${modelName || ''} len=${cachedChunks.length}`) } catch {}
         } else {
           try { log('info', `rag_cache miss brand=${brandName || ''} model=${modelName || ''}`) } catch {}
+          let embedding: number[] | null = null
+          if (restUrl && restToken) {
+            try {
+              const ek = `emb:${createHash('sha256').update(normQuery).digest('hex')}`
+              const gr = await fetch(`${restUrl}/get/${encodeURIComponent(ek)}`, { headers: { Authorization: `Bearer ${restToken}` } })
+              if (gr.ok) {
+                const tx = await gr.text()
+                let val: any = null
+                try { val = JSON.parse(tx) } catch { val = tx }
+                if (val && typeof val === 'object' && 'result' in val) {
+                  const r = (val as any).result
+                  try { embedding = JSON.parse(r) } catch { embedding = null }
+                }
+              }
+            } catch {}
+          }
+          if (!embedding) {
+            embedding = await embedQuery(text, apiKey)
+            if (restUrl && restToken && embedding && Array.isArray(embedding)) {
+              try {
+                const ek = `emb:${createHash('sha256').update(normQuery).digest('hex')}`
+                const payload = encodeURIComponent(JSON.stringify(embedding))
+                await fetch(`${restUrl}/set/${encodeURIComponent(ek)}/${payload}?EX=${embTtl}`, { method: 'POST', headers: { Authorization: `Bearer ${restToken}` } })
+              } catch {}
+            }
+          }
           const r = await supa.rpc('match_manual_chunks', {
             query_embedding: embedding,
             filter_brand: brandName,
@@ -329,8 +357,9 @@ export async function POST(req: Request) {
           if (!chunksError && chunks && Array.isArray(chunks) && restUrl && restToken) {
             try {
               const payload = encodeURIComponent(JSON.stringify(chunks))
-              await fetch(`${restUrl}/set/${encodeURIComponent(cacheKey)}/${payload}?EX=${ttl}`, { method: 'POST', headers: { Authorization: `Bearer ${restToken}` } })
-              try { log('info', `rag_cache set brand=${brandName || ''} model=${modelName || ''} len=${chunks.length} ttl=${ttl}`) } catch {}
+              const useTtl = chunks.length > 0 ? ttl : missTtl
+              await fetch(`${restUrl}/set/${encodeURIComponent(cacheKey)}/${payload}?EX=${useTtl}`, { method: 'POST', headers: { Authorization: `Bearer ${restToken}` } })
+              try { log('info', `rag_cache set brand=${brandName || ''} model=${modelName || ''} len=${chunks.length} ttl=${useTtl}`) } catch {}
             } catch {}
           }
         }
@@ -363,28 +392,52 @@ export async function POST(req: Request) {
 
         // 4. Search alarm codes if error detected
         if (alarmCode) {
-          const alarmQuery = supa
-            .from('alarm_codes')
-            .select(`
-              code,
-              title,
-              severity,
-              resolution,
-              hvacr_devices!inner (brand, model)
-            `)
-            .eq('code', alarmCode)
-
-          if (brandName) alarmQuery.eq('hvacr_devices.brand', brandName)
-
-          const { data: alarms } = await alarmQuery.order('severity', { ascending: false }).limit(3)
-
-          if (alarms && alarms.length > 0) {
-            alarmContext = `\n\n📋 CÓDIGO DE ALARME ${alarmCode} IDENTIFICADO:\n` +
-              alarms.map((a: any) => `
+          const alarmKey = restUrl && restToken ? `alarm:${normBrand}:${normModel}:${alarmCode}` : ''
+          let cachedAlarm: string | null = null
+          if (alarmKey) {
+            try {
+              const gr = await fetch(`${restUrl}/get/${encodeURIComponent(alarmKey)}`, { headers: { Authorization: `Bearer ${restToken}` } })
+              if (gr.ok) {
+                const tx = await gr.text()
+                let val: any = null
+                try { val = JSON.parse(tx) } catch { val = tx }
+                if (val && typeof val === 'object' && 'result' in val) {
+                  const r = (val as any).result
+                  try { cachedAlarm = JSON.parse(r) } catch { cachedAlarm = null }
+                }
+              }
+            } catch {}
+          }
+          if (cachedAlarm) {
+            alarmContext = cachedAlarm
+          } else {
+            const alarmQuery = supa
+              .from('alarm_codes')
+              .select(`
+                code,
+                title,
+                severity,
+                resolution,
+                hvacr_devices!inner (brand, model)
+              `)
+              .eq('code', alarmCode)
+            if (brandName) alarmQuery.eq('hvacr_devices.brand', brandName)
+            const { data: alarms } = await alarmQuery.order('severity', { ascending: false }).limit(3)
+            if (alarms && alarms.length > 0) {
+              alarmContext = `\n\n📋 CÓDIGO DE ALARME ${alarmCode} IDENTIFICADO:\n` +
+                alarms.map((a: any) => `
 DISPOSITIVO: ${a.hvacr_devices.brand} ${a.hvacr_devices.model}
 ERRO: ${a.title} (Severidade: ${a.severity}/10)
 RESOLUÇÃO: ${a.resolution}
 `).join('\n')
+              if (alarmKey) {
+                try {
+                  const payload = encodeURIComponent(JSON.stringify(alarmContext))
+                  const ttlAlarm = Number(process.env.ALARM_CACHE_TTL_SECONDS || 21600)
+                  await fetch(`${restUrl}/set/${encodeURIComponent(alarmKey)}/${payload}?EX=${ttlAlarm}`, { method: 'POST', headers: { Authorization: `Bearer ${restToken}` } })
+                } catch {}
+              }
+            }
           }
         }
 

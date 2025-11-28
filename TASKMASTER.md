@@ -154,6 +154,42 @@
 ```
 [
   {
+    "id": "uiux-manuals-contrib",
+    "type": "feature",
+    "title": "Melhorar UI/UX da Biblioteca",
+    "description": "Upload com triagem, links de download e navegação aprimorada",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Botão Importar PDF executa triagem",
+      "Download disponível quando pdf_url",
+      "Busca navegável por marca/modelo"
+    ]
+  },
+  {
+    "id": "api-manuals-status",
+    "type": "feature",
+    "title": "Endpoint de status da biblioteca",
+    "description": "CSV x DB, missing/found e exposição de blacklist/registry",
+    "state": "ready",
+    "acceptance_criteria": [
+      "GET /api/manuals/status retorna total/found/missing",
+      "Inclui blacklist e registry",
+      "Sem segredos vazados"
+    ]
+  },
+  {
+    "id": "api-manuals-triage",
+    "type": "feature",
+    "title": "Endpoint de triagem de PDF",
+    "description": "Heurística para classificar service_manual vs engineering_doc",
+    "state": "ready",
+    "acceptance_criteria": [
+      "POST /api/manuals/triage aceita arquivo",
+      "Retorna classificação e texto",
+      "Integra com ingest"
+    ]
+  },
+  {
     "id": "mcp-supabase-provision",
     "type": "ops",
     "title": "Provisionar Supabase via MCP",
@@ -448,6 +484,188 @@
       "Insert e select funcionam"
     ]
   }
+  ,
+  {
+    "id": "repo-hardening-docs",
+    "type": "refactor",
+    "title": "Blindagem operacional e docs",
+    "description": "Atualizar README/AGENTS com regras anti-quebra e cache RAG",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Seção Blindagem Operacional presente no README",
+      "AGENTS.md reforçado com regras de execução",
+      "Variáveis de TTLs de cache documentadas"
+    ]
+  },
+  {
+    "id": "cache-hit-rate-monitor",
+    "type": "feature",
+    "title": "Monitorar hit/miss do cache",
+    "description": "Adicionar métricas e gráfico de hit-rate no Admin",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Logs registram cache_hit/cache_miss",
+      "Gráfico visível no Admin",
+      "TTL ajustável via env"
+    ]
+  },
+  {
+    "id": "mcp-tavily-context7-research",
+    "type": "ops",
+    "title": "Pesquisa de boas práticas (Tavily/Context7)",
+    "description": "Levantar práticas 2025 para repos mantidos por LLMs/IDEs/CLI",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Resumo com fontes registrado sem criar novos arquivos",
+      "Recomendações aplicadas em README/AGENTS",
+      "Sem segredos expostos"
+    ]
+  },
+  {
+    "id": "cors-hardening",
+    "type": "refactor",
+    "title": "Endurecer CORS e headers",
+    "description": "Validar ALLOWED_ORIGIN e habilitar Server-Timing em rotas críticas",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Rotas retornam 403 fora do domínio autorizado",
+      "Server-Timing presente",
+      "Sem regressão de UX"
+    ]
+  },
+  {
+    "id": "ci-lint-typecheck-gate",
+    "type": "feature",
+    "title": "Gate de CI para lint/typecheck",
+    "description": "Falhar build quando lint ou typecheck falharem",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Pipeline bloqueia merge com erros",
+      "Relatório de regras ativas",
+      "Sem impacto em produção"
+    ]
+  }
+  ,
+  {
+    "id": "dockerfile-alpine-harden",
+    "type": "refactor",
+    "title": "Dockerfile Alpine endurecido",
+    "description": "Multi-stage, usuário não-root, scan Trivy HIGH/CRITICAL zero",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Imagem final <200MB",
+      "Usuário não-root ativo",
+      "Trivy HIGH/CRITICAL=0"
+    ]
+  },
+  {
+    "id": "ci-cd-vps-standard",
+    "type": "feature",
+    "title": "Padronizar CI/CD para VPS",
+    "description": "Actions para build/publish Docker e deploy com health-check",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Pipeline backend/front configurado",
+      "Publish de imagem com tag",
+      "Health-check pós-deploy=200"
+    ]
+  },
+  {
+    "id": "nginx-security-hardening",
+    "type": "refactor",
+    "title": "Endurecer Nginx",
+    "description": "TLS 1.3, HSTS, headers seguros, rate limiting básico",
+    "state": "ready",
+    "acceptance_criteria": [
+      "HSTS e headers aplicados",
+      "TLS 1.3 ativo",
+      "429 em excesso de requisições"
+    ]
+  },
+  {
+    "id": "env-sanitization-check",
+    "type": "feature",
+    "title": "Validação de envs crítica",
+    "description": "Script valida envs obrigatórias e aborta com relatório",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Relatório lista variáveis ausentes",
+      "Abort seguro sem segredos",
+      "ALLOWED_ORIGIN verificado"
+    ]
+  },
+  {
+    "id": "redis-ttl-policy",
+    "type": "refactor",
+    "title": "Política dinâmica de TTL",
+    "description": "Ajuste automático de TTL por hit/miss e tipo de consulta",
+    "state": "ready",
+    "acceptance_criteria": [
+      "TTL varia por perfil de uso",
+      "Hit-rate semanal >50%",
+      "Relatório de ajuste emitido"
+    ]
+  },
+  {
+    "id": "rpc-observability",
+    "type": "feature",
+    "title": "Observabilidade de RPC",
+    "description": "Log de latência e similarity por chamada de match_manual_chunks",
+    "state": "ready",
+    "acceptance_criteria": [
+      "avgSimilarity/topChunkSimilarity logados",
+      "Latência por RPC registrada",
+      "Dashboard simples no Admin"
+    ]
+  },
+  {
+    "id": "tests-coverage-expansion",
+    "type": "refactor",
+    "title": "Expandir cobertura de testes",
+    "description": "Aumentar cobertura unit/e2e para Biblioteca e Chat",
+    "state": "ready",
+    "acceptance_criteria": [
+      ">= 75% cobertura",
+      "Playwright cobre /manuals",
+      "Sem flakiness"
+    ]
+  },
+  {
+    "id": "ingest-cli-bootstrap",
+    "type": "feature",
+    "title": "CLI de ingestão",
+    "description": "Script manuals-ingest com logs e métricas de qualidade",
+    "state": "ready",
+    "acceptance_criteria": [
+      ">= 1000 chunks inseridos",
+      "Relatório por arquivo",
+      "ANALYZE manual_chunks executado"
+    ]
+  },
+  {
+    "id": "vps-waf-firewall",
+    "type": "ops",
+    "title": "WAF e firewall VPS",
+    "description": "UFW e filtros Nginx básicos contra abuso",
+    "state": "ready",
+    "acceptance_criteria": [
+      "UFW bloqueia portas não usadas",
+      "Rate limit Nginx ativo",
+      "Logs de bloqueio disponíveis"
+    ]
+  },
+  {
+    "id": "db-backup-restore",
+    "type": "ops",
+    "title": "Backup/restore de banco",
+    "description": "Agendar backup e validar restore do Postgres/Supabase",
+    "state": "ready",
+    "acceptance_criteria": [
+      "Backup diário gerado",
+      "Restore de teste concluído",
+      "Sem segredos em backups"
+    ]
+  }
 ]
 ```
 
@@ -458,3 +676,4 @@
 - A execução noturna roda apenas tasks com `state=ready`, promovendo uma por vez para `in_progress` e finalizando em `done` com evidências.
 - Logs: `apps/saas/logs/*` e relatórios em `pdf_manuais_hvac-r_inverter/arquivos_de_instrucoes/*`.
 - Qualquer falha move a task para `review` com motivo e próxima ação.
+- Itens marcados como `done` devem ser removidos da fila de execução (limpeza obrigatória).

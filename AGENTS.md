@@ -96,6 +96,7 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
   - Manter apenas 1 task em `In Progress` e marcar `Done` imediatamente ao concluir.
   - Validar mudanças com `npm run lint` e `npm run typecheck` quando disponíveis.
   - Preferir inspeção inteligente do código para compreender contexto e evitar retrabalho.
+  - Remover tasks concluídas da fila em `TASKMASTER.md` (excluir da seção de fila após evidências registradas).
 - Ferramentas e postura:
   - Explorar código com busca semântica e por padrões antes de editar.
   - Editar arquivos com segurança, sem expor segredos nem criar arquivos supérfluos.
@@ -109,7 +110,8 @@ Este documento é de leitura OBRIGATÓRIA por qualquer agente/LLM que processe o
 - Apenas 1 task em `in_progress` simultaneamente.
 - Ao concluir, mover para `done` com evidências (logs/relatórios).
 - Lint e typecheck obrigatórios após alterações.
- - Execução PROIBIDA sem planejamento prévio em `TASKMASTER.md` com objetivo, critérios e dependências.
+- Execução PROIBIDA sem planejamento prévio em `TASKMASTER.md` com objetivo, critérios e dependências.
+ - Conclusão obriga remoção da task da fila (limpeza de itens concluídos).
 
 ## Execução Automática (Bootstrap)
 
@@ -143,11 +145,25 @@ Este `AGENTS.md` unifica e tem precedência sobre esses arquivos. Qualquer LLM/I
 ### Seeds e Cache Redis
 
 - Cache semântico para RAG via Upstash REST.
-- Chave: `rag:<brand>:<model>:<sha256(query)>` com `TTL=900s` (ajustável).
+- Chave normalizada: `rag:v1:<brand_lower>:<MODEL_upper>:<sha256(query_normalizada)>`.
+- TTL padrão: `CACHE_TTL_SECONDS` (sugerido: `900`).
+- TTL para miss: `CACHE_MISS_TTL_SECONDS` (sugerido: `120`).
+- Cache de embeddings: chave `emb:<sha256(query_normalizada)>` com `EMB_CACHE_TTL_SECONDS` (sugerido: `86400`).
+- Cache de alarmes: chave `alarm:<brand_lower>:<MODEL_upper>:<code>` com `ALARM_CACHE_TTL_SECONDS` (sugerido: `21600`).
 - Variáveis exigidas:
   - `UPSTASH_REDIS_REST_URL`
   - `UPSTASH_REDIS_REST_TOKEN`
-  - `CACHE_TTL_SECONDS`
+  - `CACHE_TTL_SECONDS`, `CACHE_MISS_TTL_SECONDS`, `EMB_CACHE_TTL_SECONDS`, `ALARM_CACHE_TTL_SECONDS`
 - Observabilidade:
   - Medir `cache_hit`/`cache_miss` e latência por rota.
   - Ajustar `RAG_LISTS/RAG_PROBES` conforme carga e recall.
+
+## Blindagem Operacional
+
+- Execução apenas em WSL2 Ubuntu; porta canônica `3001`.
+- Planejamento obrigatório em `TASKMASTER.md`; apenas 1 task em progresso.
+- Conclusão obriga remoção da task da fila e evidências registradas.
+- Lint e typecheck obrigatórios após alterações.
+- Não criar arquivos `.md` ou documentação sem solicitação explícita.
+- Sem segredos em client; ingestão e billing via `service_role`.
+- CORS endurecido com `ALLOWED_ORIGIN`.

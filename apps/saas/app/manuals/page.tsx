@@ -306,6 +306,25 @@ export default function ManualsPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-white font-semibold">Manuais</span>
                   <span className="text-xs text-gray-500">{manualsForActive.length} encontrados</span>
+                  <span className="flex-1" />
+                  <label className="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded cursor-pointer">
+                    Importar PDF
+                    <input type="file" accept="application/pdf" className="hidden" onChange={async (e) => {
+                      const file = e.target.files?.[0]
+                      if (!file) return
+                      const buf = await file.arrayBuffer()
+                      const res = await fetch('/api/manuals/triage', { method: 'POST', body: buf })
+                      const j = await res.json()
+                      if (j?.error) { alert(`Falha na triagem: ${j.error}`); return }
+                      const type = j?.classification?.type
+                      alert(`Classificação: ${type}`)
+                      if (type === 'service_manual') {
+                        const ingest = await fetch('/api/manuals/ingest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ brand: activeBrand, model: activeModel, title: 'Manual de Serviço', source: 'upload', content: j.text || '' }) })
+                        const ij = await ingest.json()
+                        alert(ingest.ok ? `Ingestão realizada: chunks=${ij.chunks}` : `Falha ingestão: ${ij.error}`)
+                      }
+                    }} />
+                  </label>
                 </div>
                 {manualsForActive.length === 0 ? (
                   <div className="p-4 rounded-lg bg-black/20 border border-white/10 text-gray-400">Nenhum manual cadastrado para este modelo.</div>

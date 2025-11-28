@@ -3,6 +3,10 @@
 # 🔧 ZapPRO AjudaTec
 
 ATENÇÃO: Antes de executar ou modificar este projeto, LEIA e SIGA integralmente o contrato em `AGENTS.md`.
+Obrigatório para qualquer agente/LLM:
+- Criar tasks em `TASKMASTER.md` antes de agir e mantê-las atualizadas.
+- Remover tasks concluídas da fila imediatamente.
+- Seguir execução em WSL/Docker e respeitar as regras de segurança.
 
 ### Assistente Técnico Inteligente para HVAC-R
 
@@ -576,17 +580,47 @@ zappro-ajudatec-wilrefrimix/
 - Política de roteamento: 1) RAG BD (Supabase pgvector), 2) Web, 3) LLM.
 - RPC principal: `match_manual_chunks(query_embedding, filter_brand, filter_model, match_threshold, match_count)`.
 - Cache semântico com Redis (Upstash REST):
-  - Chave: `rag:<brand>:<model>:<sha256(query)>`.
+  - Chave normalizada: `rag:v1:<brand_lower>:<MODEL_upper>:<sha256(query_normalizada)>`.
   - TTL padrão: `900` segundos (configurável via `CACHE_TTL_SECONDS`).
+  - TTL para miss: `CACHE_MISS_TTL_SECONDS` (sugerido: `120`).
+  - Cache de embeddings: chave `emb:<sha256(query_normalizada)>` com `EMB_CACHE_TTL_SECONDS` (sugerido: `86400`).
+  - Cache de alarmes: chave `alarm:<brand_lower>:<MODEL_upper>:<code>` com `ALARM_CACHE_TTL_SECONDS` (sugerido: `21600`).
   - Variáveis:
     - `UPSTASH_REDIS_REST_URL`
     - `UPSTASH_REDIS_REST_TOKEN`
-    - `CACHE_TTL_SECONDS`
+    - `CACHE_TTL_SECONDS`, `CACHE_MISS_TTL_SECONDS`, `EMB_CACHE_TTL_SECONDS`, `ALARM_CACHE_TTL_SECONDS`
 - Parâmetros RAG:
   - `RAG_MATCH_THRESHOLD` (ex.: `0.72`), `RAG_MATCH_COUNT` (ex.: `10`).
   - Índice `ivfflat` com `lists=100`, `vector_cosine_ops` para OpenAI embeddings `1536`.
 - Endpoints relacionados:
   - Chat: `apps/saas/app/api/openai/chat/route.ts` (usa cache e RPC RAG).
+
+### Observabilidade
+
+- Loga métricas por requisição: `avgSimilarity`, `topChunkSimilarity`, intenção e confiança.
+- Medir hit/miss do cache e ajustar TTL com base em tráfego real.
+- `Server-Timing` ativo para latência total por rota.
+
+---
+
+## 🛡️ Blindagem Operacional
+
+- Leitura obrigatória de `AGENTS.md` antes de qualquer execução.
+- Execução apenas em WSL2 Ubuntu, porta canônica `3001`.
+- CORS endurecido com `ALLOWED_ORIGIN` e `NEXT_PUBLIC_WEBSITE_URL`.
+- Planejamento obrigatório em `TASKMASTER.md` com objetivo, critérios e dependências.
+- Fluxo de tasks: `backlog → ready → in_progress → review → done` (apenas 1 em progresso).
+- Remoção imediata de tasks concluídas da fila após evidências.
+- Lint e typecheck obrigatórios após alterações.
+- Sem segredos no cliente; ingestão e billing usando `service_role`.
+- Não criar arquivos `.md` ou documentação sem solicitação explícita.
+- Evitar comandos interativos; preferir automações reproduzíveis.
+
+### Regras específicas de Chatbot
+
+- Extrair `brand/model/error_code` e consultar RAG primeiro.
+- Em ausência de contexto: link oficial do fabricante e instrução de upload.
+- Respostas curtas, passo a passo, sem valores inventados.
 
 ---
 

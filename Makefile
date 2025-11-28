@@ -1,4 +1,4 @@
-.PHONY: run stop run-improved run-fullstack restart stop-all test help start
+.PHONY: run stop run-improved run-fullstack restart stop-all test help start deploy
 
 # Default target
 .DEFAULT_GOAL := help
@@ -23,6 +23,9 @@ help:
 	@echo ""
 	@echo "🧪 Testes:"
 	@echo "  make test           - Executa testes automatizados"
+	@echo ""
+	@echo "🚀 Deploy Automatizado (CI/CD local):"
+	@echo "  make deploy         - Inicia servidor, roda unit/e2e/performance e monitora"
 	@echo ""
 	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -54,3 +57,9 @@ restart:
 # Run automated tests
 test:
 	@bash scripts/run-tests.sh
+
+deploy:
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "🚀 Deploy Automatizado"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@bash -lc 'scripts/preview-improved.sh && cd apps/saas && npm run typecheck && npm run test:unit && node "$$PWD/../make" --cwd apps/saas --tests tests/ui-buttons.spec.ts,tests/e2e.spec.ts,tests/chat-trial.spec.ts,tests/status.spec.ts,tests/cache.spec.ts --fail-fast && node apps/saas/scripts/sprite.mjs | tee logs/deploy-sprite.log && node apps/saas/scripts/postdeploy-smoke.mjs | tee logs/postdeploy-smoke.log && bash scripts/stop-preview.sh' || bash scripts/stop-preview.sh

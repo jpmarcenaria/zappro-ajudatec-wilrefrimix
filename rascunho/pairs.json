@@ -1,0 +1,354 @@
+[
+  {
+    "brand": "Daikin",
+    "model": "FTKC09T5VL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTKC12T5VL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTKC18T5VL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTKC24T5VL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTXN09JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTXN12JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTXN18JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTXN24JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTXM09N2HL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTXM12N2HL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTKC09N2HL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FTKC12N2HL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "3MXS52KVM"
+  },
+  {
+    "brand": "Daikin",
+    "model": "3MXS68KVM"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ30KVL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ36KVL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ42KVL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ48KVL"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ25KV5"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ30KV2"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FDUQ60JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FCQ48KVAS"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FLXS35JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "FLXS42JVLB"
+  },
+  {
+    "brand": "Daikin",
+    "model": "RXYQ-P"
+  },
+  {
+    "brand": "Daikin",
+    "model": "RXYQ4AYY"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RAS-UH09H2G"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RAS-UH12H2G"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "FSNMB-09"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "FSNMB-12"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RAP24I5F"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RAP36I5F"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RAP48I5F"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RCI-FSN1"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RCI-FSN2"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RCI-FSN4JR"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RPI-FSN2"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RPI-FSN-EMB"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "RSI-FSN"
+  },
+  {
+    "brand": "Hitachi",
+    "model": "SYSTEM-SETFREE"
+  },
+  {
+    "brand": "LG",
+    "model": "S3Q09JA31K"
+  },
+  {
+    "brand": "LG",
+    "model": "S3Q12JA31K"
+  },
+  {
+    "brand": "LG",
+    "model": "S3UQ12JA3WC"
+  },
+  {
+    "brand": "LG",
+    "model": "S4NQ09JA31K"
+  },
+  {
+    "brand": "LG",
+    "model": "S4NQ12JA31K"
+  },
+  {
+    "brand": "LG",
+    "model": "A3UW-LPM"
+  },
+  {
+    "brand": "LG",
+    "model": "A3UW-LPMR32"
+  },
+  {
+    "brand": "LG",
+    "model": "A3UW24GFA3"
+  },
+  {
+    "brand": "LG",
+    "model": "A3UW18G"
+  },
+  {
+    "brand": "LG",
+    "model": "ASNQ24LHDBH"
+  },
+  {
+    "brand": "LG",
+    "model": "ARUNQ60LHP"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "ASBG09LMCA"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "ASBG12LMCA"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "ASBG18LMCA"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "AOBG24LAT3"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "AUBH36KRLB"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "AUBH24KRLB"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "AOBH36KBTB"
+  },
+  {
+    "brand": "Fujitsu",
+    "model": "AOHG-LV"
+  },
+  {
+    "brand": "Carrier",
+    "model": "42XPN012S"
+  },
+  {
+    "brand": "Carrier",
+    "model": "40MSE060"
+  },
+  {
+    "brand": "Carrier",
+    "model": "40KVQB480"
+  },
+  {
+    "brand": "Carrier",
+    "model": "40KVQB120-R32"
+  },
+  {
+    "brand": "Carrier",
+    "model": "42ZQ024G-1"
+  },
+  {
+    "brand": "Carrier",
+    "model": "25VCD3S0A0"
+  },
+  {
+    "brand": "Trane",
+    "model": "4TTX2009A100"
+  },
+  {
+    "brand": "Trane",
+    "model": "TTD-MS090-H"
+  },
+  {
+    "brand": "Trane",
+    "model": "4TCC3018A100"
+  },
+  {
+    "brand": "Trane",
+    "model": "4TPT3018A100"
+  },
+  {
+    "brand": "Samsung",
+    "model": "AR12TVHZAWKN"
+  },
+  {
+    "brand": "Samsung",
+    "model": "AR09ASNDBWKN"
+  },
+  {
+    "brand": "Samsung",
+    "model": "DVM-SXY250SM"
+  },
+  {
+    "brand": "Gree",
+    "model": "GWC09QE-D3DNB8D"
+  },
+  {
+    "brand": "Gree",
+    "model": "GWC12QE-D3DNB8D"
+  },
+  {
+    "brand": "Gree",
+    "model": "GMV-NX140PHS-NX"
+  },
+  {
+    "brand": "Springer",
+    "model": "2950S"
+  },
+  {
+    "brand": "Springer",
+    "model": "2951S"
+  },
+  {
+    "brand": "Midea",
+    "model": "MSAB-09CR"
+  },
+  {
+    "brand": "Midea",
+    "model": "MSAB-12CR"
+  },
+  {
+    "brand": "Midea",
+    "model": "MDV-335W/DFN1"
+  },
+  {
+    "brand": "Elgin",
+    "model": "EEI090F"
+  },
+  {
+    "brand": "TCL",
+    "model": "TAC-09CHSA"
+  },
+  {
+    "brand": "TCL",
+    "model": "TAC-36CHSA"
+  },
+  {
+    "brand": "Agratto",
+    "model": "ICS18N"
+  },
+  {
+    "brand": "Komeco",
+    "model": "KAC12I"
+  },
+  {
+    "brand": "Toshiba",
+    "model": "RAS-16SKVP-ND"
+  },
+  {
+    "brand": "Toshiba",
+    "model": "SMMS-U2VE"
+  },
+  {
+    "brand": "Mitsubishi",
+    "model": "PUMY-P100VKM-A"
+  }
+]

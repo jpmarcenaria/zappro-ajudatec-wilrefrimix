@@ -13,13 +13,21 @@ export async function GET(req: Request) {
   }
 
   try {
-    const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-    const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-    if (!supaUrl || !supaKey) {
-      return NextResponse.json({ error: 'missing_env' }, { status: 500, headers: { 'Access-Control-Allow-Origin': allowed } })
+    let supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+    let supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+    let supa = null as any
+    if (supaUrl && supaKey) {
+      supa = createClient(supaUrl, supaKey)
+    } else {
+      const anonUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+      const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+      if (!anonUrl || !anonKey) {
+        return NextResponse.json({ error: 'missing_env' }, { status: 200, headers: { 'Access-Control-Allow-Origin': allowed } })
+      }
+      supaUrl = anonUrl
+      supaKey = anonKey
+      supa = createClient(anonUrl, anonKey)
     }
-
-    const supa = createClient(supaUrl, supaKey)
 
     const { data: devices, error: devErr } = await supa
       .from('hvacr_devices')
