@@ -29,7 +29,9 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   // Reporter
-  reporter: [
+  reporter: process.env.CI ? [
+    ['list'],
+  ] : [
     ['html'],
     ['list'],
   ],
@@ -37,7 +39,7 @@ export default defineConfig({
   // Configurações compartilhadas
   use: {
     // URL base
-    baseURL: 'http://localhost:3001',
+    baseURL: 'http://localhost:3000',
 
     // Trace on first retry
     trace: 'on-first-retry',

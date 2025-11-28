@@ -363,12 +363,13 @@ services:
     working_dir: /work/apps/saas
     environment:
       BASE_URL: http://web:3001
+      CI: "true"
     depends_on:
       web:
         condition: service_started
     volumes:
       - ./:/work
-    command: bash -lc "npm ci && npx playwright install-deps && npm run test:e2e"
+    command: bash -lc "npm ci && npx playwright install-deps && npx playwright test --reporter=list"
 
 networks:
   default:

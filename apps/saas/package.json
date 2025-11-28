@@ -32,7 +32,9 @@
     "compliance:github": "node scripts/github-compliance.mjs",
     "provision:supabase": "node scripts/provision-supabase.mjs",
     "test:smoke:postdeploy": "node scripts/postdeploy-smoke.mjs",
-    "admin:hash": "node scripts/gen-admin-hash.mjs admin"
+    "admin:hash": "node scripts/gen-admin-hash.mjs admin",
+    "auto:debug": "node scripts/auto-debug.mjs",
+    "auto:fix": "node scripts/auto-debug.mjs --apply"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -14,28 +14,83 @@ concurrency:
 jobs:
   sprite:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: Validate secrets
+        run: |
+          [ -n "${{ secrets.OPENAI_API_KEY }}" ] || { echo "Missing: OPENAI_API_KEY"; exit 1; }
+          [ -n "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" ] || { echo "Missing: SUPABASE_SERVICE_ROLE_KEY"; exit 1; }
+          [ -n "${{ secrets.SUPABASE_ANON_KEY }}" ] || { echo "Missing: SUPABASE_ANON_KEY"; exit 1; }
+      - name: Prepare env (.env for apps/saas)
+        working-directory: apps/saas
+        run: |
+          {
+            echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}";
+            echo "NEXT_PUBLIC_WEBSITE_URL=http://localhost:3001";
+            echo "ALLOWED_ORIGIN=http://localhost:3001";
+            echo "NEXT_PUBLIC_SUPABASE_URL=http://localhost:8000";
+            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}";
+            echo "SUPABASE_URL=http://localhost:8000";
+            echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}";
+            echo "NEXT_TELEMETRY_DISABLED=1";
+            echo "NODE_ENV=test";
+            echo "CACHE_TTL_SECONDS=60";
+            echo "TRIAL_MAX_OUTPUT_TOKENS=100";
+          } > .env
+      - name: Export compose env
+        run: |
+          echo "ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> $GITHUB_ENV
+          echo "SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> $GITHUB_ENV
+      - name: Install dependencies (apps/saas)
+        working-directory: apps/saas
+        run: |
+          npm ci
+      - name: Unit & Typecheck
+        working-directory: apps/saas
+        run: |
+          npm run typecheck
+          npm run test:unit
       - name: Compose up web
         run: |
           docker compose -f docker-compose.yml up -d web
           for i in {1..60}; do curl -sSf http://localhost:3001/ >/dev/null && exit 0; sleep 1; done; exit 1
+      - name: Security scan (Trivy)
+        run: |
+          docker compose -f docker-compose.yml run --rm --profile security trivy
       - name: Run sprite inside repo
         working-directory: apps/saas
         env:
           BASE_URL: http://localhost:3001
         run: node scripts/sprite.mjs | tee sprite.json
+      - name: Postdeploy smoke
+        working-directory: apps/saas
+        env:
+          BASE_URL: http://localhost:3001
+        run: node scripts/postdeploy-smoke.mjs | tee postdeploy-smoke.json
       - name: Publish summary
         working-directory: apps/saas
         run: |
-          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('sprite.json','utf8'));const fmt=(x)=>x?x.duration_ms:0;const s=`# CI Sprite Summary\n\n| Endpoint | Status | Len | Duration (ms) |\n|---|---:|---:|---:|\n| / | ${d.home.status} | ${d.home.len} | ${fmt(d.home)} |\n| /chat | ${d.chat.status} | ${d.chat.len} | ${fmt(d.chat)} |\n| /api/openai/chat | ${d.apiChat.status} | ${d.apiChat.len} | ${fmt(d.apiChat)} |\n| /api/openai/tts | ${d.apiTts.status} | ${d.apiTts.len} | ${fmt(d.apiTts)} |\n| /api/openai/transcribe | ${d.apiTrans.status} | ${d.apiTrans.len} | ${fmt(d.apiTrans)} |\n\nRate burst: attempts=${d.rate.attempts}, 429=${(d.rate.summary||{})[429]||0}\n`;fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,s)" 
+          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('sprite.json','utf8'));const p=JSON.parse(fs.readFileSync('postdeploy-smoke.json','utf8'));const fmt=(x)=>x?x.duration_ms:0;const s=`# CI Deploy Summary\n\n## Sprite\n\n| Endpoint | Status | Len | Duration (ms) |\n|---|---:|---:|---:|\n| / | ${d.home.status} | ${d.home.len} | ${fmt(d.home)} |\n| /chat | ${d.chat.status} | ${d.chat.len} | ${fmt(d.chat)} |\n| /api/openai/chat | ${d.apiChat.status} | ${d.apiChat.len} | ${fmt(d.apiChat)} |\n| /api/openai/tts | ${d.apiTts.status} | ${d.apiTts.len} | ${fmt(d.apiTts)} |\n| /api/openai/transcribe | ${d.apiTrans.status} | ${d.apiTrans.len} | ${fmt(d.apiTrans)} |\n\nRate burst: attempts=${d.rate.attempts}, 429=${(d.rate.summary||{})[429]||0}\n\n## Postdeploy Smoke\n\n\n${p.results.map(r=>`- ${r.path} → ${r.status} (len=${r.len})`).join('\n')}\n`;fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,s)" 
       - name: Upload sprite artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sprite.json
           path: apps/saas/sprite.json
+      - name: Upload postdeploy smoke artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postdeploy-smoke.json
+          path: apps/saas/postdeploy-smoke.json
       - name: Run Playwright E2E via compose tests
         run: |
           docker compose -f docker-compose.yml run --rm --profile test tests
@@ -45,6 +100,54 @@ jobs:
         with:
           name: playwright-report
           path: apps/saas/playwright-report
+      - name: Auto debug (LLM suggestions + patch)
+        working-directory: apps/saas
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          npm run auto:fix
+      - name: Upload auto-debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-debug
+          path: |
+            apps/saas/logs/auto-debug/bugs.json
+            apps/saas/logs/auto-debug/suggestions.md
+            apps/saas/logs/auto-debug/patch.diff
+      - name: Append auto-debug summary
+        run: |
+          node -e "const fs=require('fs');const p='apps/saas/logs/auto-debug/bugs.json';if(fs.existsSync(p)){const j=JSON.parse(fs.readFileSync(p,'utf8'));const s=`\n## Auto-Debug Ledger\n\n- typecheck_ok=${j.typecheck_ok}\n- lint_ok=${j.lint_ok}\n- vit_ok=${j.vit_ok}\n- pw_ok=${j.pw_ok}\n- failures=${(j.failures||[]).length}\n`;fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,s)}"
+      - name: Prepare auto-fix PR branch
+        if: ${{ github.ref_type == 'branch' && startsWith(github.ref_name, 'feature/') }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          BRANCH="auto-fix/${{ github.run_id }}"
+          git checkout -b "$BRANCH"
+          if [ -f apps/saas/logs/auto-debug/patch.diff ]; then git apply --index apps/saas/logs/auto-debug/patch.diff || true; fi
+          if ! git diff --cached --quiet; then git commit -m "Auto-debug: proposed fixes"; git push origin "$BRANCH"; fi
+      - name: Create Pull Request
+        if: ${{ github.ref_type == 'branch' && startsWith(github.ref_name, 'feature/') }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "Auto-debug: proposed fixes"
+          body: |
+            Propostas geradas pelo auto-debug.
+
+            Artefatos:
+            - apps/saas/logs/auto-debug/bugs.json
+            - apps/saas/logs/auto-debug/suggestions.md
+            - apps/saas/logs/auto-debug/patch.diff
+          branch: "auto-fix/${{ github.run_id }}"
+          base: ${{ github.ref_name }}
+      - name: Notify Slack (optional)
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SUMMARY=$(node -e "const fs=require('fs');const p='apps/saas/logs/auto-debug/bugs.json';let j={};try{j=JSON.parse(fs.readFileSync(p,'utf8'))}catch{};process.stdout.write(`typecheck:${j.typecheck_ok} lint:${j.lint_ok} vit:${j.vit_ok} pw:${j.pw_ok} failures:${(j.failures||[]).length}`)")
+          if [ -n "$SLACK_WEBHOOK_URL" ]; then curl -s -X POST -H 'Content-type: application/json' --data "{\"text\": \"Auto-Debug: $SUMMARY\"}" "$SLACK_WEBHOOK_URL"; fi
       - name: Compose down
         if: always()
         run: docker compose -f docker-compose.yml down -v --remove-orphans

@@ -23,6 +23,7 @@ help:
 	@echo ""
 	@echo "🧪 Testes:"
 	@echo "  make test           - Executa testes automatizados"
+	@echo "  make auto-debug     - Coleta falhas e gera sugestões LLM"
 	@echo ""
 	@echo "🚀 Deploy Automatizado (CI/CD local):"
 	@echo "  make deploy         - Inicia servidor, roda unit/e2e/performance e monitora"
@@ -57,6 +58,9 @@ restart:
 # Run automated tests
 test:
 	@bash scripts/run-tests.sh
+
+auto-debug:
+	@bash -lc 'cd apps/saas && npm run auto:debug'
 
 deploy:
 	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
